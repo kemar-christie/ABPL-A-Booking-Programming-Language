@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./ply-master/ply-master/src"
+    ]
+}
