@@ -1,5 +1,5 @@
 {
     "python.analysis.extraPaths": [
-        "./ply-master/ply-master/src"
+        "./neural-booker-code/ply-master/ply-master/src"
     ]
 }
