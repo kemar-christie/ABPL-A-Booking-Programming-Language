@@ -4,8 +4,7 @@
 # Authors: Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
 
 
-import sys,re
-sys.path.insert(0, "../ply-master/ply-master/src")
+import re
 
 
 # Example of Strings that can be tokenized:
