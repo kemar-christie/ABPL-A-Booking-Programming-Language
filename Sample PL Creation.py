@@ -133,4 +133,3 @@ parser = yacc()
 # Parse an expression
 ast = parser.parse('2 * 3 + 4 * (5 - x)')
 print(ast)
-
