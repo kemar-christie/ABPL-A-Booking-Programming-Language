@@ -248,4 +248,3 @@ if __name__ == "__main__":
 
     # Save results to the neural-booker-output/Json folder
     api.save_results_to_json(sorted_flights, "flights.json")
-    
