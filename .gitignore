@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Ignore .env file with api keys and json files
+# Ignore .env file with api keys
 .env
 
 # Distribution / packaging
