@@ -5,10 +5,7 @@ __pycache__/
 
 # Ignore .env file with api keys and json files
 .env
-*.json
-
-# C extensions
-*.so
+.json
 
 # Distribution / packaging
 .Python
