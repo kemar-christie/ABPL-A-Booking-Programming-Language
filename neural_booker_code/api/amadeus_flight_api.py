@@ -49,7 +49,7 @@ class AmadeusAPI:
         os.makedirs(self.output_dir, exist_ok=True)
         
         # Create Json subdirectory
-        self.json_dir = os.path.join(self.output_dir, "Json")
+        self.json_dir = os.path.join(self.output_dir, "json")
         os.makedirs(self.json_dir, exist_ok=True)
         
     def _get_auth_token(self):
