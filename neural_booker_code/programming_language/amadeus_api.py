@@ -9,27 +9,36 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class AmadeusAPI:
-    def __init__(self, client_id=None, client_secret=None, is_test=True, output_dir="neural-booker-output"):
+    def __init__(self, client_id=None, client_secret=None, is_test=None, output_dir=None):
         """Initialize the Amadeus API client.
         
         Args:
             client_id (str, optional): Your Amadeus API key. If None, will try to get from environment
             client_secret (str, optional): Your Amadeus API secret. If None, will try to get from environment
-            is_test (bool): Whether to use the test environment (default) or production
-            output_dir (str): Base directory for output files
+            is_test (bool, optional): Whether to use test environment. If None, will try to get from environment
+            output_dir (str, optional): Base directory for output files. If None, will try to get from environment
         """
         # Get credentials from parameters or environment variables
         self.client_id = client_id or os.environ.get('AMADEUS_CLIENT_ID')
         self.client_secret = client_secret or os.environ.get('AMADEUS_CLIENT_SECRET')
         
+        # Get is_test from parameter or environment variable (default to True if not specified)
+        if is_test is None:
+            is_test_env = os.environ.get('AMADEUS_IS_TEST', 'true').lower()
+            self.is_test = is_test_env in ('true', 'yes', '1', 't')
+        else:
+            self.is_test = is_test
+            
+        # Get output directory from parameter or environment variable (default if not specified)
+        self.output_dir = output_dir or os.environ.get('OUTPUT_DIR', 'neural-booker-output')
+        
         # Validate credentials exist
         if not self.client_id or not self.client_secret:
             raise ValueError("Amadeus API credentials not provided. Set them as parameters or environment variables.")
             
-        self.base_url = "test.api.amadeus.com" if is_test else "api.amadeus.com"
+        self.base_url = "test.api.amadeus.com" if self.is_test else "api.amadeus.com"
         self.token = None
         self.token_expiry = None
-        self.output_dir = output_dir
         
         # Create base output directory if it doesn't exist
         os.makedirs(self.output_dir, exist_ok=True)
@@ -61,7 +70,7 @@ class AmadeusAPI:
         else:
             raise Exception(f"Authentication failed: {response.text}")
 
-    # Rest of your AmadeusAPI class remains unchanged
+    # Rest of the AmadeusAPI class methods remain unchanged
     def _make_request(self, method, endpoint, params=None, data=None, max_retries=3):
         """Make a request to the Amadeus API with automatic retries."""
         token = self._get_auth_token()
@@ -137,20 +146,7 @@ class AmadeusAPI:
         return response["data"][0]["iataCode"]
     
     def search_hotels(self, city_code, check_in_date, check_out_date, adults=1, rooms=1, currency="JMD", hotel_rating=None):
-        """Search for hotels in a specific city.
-        
-        Args:
-            city_code (str): IATA city code
-            check_in_date (str): Check-in date in YYYY-MM-DD format
-            check_out_date (str): Check-out date in YYYY-MM-DD format
-            adults (int): Number of adults
-            rooms (int): Number of rooms
-            currency (str): Currency code (e.g., USD, EUR)
-            hotel_rating (list): List of hotel ratings (1-5) to filter by
-            
-        Returns:
-            dict: Hotel search results
-        """
+        """Search for hotels in a specific city."""
         params = {
             "cityCode": city_code,
             "checkInDate": check_in_date,
@@ -169,21 +165,7 @@ class AmadeusAPI:
         return self._make_request("GET", "/v2/shopping/hotel-offers", params=params)
     
     def search_flights(self, origin, destination, departure_date, return_date=None, adults=1, travel_class="ECONOMY", non_stop=False, currency="JMD"):
-        """Search for flights between two cities.
-        
-        Args:
-            origin (str): IATA code of origin city/airport
-            destination (str): IATA code of destination city/airport
-            departure_date (str): Departure date in YYYY-MM-DD format
-            return_date (str, optional): Return date in YYYY-MM-DD format for round trips
-            adults (int): Number of adult passengers
-            travel_class (str): Cabin class (ECONOMY, PREMIUM_ECONOMY, BUSINESS, FIRST)
-            non_stop (bool): Whether to search for non-stop flights only
-            currency (str): Currency code (e.g., USD, EUR)
-            
-        Returns:
-            dict: Flight search results
-        """
+        """Search for flights between two cities."""
         params = {
             "originLocationCode": origin,
             "destinationLocationCode": destination,
@@ -202,25 +184,11 @@ class AmadeusAPI:
         return self._make_request("GET", "/v2/shopping/flight-offers", params=params)
     
     def get_hotel_offer_details(self, offer_id):
-        """Get detailed information about a specific hotel offer.
-        
-        Args:
-            offer_id (str): The hotel offer ID
-            
-        Returns:
-            dict: Detailed hotel offer information
-        """
+        """Get detailed information about a specific hotel offer."""
         return self._make_request("GET", f"/v2/shopping/hotel-offers/{offer_id}")
     
     def sort_hotels_by_price(self, hotel_results):
-        """Sort hotel offers by price (low to high).
-        
-        Args:
-            hotel_results (dict): Hotel search results from search_hotels()
-            
-        Returns:
-            list: Sorted hotel offers
-        """
+        """Sort hotel offers by price (low to high)."""
         if not hotel_results.get("data"):
             return []
         
@@ -228,14 +196,7 @@ class AmadeusAPI:
                       key=lambda x: float(x["offers"][0]["price"]["total"]))
     
     def sort_flights_by_price(self, flight_results):
-        """Sort flight offers by price (low to high).
-        
-        Args:
-            flight_results (dict): Flight search results from search_flights()
-            
-        Returns:
-            list: Sorted flight offers
-        """
+        """Sort flight offers by price (low to high)."""
         if not flight_results.get("data"):
             return []
         
@@ -243,13 +204,7 @@ class AmadeusAPI:
                       key=lambda x: float(x["price"]["total"]))
 
     def save_results_to_json(self, data, filename):
-        """
-        Save results to a JSON file in the output directory.
-        
-        Args:
-            data (dict): Data to save
-            filename (str): Output filename
-        """
+        """Save results to a JSON file in the output directory."""
         # Combine the Json directory with the filename
         output_path = os.path.join(self.json_dir, filename)
         
@@ -293,13 +248,20 @@ def pretty_print_flights(flights):
 # Example usage
 if __name__ == "__main__":
     # Initialize API client using environment variables
-    api = AmadeusAPI(is_test=True)
+    api = AmadeusAPI()
+
+    """
+    # Search for IATA code example
+    iata_code = api.search_city_code("KIN")
+    # Prin the result
+    print(f"IATA code: {iata_code}")
+    """
     
     # Search for flights 
     flights = api.search_flights(
-        origin="JFK",  # City IATA code
-        destination="MBJ",  # City IATA code
-        departure_date="2025-03-30",  # Outbound flight date
+        origin="MBJ",  # City IATA code
+        destination="NYC",  # City IATA code
+        departure_date="2025-07-30",  # Outbound flight date
         return_date="2025-10-05",  # Return flight date
         adults=1,  # Number of passengers
     )
@@ -312,4 +274,4 @@ if __name__ == "__main__":
 
     # Save results to the neural-booker-output/Json folder
     api.save_results_to_json(sorted_flights, "flights.json")
-    print("Flight search results saved to neural-booker-output/Json/flights.json")
+    

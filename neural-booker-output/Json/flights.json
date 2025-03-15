@@ -12,95 +12,56 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
+        "duration": "PT4H3M",
         "segments": [
           {
             "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
               "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
+              "at": "2025-07-30T12:52:00"
             },
-            "carrierCode": "AC",
-            "number": "982",
+            "arrival": {
+              "iataCode": "EWR",
+              "terminal": "B",
+              "at": "2025-07-30T17:55:00"
+            },
+            "carrierCode": "UA",
+            "number": "1628",
             "aircraft": {
-              "code": "788"
+              "code": "739"
             },
             "operating": {
-              "carrierCode": "AC"
+              "carrierCode": "UA"
             },
-            "duration": "PT4H10M",
-            "id": "2",
+            "duration": "PT4H3M",
+            "id": "1",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
         ]
       },
       {
-        "duration": "PT8H10M",
+        "duration": "PT4H1M",
         "segments": [
           {
             "departure": {
+              "iataCode": "EWR",
+              "terminal": "C",
+              "at": "2025-10-05T08:31:00"
+            },
+            "arrival": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-10-05T11:32:00"
             },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-10-05T18:15:00"
-            },
-            "carrierCode": "AC",
-            "number": "1805",
+            "carrierCode": "UA",
+            "number": "1462",
             "aircraft": {
-              "code": "321"
+              "code": "739"
             },
-            "duration": "PT4H5M",
-            "id": "3",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-10-05T20:30:00"
+            "operating": {
+              "carrierCode": "UA"
             },
-            "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-05T22:20:00"
-            },
-            "carrierCode": "AC",
-            "number": "8556",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H50M",
-            "id": "4",
+            "duration": "PT4H1M",
+            "id": "10",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -109,8 +70,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "84795.00",
+      "base": "59637.00",
       "fees": [
         {
           "amount": "0.00",
@@ -121,7 +82,280 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "84795.00"
+    },
+    "pricingOptions": {
+      "fareType": [
+        "PUBLISHED"
+      ],
+      "includedCheckedBagsOnly": false
+    },
+    "validatingAirlineCodes": [
+      "UA"
+    ],
+    "travelerPricings": [
+      {
+        "travelerId": "1",
+        "fareOption": "STANDARD",
+        "travelerType": "ADULT",
+        "price": {
+          "currency": "JMD",
+          "total": "84795.00",
+          "base": "59637.00"
+        },
+        "fareDetailsBySegment": [
+          {
+            "segmentId": "1",
+            "cabin": "ECONOMY",
+            "fareBasis": "TNA0A9DN",
+            "brandedFare": "ECONOMY",
+            "brandedFareLabel": "ECONOMY",
+            "class": "T",
+            "includedCheckedBags": {
+              "quantity": 0
+            },
+            "includedCabinBags": {
+              "quantity": 1
+            },
+            "amenities": [
+              {
+                "description": "CHECKED BAG FIRST",
+                "isChargeable": true,
+                "amenityType": "BAGGAGE",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "SECOND BAG",
+                "isChargeable": true,
+                "amenityType": "BAGGAGE",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "PRE RESERVED SEAT ASSIGNMENT",
+                "isChargeable": false,
+                "amenityType": "PRE_RESERVED_SEAT",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "PRIORITY BOARDING",
+                "isChargeable": true,
+                "amenityType": "TRAVEL_SERVICES",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "ECONOMY TO ECONOMY PLUS",
+                "isChargeable": true,
+                "amenityType": "UPGRADES",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "MILEAGE ACCRUAL",
+                "isChargeable": false,
+                "amenityType": "BRANDED_FARES",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              }
+            ]
+          },
+          {
+            "segmentId": "10",
+            "cabin": "ECONOMY",
+            "fareBasis": "TNA0A9DN",
+            "brandedFare": "ECONOMY",
+            "brandedFareLabel": "ECONOMY",
+            "class": "T",
+            "includedCheckedBags": {
+              "quantity": 0
+            },
+            "includedCabinBags": {
+              "quantity": 1
+            },
+            "amenities": [
+              {
+                "description": "CHECKED BAG FIRST",
+                "isChargeable": true,
+                "amenityType": "BAGGAGE",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "SECOND BAG",
+                "isChargeable": true,
+                "amenityType": "BAGGAGE",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "PRE RESERVED SEAT ASSIGNMENT",
+                "isChargeable": false,
+                "amenityType": "PRE_RESERVED_SEAT",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "PRIORITY BOARDING",
+                "isChargeable": true,
+                "amenityType": "TRAVEL_SERVICES",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "ECONOMY TO ECONOMY PLUS",
+                "isChargeable": true,
+                "amenityType": "UPGRADES",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "MILEAGE ACCRUAL",
+                "isChargeable": false,
+                "amenityType": "BRANDED_FARES",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "flight-offer",
+    "id": "2",
+    "source": "GDS",
+    "instantTicketingRequired": false,
+    "nonHomogeneous": false,
+    "oneWay": false,
+    "isUpsellOffer": false,
+    "lastTicketingDate": "2025-03-18",
+    "lastTicketingDateTime": "2025-03-18",
+    "numberOfBookableSeats": 9,
+    "itineraries": [
+      {
+        "duration": "PT8H13M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "MBJ",
+              "at": "2025-07-30T13:10:00"
+            },
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-07-30T18:15:00"
+            },
+            "carrierCode": "AC",
+            "number": "1805",
+            "aircraft": {
+              "code": "321"
+            },
+            "duration": "PT4H5M",
+            "id": "2",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          },
+          {
+            "departure": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-07-30T20:30:00"
+            },
+            "arrival": {
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-07-30T22:23:00"
+            },
+            "carrierCode": "AC",
+            "number": "8556",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H53M",
+            "id": "3",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT17H20M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-10-05T19:40:00"
+            },
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T21:16:00"
+            },
+            "carrierCode": "AC",
+            "number": "8997",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H36M",
+            "id": "16",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          },
+          {
+            "departure": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
+            },
+            "arrival": {
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
+            },
+            "carrierCode": "AC",
+            "number": "1804",
+            "aircraft": {
+              "code": "321"
+            },
+            "duration": "PT4H5M",
+            "id": "17",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      }
+    ],
+    "price": {
+      "currency": "JMD",
+      "total": "87579.00",
+      "base": "47489.00",
+      "fees": [
+        {
+          "amount": "0.00",
+          "type": "SUPPLIER"
+        },
+        {
+          "amount": "0.00",
+          "type": "TICKETING"
+        }
+      ],
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -139,58 +373,10 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
-          {
-            "segmentId": "1",
-            "cabin": "ECONOMY",
-            "fareBasis": "KKFET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
           {
             "segmentId": "2",
             "cabin": "ECONOMY",
@@ -242,250 +428,6 @@
           {
             "segmentId": "3",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "4",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "type": "flight-offer",
-    "id": "2",
-    "source": "GDS",
-    "instantTicketingRequired": false,
-    "nonHomogeneous": false,
-    "oneWay": false,
-    "isUpsellOffer": false,
-    "lastTicketingDate": "2025-03-18",
-    "lastTicketingDateTime": "2025-03-18",
-    "numberOfBookableSeats": 9,
-    "itineraries": [
-      {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT24H50M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-10-05T18:15:00"
-            },
-            "carrierCode": "AC",
-            "number": "1805",
-            "aircraft": {
-              "code": "321"
-            },
-            "duration": "PT4H5M",
-            "id": "59",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-10-06T13:15:00"
-            },
-            "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T15:00:00"
-            },
-            "carrierCode": "AC",
-            "number": "8554",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H45M",
-            "id": "60",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      }
-    ],
-    "price": {
-      "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
-      "fees": [
-        {
-          "amount": "0.00",
-          "type": "SUPPLIER"
-        },
-        {
-          "amount": "0.00",
-          "type": "TICKETING"
-        }
-      ],
-      "grandTotal": "102757.00"
-    },
-    "pricingOptions": {
-      "fareType": [
-        "PUBLISHED"
-      ],
-      "includedCheckedBagsOnly": false
-    },
-    "validatingAirlineCodes": [
-      "AC"
-    ],
-    "travelerPricings": [
-      {
-        "travelerId": "1",
-        "fareOption": "STANDARD",
-        "travelerType": "ADULT",
-        "price": {
-          "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
-        },
-        "fareDetailsBySegment": [
-          {
-            "segmentId": "1",
-            "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
@@ -532,9 +474,9 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "16",
             "cabin": "ECONOMY",
-            "fareBasis": "KKFET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -580,57 +522,9 @@
             ]
           },
           {
-            "segmentId": "59",
+            "segmentId": "17",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "60",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -689,69 +583,20 @@
     "isUpsellOffer": false,
     "lastTicketingDate": "2025-03-18",
     "lastTicketingDateTime": "2025-03-18",
-    "numberOfBookableSeats": 1,
+    "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT8H18M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -759,7 +604,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "5",
+            "id": "4",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -767,42 +612,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-06T07:00:00"
+              "at": "2025-07-30T20:55:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T08:30:00"
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-07-30T22:28:00"
             },
             "carrierCode": "AC",
-            "number": "11",
+            "number": "8998",
             "aircraft": {
-              "code": "321"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H33M",
+            "id": "5",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT17H20M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-10-05T19:40:00"
             },
-            "duration": "PT1H30M",
-            "id": "6",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T21:16:00"
+            },
+            "carrierCode": "AC",
+            "number": "8997",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H36M",
+            "id": "16",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "7",
+            "duration": "PT4H5M",
+            "id": "17",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -811,8 +680,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -823,7 +692,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -841,60 +710,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
-            "cabin": "ECONOMY",
-            "fareBasis": "KKFET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "2",
+            "segmentId": "4",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -944,7 +765,7 @@
           {
             "segmentId": "5",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -990,9 +811,9 @@
             ]
           },
           {
-            "segmentId": "6",
+            "segmentId": "16",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -1038,9 +859,9 @@
             ]
           },
           {
-            "segmentId": "7",
+            "segmentId": "17",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -1102,66 +923,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT8H13M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -1169,7 +941,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "8",
+            "id": "2",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -1177,42 +949,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-06T07:00:00"
+              "at": "2025-07-30T20:30:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T08:16:00"
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-07-30T22:23:00"
             },
             "carrierCode": "AC",
-            "number": "400",
+            "number": "8556",
             "aircraft": {
-              "code": "223"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H53M",
+            "id": "3",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT21H15M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-10-05T15:45:00"
             },
-            "duration": "PT1H16M",
-            "id": "9",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T17:28:00"
+            },
+            "carrierCode": "AC",
+            "number": "8555",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H43M",
+            "id": "14",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "10",
+            "duration": "PT4H5M",
+            "id": "15",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -1221,8 +1017,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -1233,7 +1029,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -1251,58 +1047,10 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
-          {
-            "segmentId": "1",
-            "cabin": "ECONOMY",
-            "fareBasis": "KKFET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
           {
             "segmentId": "2",
             "cabin": "ECONOMY",
@@ -1352,9 +1100,9 @@
             ]
           },
           {
-            "segmentId": "8",
+            "segmentId": "3",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -1400,9 +1148,9 @@
             ]
           },
           {
-            "segmentId": "9",
+            "segmentId": "14",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -1448,9 +1196,9 @@
             ]
           },
           {
-            "segmentId": "10",
+            "segmentId": "15",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -1512,66 +1260,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT8H18M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -1579,7 +1278,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "11",
+            "id": "4",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -1587,42 +1286,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-06T08:00:00"
+              "at": "2025-07-30T20:55:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T09:16:00"
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-07-30T22:28:00"
             },
             "carrierCode": "AC",
-            "number": "402",
+            "number": "8998",
             "aircraft": {
-              "code": "223"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H33M",
+            "id": "5",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT21H15M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-10-05T15:45:00"
             },
-            "duration": "PT1H16M",
-            "id": "12",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T17:28:00"
+            },
+            "carrierCode": "AC",
+            "number": "8555",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H43M",
+            "id": "14",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "13",
+            "duration": "PT4H5M",
+            "id": "15",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -1631,8 +1354,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -1643,7 +1366,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -1661,12 +1384,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "4",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -1714,7 +1437,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "5",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -1762,9 +1485,9 @@
             ]
           },
           {
-            "segmentId": "11",
+            "segmentId": "14",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -1810,57 +1533,9 @@
             ]
           },
           {
-            "segmentId": "12",
+            "segmentId": "15",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "13",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -1922,66 +1597,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT8H13M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -1989,7 +1615,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "14",
+            "id": "2",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -1997,42 +1623,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-06T09:00:00"
+              "at": "2025-07-30T20:30:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T10:16:00"
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-07-30T22:23:00"
             },
             "carrierCode": "AC",
-            "number": "404",
+            "number": "8556",
             "aircraft": {
-              "code": "223"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H53M",
+            "id": "3",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT26H30M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-10-05T10:30:00"
             },
-            "duration": "PT1H16M",
-            "id": "15",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T12:13:00"
+            },
+            "carrierCode": "AC",
+            "number": "8553",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H43M",
+            "id": "20",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "16",
+            "duration": "PT4H5M",
+            "id": "21",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -2041,8 +1691,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -2053,7 +1703,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -2071,58 +1721,10 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
-          {
-            "segmentId": "1",
-            "cabin": "ECONOMY",
-            "fareBasis": "KKFET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
           {
             "segmentId": "2",
             "cabin": "ECONOMY",
@@ -2172,9 +1774,9 @@
             ]
           },
           {
-            "segmentId": "14",
+            "segmentId": "3",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -2220,9 +1822,9 @@
             ]
           },
           {
-            "segmentId": "15",
+            "segmentId": "20",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -2268,9 +1870,9 @@
             ]
           },
           {
-            "segmentId": "16",
+            "segmentId": "21",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -2332,66 +1934,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT8H18M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -2399,7 +1952,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "17",
+            "id": "4",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -2407,42 +1960,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-06T10:00:00"
+              "at": "2025-07-30T20:55:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T11:16:00"
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-07-30T22:28:00"
             },
             "carrierCode": "AC",
-            "number": "406",
+            "number": "8998",
             "aircraft": {
-              "code": "223"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H33M",
+            "id": "5",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT26H30M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-10-05T10:30:00"
             },
-            "duration": "PT1H16M",
-            "id": "18",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T12:13:00"
+            },
+            "carrierCode": "AC",
+            "number": "8553",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H43M",
+            "id": "20",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "19",
+            "duration": "PT4H5M",
+            "id": "21",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -2451,8 +2028,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -2463,7 +2040,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -2481,12 +2058,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "4",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -2534,7 +2111,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "5",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -2582,9 +2159,9 @@
             ]
           },
           {
-            "segmentId": "17",
+            "segmentId": "20",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -2630,57 +2207,9 @@
             ]
           },
           {
-            "segmentId": "18",
+            "segmentId": "21",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "19",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -2742,66 +2271,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT17H38M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -2809,7 +2289,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "20",
+            "id": "6",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -2817,42 +2297,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-06T12:00:00"
+              "at": "2025-07-31T06:15:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T13:16:00"
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-07-31T07:48:00"
             },
             "carrierCode": "AC",
-            "number": "410",
+            "number": "8982",
             "aircraft": {
-              "code": "223"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H33M",
+            "id": "7",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT17H20M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-10-05T19:40:00"
             },
-            "duration": "PT1H16M",
-            "id": "21",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T21:16:00"
+            },
+            "carrierCode": "AC",
+            "number": "8997",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H36M",
+            "id": "16",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "22",
+            "duration": "PT4H5M",
+            "id": "17",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -2861,8 +2365,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -2873,7 +2377,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -2891,12 +2395,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "6",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -2944,7 +2448,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "7",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -2992,9 +2496,9 @@
             ]
           },
           {
-            "segmentId": "20",
+            "segmentId": "16",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -3040,57 +2544,9 @@
             ]
           },
           {
-            "segmentId": "21",
+            "segmentId": "17",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "22",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -3152,66 +2608,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT17H38M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -3219,7 +2626,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "23",
+            "id": "6",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -3227,42 +2634,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-06T14:00:00"
+              "at": "2025-07-31T06:15:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T15:16:00"
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-07-31T07:48:00"
             },
             "carrierCode": "AC",
-            "number": "414",
+            "number": "8982",
             "aircraft": {
-              "code": "223"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H33M",
+            "id": "7",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT21H15M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-10-05T15:45:00"
             },
-            "duration": "PT1H16M",
-            "id": "24",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T17:28:00"
+            },
+            "carrierCode": "AC",
+            "number": "8555",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H43M",
+            "id": "14",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "25",
+            "duration": "PT4H5M",
+            "id": "15",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -3271,8 +2702,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -3283,7 +2714,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -3301,12 +2732,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "6",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -3354,7 +2785,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "7",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -3402,9 +2833,9 @@
             ]
           },
           {
-            "segmentId": "23",
+            "segmentId": "14",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -3450,57 +2881,9 @@
             ]
           },
           {
-            "segmentId": "24",
+            "segmentId": "15",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "25",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -3562,66 +2945,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT24H50M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -3629,7 +2963,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "26",
+            "id": "8",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -3637,42 +2971,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T20:00:00"
+              "at": "2025-07-31T13:15:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-05T21:20:00"
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-07-31T15:00:00"
             },
             "carrierCode": "AC",
-            "number": "426",
+            "number": "8554",
             "aircraft": {
-              "code": "223"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H45M",
+            "id": "9",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT17H20M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-10-05T19:40:00"
             },
-            "duration": "PT1H20M",
-            "id": "27",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T21:16:00"
+            },
+            "carrierCode": "AC",
+            "number": "8997",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H36M",
+            "id": "16",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "28",
+            "duration": "PT4H5M",
+            "id": "17",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -3681,8 +3039,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -3693,7 +3051,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -3711,12 +3069,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "8",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -3764,7 +3122,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "9",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -3812,9 +3170,9 @@
             ]
           },
           {
-            "segmentId": "26",
+            "segmentId": "16",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -3860,57 +3218,9 @@
             ]
           },
           {
-            "segmentId": "27",
+            "segmentId": "17",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "28",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -3972,66 +3282,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT17H38M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -4039,7 +3300,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "29",
+            "id": "6",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -4047,42 +3308,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T23:30:00"
+              "at": "2025-07-31T06:15:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T00:46:00"
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-07-31T07:48:00"
             },
             "carrierCode": "AC",
-            "number": "432",
+            "number": "8982",
             "aircraft": {
-              "code": "223"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H33M",
+            "id": "7",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT26H30M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-10-05T10:30:00"
             },
-            "duration": "PT1H16M",
-            "id": "30",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T12:13:00"
+            },
+            "carrierCode": "AC",
+            "number": "8553",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H43M",
+            "id": "20",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "31",
+            "duration": "PT4H5M",
+            "id": "21",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -4091,8 +3376,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -4103,7 +3388,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -4121,12 +3406,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "6",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -4174,7 +3459,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "7",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -4222,9 +3507,9 @@
             ]
           },
           {
-            "segmentId": "29",
+            "segmentId": "20",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -4270,57 +3555,9 @@
             ]
           },
           {
-            "segmentId": "30",
+            "segmentId": "21",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "31",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -4382,66 +3619,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT24H50M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -4449,7 +3637,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "32",
+            "id": "8",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -4457,42 +3645,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-06T06:30:00"
+              "at": "2025-07-31T13:15:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T07:50:00"
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-07-31T15:00:00"
             },
             "carrierCode": "AC",
-            "number": "480",
+            "number": "8554",
             "aircraft": {
-              "code": "223"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H45M",
+            "id": "9",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT21H15M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-10-05T15:45:00"
             },
-            "duration": "PT1H20M",
-            "id": "33",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T17:28:00"
+            },
+            "carrierCode": "AC",
+            "number": "8555",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H43M",
+            "id": "14",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "34",
+            "duration": "PT4H5M",
+            "id": "15",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -4501,8 +3713,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -4513,7 +3725,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -4531,12 +3743,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "8",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -4584,7 +3796,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "9",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -4632,9 +3844,9 @@
             ]
           },
           {
-            "segmentId": "32",
+            "segmentId": "14",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -4680,57 +3892,9 @@
             ]
           },
           {
-            "segmentId": "33",
+            "segmentId": "15",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "34",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -4792,66 +3956,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT24H50M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -4859,7 +3974,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "35",
+            "id": "8",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -4867,39 +3982,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-06T00:30:00"
+              "at": "2025-07-31T13:15:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T01:46:00"
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-07-31T15:00:00"
             },
             "carrierCode": "AC",
-            "number": "7774",
+            "number": "8554",
             "aircraft": {
               "code": "E75"
             },
-            "duration": "PT1H16M",
-            "id": "36",
+            "duration": "PT1H45M",
+            "id": "9",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT26H30M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-10-05T10:30:00"
+            },
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T12:13:00"
+            },
+            "carrierCode": "AC",
+            "number": "8553",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H43M",
+            "id": "20",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "37",
+            "duration": "PT4H5M",
+            "id": "21",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -4908,8 +4050,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -4920,7 +4062,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -4938,12 +4080,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "8",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -4991,7 +4133,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "9",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -5039,9 +4181,9 @@
             ]
           },
           {
-            "segmentId": "35",
+            "segmentId": "20",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -5087,57 +4229,9 @@
             ]
           },
           {
-            "segmentId": "36",
+            "segmentId": "21",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "37",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -5199,66 +4293,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT8H13M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -5266,7 +4311,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "38",
+            "id": "2",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -5274,42 +4319,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-06T15:00:00"
+              "at": "2025-07-30T20:30:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T16:16:00"
+              "iataCode": "JFK",
+              "terminal": "7",
+              "at": "2025-07-30T22:23:00"
             },
             "carrierCode": "AC",
-            "number": "416",
+            "number": "8556",
             "aircraft": {
-              "code": "223"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H53M",
+            "id": "3",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT18H30M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "EWR",
+              "terminal": "A",
+              "at": "2025-10-05T18:30:00"
             },
-            "duration": "PT1H16M",
-            "id": "39",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T20:08:00"
+            },
+            "carrierCode": "AC",
+            "number": "8883",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H38M",
+            "id": "18",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "40",
+            "duration": "PT4H5M",
+            "id": "19",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -5318,8 +4387,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -5330,7 +4399,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -5348,58 +4417,10 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
-          {
-            "segmentId": "1",
-            "cabin": "ECONOMY",
-            "fareBasis": "KKFET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
           {
             "segmentId": "2",
             "cabin": "ECONOMY",
@@ -5449,9 +4470,9 @@
             ]
           },
           {
-            "segmentId": "38",
+            "segmentId": "3",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -5497,9 +4518,9 @@
             ]
           },
           {
-            "segmentId": "39",
+            "segmentId": "18",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -5545,9 +4566,9 @@
             ]
           },
           {
-            "segmentId": "40",
+            "segmentId": "19",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -5609,66 +4630,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT8H18M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -5676,7 +4648,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "41",
+            "id": "4",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -5684,42 +4656,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-06T16:00:00"
+              "at": "2025-07-30T20:55:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T17:20:00"
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-07-30T22:28:00"
             },
             "carrierCode": "AC",
-            "number": "418",
+            "number": "8998",
             "aircraft": {
-              "code": "223"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H33M",
+            "id": "5",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT18H30M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "EWR",
+              "terminal": "A",
+              "at": "2025-10-05T18:30:00"
             },
-            "duration": "PT1H20M",
-            "id": "42",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T20:08:00"
+            },
+            "carrierCode": "AC",
+            "number": "8883",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H38M",
+            "id": "18",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "43",
+            "duration": "PT4H5M",
+            "id": "19",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -5728,8 +4724,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -5740,7 +4736,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -5758,12 +4754,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "4",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -5811,7 +4807,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "5",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -5859,9 +4855,9 @@
             ]
           },
           {
-            "segmentId": "41",
+            "segmentId": "18",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -5907,57 +4903,9 @@
             ]
           },
           {
-            "segmentId": "42",
+            "segmentId": "19",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "43",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -6019,66 +4967,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT17H38M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -6086,7 +4985,7 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "44",
+            "id": "6",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
@@ -6094,42 +4993,66 @@
             "departure": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-06T17:00:00"
+              "at": "2025-07-31T06:15:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T18:16:00"
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-07-31T07:48:00"
             },
             "carrierCode": "AC",
-            "number": "894",
+            "number": "8982",
             "aircraft": {
-              "code": "333"
+              "code": "E75"
             },
-            "operating": {
-              "carrierCode": "AC"
+            "duration": "PT1H33M",
+            "id": "7",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT18H30M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "EWR",
+              "terminal": "A",
+              "at": "2025-10-05T18:30:00"
             },
-            "duration": "PT1H16M",
-            "id": "45",
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T20:08:00"
+            },
+            "carrierCode": "AC",
+            "number": "8883",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H38M",
+            "id": "18",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
             },
             "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "1804",
             "aircraft": {
-              "code": "E75"
+              "code": "321"
             },
-            "duration": "PT1H57M",
-            "id": "46",
+            "duration": "PT4H5M",
+            "id": "19",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -6138,8 +5061,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "102757.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -6150,7 +5073,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "102757.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -6168,12 +5091,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "102757.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "6",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -6221,7 +5144,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "7",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -6269,9 +5192,9 @@
             ]
           },
           {
-            "segmentId": "44",
+            "segmentId": "18",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -6317,57 +5240,9 @@
             ]
           },
           {
-            "segmentId": "45",
+            "segmentId": "19",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "46",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -6429,66 +5304,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT24H50M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -6496,46 +5322,74 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "47",
+            "id": "8",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YTZ",
-              "at": "2025-10-06T07:25:00"
-            },
-            "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T08:40:00"
-            },
-            "carrierCode": "AC",
-            "number": "7952",
-            "aircraft": {
-              "code": "DH4"
-            },
-            "duration": "PT1H15M",
-            "id": "48",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-07-31T13:15:00"
             },
             "arrival": {
               "iataCode": "JFK",
               "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "at": "2025-07-31T15:00:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "8554",
             "aircraft": {
               "code": "E75"
             },
-            "duration": "PT1H57M",
-            "id": "49",
+            "duration": "PT1H45M",
+            "id": "9",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT18H30M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "EWR",
+              "terminal": "A",
+              "at": "2025-10-05T18:30:00"
+            },
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T20:08:00"
+            },
+            "carrierCode": "AC",
+            "number": "8883",
+            "aircraft": {
+              "code": "E75"
+            },
+            "duration": "PT1H38M",
+            "id": "18",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          },
+          {
+            "departure": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
+            },
+            "arrival": {
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
+            },
+            "carrierCode": "AC",
+            "number": "1804",
+            "aircraft": {
+              "code": "321"
+            },
+            "duration": "PT4H5M",
+            "id": "19",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -6544,8 +5398,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "105370.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -6556,7 +5410,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "105370.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -6574,12 +5428,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "105370.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "8",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -6627,7 +5481,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "9",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -6675,9 +5529,9 @@
             ]
           },
           {
-            "segmentId": "47",
+            "segmentId": "18",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -6723,57 +5577,9 @@
             ]
           },
           {
-            "segmentId": "48",
+            "segmentId": "19",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
-          {
-            "segmentId": "49",
-            "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -6835,66 +5641,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT8H13M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -6902,46 +5659,96 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "50",
+            "id": "2",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YTZ",
-              "at": "2025-10-06T08:25:00"
-            },
-            "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T09:40:00"
-            },
-            "carrierCode": "AC",
-            "number": "7954",
-            "aircraft": {
-              "code": "DH4"
-            },
-            "duration": "PT1H15M",
-            "id": "51",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-07-30T20:30:00"
             },
             "arrival": {
               "iataCode": "JFK",
               "terminal": "7",
-              "at": "2025-10-06T21:27:00"
+              "at": "2025-07-30T22:23:00"
             },
             "carrierCode": "AC",
-            "number": "8898",
+            "number": "8556",
             "aircraft": {
               "code": "E75"
             },
-            "duration": "PT1H57M",
-            "id": "52",
+            "duration": "PT1H53M",
+            "id": "3",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT21H5M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "EWR",
+              "terminal": "A",
+              "at": "2025-10-05T15:55:00"
+            },
+            "arrival": {
+              "iataCode": "YUL",
+              "at": "2025-10-05T17:30:00"
+            },
+            "carrierCode": "AC",
+            "number": "8943",
+            "aircraft": {
+              "code": "CR9"
+            },
+            "duration": "PT1H35M",
+            "id": "11",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          },
+          {
+            "departure": {
+              "iataCode": "YUL",
+              "at": "2025-10-05T19:10:00"
+            },
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T20:34:00"
+            },
+            "carrierCode": "AC",
+            "number": "425",
+            "aircraft": {
+              "code": "223"
+            },
+            "operating": {
+              "carrierCode": "AC"
+            },
+            "duration": "PT1H24M",
+            "id": "12",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          },
+          {
+            "departure": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
+            },
+            "arrival": {
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
+            },
+            "carrierCode": "AC",
+            "number": "1804",
+            "aircraft": {
+              "code": "321"
+            },
+            "duration": "PT4H5M",
+            "id": "13",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -6950,8 +5757,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "105370.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -6962,7 +5769,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "105370.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -6980,58 +5787,10 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "105370.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
-          {
-            "segmentId": "1",
-            "cabin": "ECONOMY",
-            "fareBasis": "KKFET1BA",
-            "brandedFare": "BASIC",
-            "brandedFareLabel": "BASIC",
-            "class": "K",
-            "includedCheckedBags": {
-              "quantity": 0
-            },
-            "includedCabinBags": {
-              "quantity": 0
-            },
-            "amenities": [
-              {
-                "description": "CHECKED BAG FIRST",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "CHECKED BAG SECOND",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "SPORT EQUIPMENT",
-                "isChargeable": true,
-                "amenityType": "BAGGAGE",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              },
-              {
-                "description": "MEAL",
-                "isChargeable": true,
-                "amenityType": "MEAL",
-                "amenityProvider": {
-                  "name": "BrandedFare"
-                }
-              }
-            ]
-          },
           {
             "segmentId": "2",
             "cabin": "ECONOMY",
@@ -7081,9 +5840,9 @@
             ]
           },
           {
-            "segmentId": "50",
+            "segmentId": "3",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -7129,9 +5888,9 @@
             ]
           },
           {
-            "segmentId": "51",
+            "segmentId": "11",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -7177,9 +5936,57 @@
             ]
           },
           {
-            "segmentId": "52",
+            "segmentId": "12",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
+            "brandedFare": "BASIC",
+            "brandedFareLabel": "BASIC",
+            "class": "K",
+            "includedCheckedBags": {
+              "quantity": 0
+            },
+            "includedCabinBags": {
+              "quantity": 0
+            },
+            "amenities": [
+              {
+                "description": "CHECKED BAG FIRST",
+                "isChargeable": true,
+                "amenityType": "BAGGAGE",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "CHECKED BAG SECOND",
+                "isChargeable": true,
+                "amenityType": "BAGGAGE",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "SPORT EQUIPMENT",
+                "isChargeable": true,
+                "amenityType": "BAGGAGE",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              },
+              {
+                "description": "MEAL",
+                "isChargeable": true,
+                "amenityType": "MEAL",
+                "amenityProvider": {
+                  "name": "BrandedFare"
+                }
+              }
+            ]
+          },
+          {
+            "segmentId": "13",
+            "cabin": "ECONOMY",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -7241,66 +6048,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT8H18M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -7308,46 +6066,96 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "53",
+            "id": "4",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YTZ",
-              "at": "2025-10-06T10:25:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-07-30T20:55:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T11:40:00"
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-07-30T22:28:00"
             },
             "carrierCode": "AC",
-            "number": "7958",
-            "aircraft": {
-              "code": "DH4"
-            },
-            "duration": "PT1H15M",
-            "id": "54",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
-            },
-            "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
-            },
-            "carrierCode": "AC",
-            "number": "8898",
+            "number": "8998",
             "aircraft": {
               "code": "E75"
             },
-            "duration": "PT1H57M",
-            "id": "55",
+            "duration": "PT1H33M",
+            "id": "5",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT21H5M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "EWR",
+              "terminal": "A",
+              "at": "2025-10-05T15:55:00"
+            },
+            "arrival": {
+              "iataCode": "YUL",
+              "at": "2025-10-05T17:30:00"
+            },
+            "carrierCode": "AC",
+            "number": "8943",
+            "aircraft": {
+              "code": "CR9"
+            },
+            "duration": "PT1H35M",
+            "id": "11",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          },
+          {
+            "departure": {
+              "iataCode": "YUL",
+              "at": "2025-10-05T19:10:00"
+            },
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T20:34:00"
+            },
+            "carrierCode": "AC",
+            "number": "425",
+            "aircraft": {
+              "code": "223"
+            },
+            "operating": {
+              "carrierCode": "AC"
+            },
+            "duration": "PT1H24M",
+            "id": "12",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          },
+          {
+            "departure": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
+            },
+            "arrival": {
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
+            },
+            "carrierCode": "AC",
+            "number": "1804",
+            "aircraft": {
+              "code": "321"
+            },
+            "duration": "PT4H5M",
+            "id": "13",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -7356,8 +6164,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "105370.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -7368,7 +6176,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "105370.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -7386,12 +6194,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "105370.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "4",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -7439,7 +6247,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "5",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -7487,9 +6295,9 @@
             ]
           },
           {
-            "segmentId": "53",
+            "segmentId": "11",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -7535,9 +6343,9 @@
             ]
           },
           {
-            "segmentId": "54",
+            "segmentId": "12",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -7583,9 +6391,9 @@
             ]
           },
           {
-            "segmentId": "55",
+            "segmentId": "13",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -7647,66 +6455,17 @@
     "numberOfBookableSeats": 9,
     "itineraries": [
       {
-        "duration": "PT20H15M",
-        "segments": [
-          {
-            "departure": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-03-30T15:55:00"
-            },
-            "arrival": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-30T17:39:00"
-            },
-            "carrierCode": "AC",
-            "number": "8555",
-            "aircraft": {
-              "code": "E75"
-            },
-            "duration": "PT1H44M",
-            "id": "1",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YYZ",
-              "terminal": "1",
-              "at": "2025-03-31T08:00:00"
-            },
-            "arrival": {
-              "iataCode": "MBJ",
-              "at": "2025-03-31T11:10:00"
-            },
-            "carrierCode": "AC",
-            "number": "982",
-            "aircraft": {
-              "code": "788"
-            },
-            "operating": {
-              "carrierCode": "AC"
-            },
-            "duration": "PT4H10M",
-            "id": "2",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          }
-        ]
-      },
-      {
-        "duration": "PT31H17M",
+        "duration": "PT17H38M",
         "segments": [
           {
             "departure": {
               "iataCode": "MBJ",
-              "at": "2025-10-05T13:10:00"
+              "at": "2025-07-30T13:10:00"
             },
             "arrival": {
               "iataCode": "YYZ",
               "terminal": "1",
-              "at": "2025-10-05T18:15:00"
+              "at": "2025-07-30T18:15:00"
             },
             "carrierCode": "AC",
             "number": "1805",
@@ -7714,46 +6473,96 @@
               "code": "321"
             },
             "duration": "PT4H5M",
-            "id": "56",
+            "id": "6",
             "numberOfStops": 0,
             "blacklistedInEU": false
           },
           {
             "departure": {
-              "iataCode": "YTZ",
-              "at": "2025-10-06T12:25:00"
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-07-31T06:15:00"
             },
             "arrival": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T13:40:00"
+              "iataCode": "LGA",
+              "terminal": "B",
+              "at": "2025-07-31T07:48:00"
             },
             "carrierCode": "AC",
-            "number": "7962",
-            "aircraft": {
-              "code": "DH4"
-            },
-            "duration": "PT1H15M",
-            "id": "57",
-            "numberOfStops": 0,
-            "blacklistedInEU": false
-          },
-          {
-            "departure": {
-              "iataCode": "YUL",
-              "at": "2025-10-06T19:30:00"
-            },
-            "arrival": {
-              "iataCode": "JFK",
-              "terminal": "7",
-              "at": "2025-10-06T21:27:00"
-            },
-            "carrierCode": "AC",
-            "number": "8898",
+            "number": "8982",
             "aircraft": {
               "code": "E75"
             },
-            "duration": "PT1H57M",
-            "id": "58",
+            "duration": "PT1H33M",
+            "id": "7",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      },
+      {
+        "duration": "PT21H5M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "EWR",
+              "terminal": "A",
+              "at": "2025-10-05T15:55:00"
+            },
+            "arrival": {
+              "iataCode": "YUL",
+              "at": "2025-10-05T17:30:00"
+            },
+            "carrierCode": "AC",
+            "number": "8943",
+            "aircraft": {
+              "code": "CR9"
+            },
+            "duration": "PT1H35M",
+            "id": "11",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          },
+          {
+            "departure": {
+              "iataCode": "YUL",
+              "at": "2025-10-05T19:10:00"
+            },
+            "arrival": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-05T20:34:00"
+            },
+            "carrierCode": "AC",
+            "number": "425",
+            "aircraft": {
+              "code": "223"
+            },
+            "operating": {
+              "carrierCode": "AC"
+            },
+            "duration": "PT1H24M",
+            "id": "12",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          },
+          {
+            "departure": {
+              "iataCode": "YYZ",
+              "terminal": "1",
+              "at": "2025-10-06T08:55:00"
+            },
+            "arrival": {
+              "iataCode": "MBJ",
+              "at": "2025-10-06T12:00:00"
+            },
+            "carrierCode": "AC",
+            "number": "1804",
+            "aircraft": {
+              "code": "321"
+            },
+            "duration": "PT4H5M",
+            "id": "13",
             "numberOfStops": 0,
             "blacklistedInEU": false
           }
@@ -7762,8 +6571,8 @@
     ],
     "price": {
       "currency": "JMD",
-      "total": "105370.00",
-      "base": "56955.00",
+      "total": "87579.00",
+      "base": "47489.00",
       "fees": [
         {
           "amount": "0.00",
@@ -7774,7 +6583,7 @@
           "type": "TICKETING"
         }
       ],
-      "grandTotal": "105370.00"
+      "grandTotal": "87579.00"
     },
     "pricingOptions": {
       "fareType": [
@@ -7792,12 +6601,12 @@
         "travelerType": "ADULT",
         "price": {
           "currency": "JMD",
-          "total": "105370.00",
-          "base": "56955.00"
+          "total": "87579.00",
+          "base": "47489.00"
         },
         "fareDetailsBySegment": [
           {
-            "segmentId": "1",
+            "segmentId": "6",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -7845,7 +6654,7 @@
             ]
           },
           {
-            "segmentId": "2",
+            "segmentId": "7",
             "cabin": "ECONOMY",
             "fareBasis": "KKFET1BA",
             "brandedFare": "BASIC",
@@ -7893,9 +6702,9 @@
             ]
           },
           {
-            "segmentId": "56",
+            "segmentId": "11",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -7941,9 +6750,9 @@
             ]
           },
           {
-            "segmentId": "57",
+            "segmentId": "12",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
@@ -7989,9 +6798,9 @@
             ]
           },
           {
-            "segmentId": "58",
+            "segmentId": "13",
             "cabin": "ECONOMY",
-            "fareBasis": "KLYET1BA",
+            "fareBasis": "KLFET1BA",
             "brandedFare": "BASIC",
             "brandedFareLabel": "BASIC",
             "class": "K",
