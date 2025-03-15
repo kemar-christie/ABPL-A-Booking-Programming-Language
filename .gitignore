@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Ignore .env file with api keys
+.env
+*.json
+
 # C extensions
 *.so
 
