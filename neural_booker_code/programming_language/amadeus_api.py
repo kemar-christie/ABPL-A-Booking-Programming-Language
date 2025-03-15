@@ -9,13 +9,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class AmadeusAPI:
-    def __init__(self, client_id=None, client_secret=None, is_test=True):
+    def __init__(self, client_id=None, client_secret=None, is_test=True, output_dir="neural-booker-output"):
         """Initialize the Amadeus API client.
         
         Args:
             client_id (str, optional): Your Amadeus API key. If None, will try to get from environment
             client_secret (str, optional): Your Amadeus API secret. If None, will try to get from environment
             is_test (bool): Whether to use the test environment (default) or production
+            output_dir (str): Base directory for output files
         """
         # Get credentials from parameters or environment variables
         self.client_id = client_id or os.environ.get('AMADEUS_CLIENT_ID')
@@ -28,6 +29,14 @@ class AmadeusAPI:
         self.base_url = "test.api.amadeus.com" if is_test else "api.amadeus.com"
         self.token = None
         self.token_expiry = None
+        self.output_dir = output_dir
+        
+        # Create base output directory if it doesn't exist
+        os.makedirs(self.output_dir, exist_ok=True)
+        
+        # Create Json subdirectory
+        self.json_dir = os.path.join(self.output_dir, "Json")
+        os.makedirs(self.json_dir, exist_ok=True)
         
     def _get_auth_token(self):
         """Get an authentication token from the Amadeus API."""
@@ -235,15 +244,18 @@ class AmadeusAPI:
 
     def save_results_to_json(self, data, filename):
         """
-        Save results to a JSON file.
+        Save results to a JSON file in the output directory.
         
         Args:
             data (dict): Data to save
             filename (str): Output filename
         """
-        with open(filename, 'w', encoding='utf-8') as f:
+        # Combine the Json directory with the filename
+        output_path = os.path.join(self.json_dir, filename)
+        
+        with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(data, indent=2, fp=f)
-        print(f"Data saved to {filename}")
+        print(f"Data saved to {output_path}")
 
 
 def pretty_print_hotels(hotels):
@@ -285,9 +297,9 @@ if __name__ == "__main__":
     
     # Search for flights 
     flights = api.search_flights(
-        origin="MBJ",  # City IATA code
-        destination="NYC",  # City IATA code
-        departure_date="2025-07-30",  # Outbound flight date
+        origin="JFK",  # City IATA code
+        destination="MBJ",  # City IATA code
+        departure_date="2025-03-30",  # Outbound flight date
         return_date="2025-10-05",  # Return flight date
         adults=1,  # Number of passengers
     )
@@ -298,6 +310,6 @@ if __name__ == "__main__":
     # Print results in a readable format
     pretty_print_flights(sorted_flights)
 
-    # Save results to "flights.json"
+    # Save results to the neural-booker-output/Json folder
     api.save_results_to_json(sorted_flights, "flights.json")
-    print("Flight search results saved to flights.json")
+    print("Flight search results saved to neural-booker-output/Json/flights.json")
