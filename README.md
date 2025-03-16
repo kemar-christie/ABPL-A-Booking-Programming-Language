@@ -1,5 +1,6 @@
 # Neural-Booker
 
-DESCRIPTION: ()
+**DESCRIPTION:** 
+()
 
-CONTRIBUTORS: Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
+**CONTRIBUTORS:** Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
