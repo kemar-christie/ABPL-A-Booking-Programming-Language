@@ -14,16 +14,16 @@ import re
 # Book a ticket to USA from Jamaica.
 # How many tickets are there from USA to Jamaica.
 # Book a ticket to USA from Jamaica and a Reservation from Mar 10, 2025 To Mar 10, 2025.
-# Book Knutsford Express from Montego Bay to Kingston on February 17, 2025 at 8:30 AM for Joy_Rey1.
+# Book a Knutsford Express Ticket from Montego Bay to Kingston on February 17, 2025 at 8:30 AM for Joy_Rey1.
 # Book a Ticket from Montego Bay to Miami on February 17, 2025 at 8:30 AM returning on March 17, 2025 at 8:30 AM.
-
-
-# Test:
-
+# Book a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1.
 # Book a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1.
 # Reserve a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1.
 # Confirm a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1.
 # Cancel a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1.
+# List Knutsford Express schedule.
+# Pay reservation for Knutsford Express for Joy_Reynolds.
+# Book a Hotel in Miami on March 19,2025.
 
 
 from ply.lex import lex
@@ -31,20 +31,20 @@ from ply.yacc import yacc
 
 # --- Tokenizer
 
-tokens = ('KEYWORD','DATE','NUMBER','SYMBOL','MONEY','REQUEST','CONDITIONS','ARTICLE','TIME','USERNAME', 'DEPARTURE', 'ARRIVAL', 'SERVICE')
+tokens = ('KEYWORD','DATE','NUMBER','SYMBOL','MONEY','RESOURCE','CONDITIONS','ARTICLE','TIME','USERNAME', 'DEPARTURE', 'ARRIVAL', 'SERVICE')
 
 
 # Define keywords as a Python list
 keywords = ['List', 'Book', 'Confirm', 'Pay', 'From', 'To', 'On', 'For', 'Schedule', 
             'Cancel', 'Cost', 'Duration', 'That', 'How many', 'There', 'Are', 'All', 
-            'At', 'Returning']
+            'At', 'Returning', 'in']
 
 # Generate the t_KEYWORD regex dynamically
 t_KEYWORD = r'\b(?:' + r'|'.join(keywords) + r')\b'
 
 t_CONDITIONS = r'\b(?:less than|more than|equal to|greater than|if|then)\b'
 
-t_REQUEST = r'Reservations|Reservation|Tickets|Ticket|Flights|Flight|Reserve|Rooms|Room'
+t_RESOURCE = r'Reservations|Reservation|Tickets|Ticket|Flights|Flight|Reserve|Rooms|Room'
 
 # Regex for dates (abbreviated and full month names only)
 t_DATE = r'(\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d{1,2},\s*\d{4}\b|' \
@@ -58,19 +58,23 @@ t_NUMBER = r'\b\d+\b'
 t_MONEY = r'\$\d+(\.\d+)?'
 
 # Use the same keywords in t_LOCATION
-#Destination
+# Destination
 t_ARRIVAL = r'(?<=\bTo\b\s)([a-zA-Z\s]+)(?=\s\bFrom\b)|'\
             r'(?<=\bTo\b\s)([a-zA-Z\s]+)(?=\s*\.)|'\
             r'(?<=\bTo\b\s)([a-zA-Z\s]+)(?=\s\b(?:' + r'|'.join(keywords) + r')\b)'
 
-#Starting Point
+# Starting Point
 t_DEPARTURE = r'(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s\bTo\b)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s\bThat\b)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s*\.)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s\b(?:' + r'|'.join(keywords) + r')\b)'
 
 t_TIME = r'\b(?:([0-9])?[0-9]):[0-9][0-9]\s*(?:AM|PM)\b'
 
 t_USERNAME = r'(?<=\bfor\b\s)[A-Za-z0-9_]+'
 
-t_SERVICE = r'Knutsford Express'
+# works for input like: Book a Room at AC Hotel from March 10, 2025.
+# works for input like: Book a Knutsford Express ticket from Montego Bay.
+# work for input like: List Knutsford Express schedule.  
+# also works fo: Confirm reservation for Knutsford Express for Joy Reynolds.
+t_SERVICE = r'(?<=\bat\s)([A-Za-z\s]+?)(?=\sfrom\b)|(?<=\bList\s)([A-Za-z\s]+?)(?=\s\bSchedule\b)|(?<=\bfor\s)([A-Za-z\s]+?)(?=\s\bfor\b)|(?<=\ba\s)([A-Za-z\s]+?)(?=\s(?:' + t_RESOURCE + r')\b)'
 
 t_SYMBOL = r'\.+(?=[ \t]*$)|,|:'
 
@@ -88,7 +92,7 @@ lexer = lex(reflags=re.IGNORECASE)
 
 
 # Provide the input data
-data = "Book a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1........"
+data = "Book a ticket to USA from Jamaica."
 
 # Feed the input data to the lexer
 lexer.input(data)
@@ -114,4 +118,4 @@ while True:
 # When ever the keyword confirm is used, we take the full amount from the customer
 # When Booking a plane ticket we have three option: The customer can Pay for the ticket then they have to confirm the ticket and also they have the option of cancelling the ticket.
 # When Booking a reservation for the hotel we have four option: The customer can reserve the room, confirm the room, cancel the room and pay for the room.
-# If the customer enters "Reserve a Reservation"  an error should be displayed.
+# If the customer enters "Reserve a Reservation" an error should be displayed.
