@@ -9,21 +9,23 @@ import re
 
 # Example of Strings that can be tokenized:
 
-# List all flights from Jamaica to USA.
-# Book a ticket to USA from Jamaica that cost less than $2000.
-# Book a ticket to USA from Jamaica.
-# How many tickets are there from USA to Jamaica.
-# Book a ticket to USA from Jamaica and a Reservation from Mar 10, 2025 To Mar 10, 2025.
-# Book a Knutsford Express Ticket from Montego Bay to Kingston on February 17, 2025 at 8:30 AM for Joy_Rey1.
-# Book a Ticket from Montego Bay to Miami on February 17, 2025 at 8:30 AM returning on March 17, 2025 at 8:30 AM.
-# Book a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1.
-# Book a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1.
-# Reserve a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1.
-# Confirm a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1.
-# Cancel a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1.
-# List Knutsford Express schedule.
-# Pay reservation for Knutsford Express for Joy_Reynolds.
-# Book a Hotel in Miami on March 19,2025.
+# Working:
+
+# List all flights from Jamaica to USA. - Working
+# Book a ticket to USA from Jamaica that cost less than $2000. - Working
+# Book a ticket to USA from Jamaica. - Working
+# How many tickets are there from USA to Jamaica. - Working
+# Book a ticket to USA from Jamaica and a Reservation from Mar 10, 2025 To Mar 10, 2025. - Working
+# Book a Knutsford Express Ticket from Montego Bay to Kingston on February 17, 2025 at 8:30 AM for Joy_Reynolds. - Working
+# Book a Ticket from Montego Bay to Miami on February 17, 2025 at 8:30 AM returning on March 17, 2025 at 8:30 AM. - Working
+# Book a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds. - Working
+# Reserve a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds. - Working
+# Confirm a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds. - Working
+# Cancel a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds. - Working
+# List Knutsford Express schedule. - Working
+# Pay reservation for Knutsford Express for Joy_Reynolds. - Working
+# Book a Hotel in Miami on March 19, 2025. - Working
+
 
 
 from ply.lex import lex
@@ -31,50 +33,54 @@ from ply.yacc import yacc
 
 # --- Tokenizer
 
-tokens = ('KEYWORD','DATE','NUMBER','SYMBOL','MONEY','RESOURCE','CONDITIONS','ARTICLE','TIME','USERNAME', 'DEPARTURE', 'ARRIVAL', 'SERVICE')
+tokens = ('KEYWORD', 'DATE', 'NUMBER', 'SYMBOL', 'MONEY', 'RESOURCE', 'CONDITIONS', 'TIME', 'USERNAME', 'DEPARTURE', 'ARRIVAL', 'LOCATION', 'SERVICE', 'OTHER_WORDS')
 
 
 # Define keywords as a Python list
-keywords = ['List', 'Book', 'Confirm', 'Pay', 'From', 'To', 'On', 'For', 'Schedule', 
+keywords = ['List', 'Book a', 'Confirm', 'Pay', 'From', 'To', 'On', 'For', 'Schedule', 
             'Cancel', 'Cost', 'Duration', 'That', 'How many', 'There', 'Are', 'All', 
             'At', 'Returning', 'in']
+
 
 # Generate the t_KEYWORD regex dynamically
 t_KEYWORD = r'\b(?:' + r'|'.join(keywords) + r')\b'
 
 t_CONDITIONS = r'\b(?:less than|more than|equal to|greater than|if|then)\b'
 
-t_RESOURCE = r'Reservations|Reservation|Tickets|Ticket|Flights|Flight|Reserve|Rooms|Room'
+t_RESOURCE = r'Reservations|Reservation|Tickets|Ticket|tickets|Flights|Flight|Reserve|Rooms|Room|Hotel'
 
 # Regex for dates (abbreviated and full month names only)
 t_DATE = r'(\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d{1,2},\s*\d{4}\b|' \
          r'\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s\d{1,2},\s*\d{4}\b)'
 
-t_ARTICLE = r'\b(a|an|the)\b'
-
 t_NUMBER = r'\b\d+\b'
+
+t_OTHER_WORDS = r'\b(a|and)\b'
 
 # The backslash escapes the $ to avoid it being interpreted as a special character.
 t_MONEY = r'\$\d+(\.\d+)?'
 
-# Use the same keywords in t_LOCATION
 # Destination
-t_ARRIVAL = r'(?<=\bTo\b\s)([a-zA-Z\s]+)(?=\s\bFrom\b)|'\
-            r'(?<=\bTo\b\s)([a-zA-Z\s]+)(?=\s*\.)|'\
-            r'(?<=\bTo\b\s)([a-zA-Z\s]+)(?=\s\b(?:' + r'|'.join(keywords) + r')\b)'
+t_ARRIVAL = r'(?<=\bTo\b\s)([a-zA-Z\s]+?)(?=\s\bFrom\b)|'\
+            r'(?<=\bTo\b\s)([a-zA-Z\s]+?)(?=\s*\.)|'\
+            r'(?<=\bTo\b\s)([a-zA-Z\s]+?)(?=\s\b(?:' + r'|'.join(keywords) + r')\b)'
 
 # Starting Point
-t_DEPARTURE = r'(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s\bTo\b)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s\bThat\b)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s*\.)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s\b(?:' + r'|'.join(keywords) + r')\b)'
+t_DEPARTURE = r'(?<=\bfrom\b\s)([a-zA-Z\s]+?)(?=\s\band\b)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s\bTo\b)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s\bThat\b)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s*\.)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s\b(?:' + r'|'.join(keywords) + r')\b)'
+
+t_LOCATION = r'(?<=\bin\b\s)([a-zA-Z\s]+?)(?=\s\b(?:' + r'|'.join(keywords) + r')\b)|'\
+             r'(?<=\bin\b\s)([a-zA-Z\s]+?)(?=\s*\.)'
 
 t_TIME = r'\b(?:([0-9])?[0-9]):[0-9][0-9]\s*(?:AM|PM)\b'
 
 t_USERNAME = r'(?<=\bfor\b\s)[A-Za-z0-9_]+'
 
-# works for input like: Book a Room at AC Hotel from March 10, 2025.
-# works for input like: Book a Knutsford Express ticket from Montego Bay.
-# work for input like: List Knutsford Express schedule.  
-# also works fo: Confirm reservation for Knutsford Express for Joy Reynolds.
-t_SERVICE = r'(?<=\bat\s)([A-Za-z\s]+?)(?=\sfrom\b)|(?<=\bList\s)([A-Za-z\s]+?)(?=\s\bSchedule\b)|(?<=\bfor\s)([A-Za-z\s]+?)(?=\s\bfor\b)|(?<=\ba\s)([A-Za-z\s]+?)(?=\s(?:' + t_RESOURCE + r')\b)'
+#t_SERVICE = r'(?<=\bat\s)([A-Za-z\s]+?)(?=\sfrom\b)|(?<=\bList\s)([A-Za-z\s]+?)(?=\s\bSchedule\b)|(?<=\bfor\s)([A-Za-z\s]+?)(?=\s\bfor\b)|(?<=\ba\s)([A-Za-z\s]+?)(?=\s(?:' + t_RESOURCE + r')\b)(?!.*\b(?:' + t_RESOURCE + r')\b)'
+
+t_SERVICE = r'(?<=\ba\s)(?!(?:' + r'|'.join(keywords) + r')\b)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_RESOURCE + r')\b)|'\
+            r'(?<=\bList\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bSchedule\b)|'\
+            r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bfor\b)|'\
+            r'(?<=\bat\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:From|from)\b)'
 
 t_SYMBOL = r'\.+(?=[ \t]*$)|,|:'
 
@@ -92,7 +98,7 @@ lexer = lex(reflags=re.IGNORECASE)
 
 
 # Provide the input data
-data = "Book a ticket to USA from Jamaica."
+data = "Book a Hotel in Miami on March 19,2025."
 
 # Feed the input data to the lexer
 lexer.input(data)
@@ -109,9 +115,6 @@ while True:
 
 # Note Error to look out for:
 
-# ensure the lexer ignore new line - Done
-# Ensure to split up the the location KEYWORD so we have a departure and a arrival - Done
-# Ensure the Customer are Identified as Username - Done
 # user must end line with a period
 # need to ensure that the time can only go to 12 hours max(so 14:00 PM is invalid), t_TIME = r'\b(?:0?[1-9]|1[0-2]):[0-5][0-9]\s*(?:AM|PM)\b' 
 # When reserving a ticket the customer must make a down payment of 60 % of the total cost
