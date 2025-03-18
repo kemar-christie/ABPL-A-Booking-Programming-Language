@@ -33,7 +33,7 @@ from ply.yacc import yacc
 
 # --- Tokenizer
 
-tokens = ('KEYWORD', 'DATE', 'NUMBER', 'SYMBOL', 'MONEY', 'RESOURCE', 'CONDITIONS', 'TIME', 'USERNAME', 'DEPARTURE', 'ARRIVAL', 'LOCATION', 'SERVICE', 'OTHER_WORDS')
+tokens = ('KEYWORD', 'DATE', 'START_DATE', 'END_DATE', 'NUMBER', 'SYMBOL', 'MONEY', 'RESOURCE', 'CONDITIONS', 'TIME', 'USERNAME', 'DEPARTURE', 'ARRIVAL', 'LOCATION', 'SERVICE', 'OTHER_WORDS')
 
 
 # Define keywords as a Python list
@@ -52,6 +52,11 @@ t_RESOURCE = r'Reservations|Reservation|Tickets|Ticket|tickets|Flights|Flight|Re
 # Regex for dates (abbreviated and full month names only)
 t_DATE = r'(\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d{1,2},\s*\d{4}\b|' \
          r'\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s\d{1,2},\s*\d{4}\b)'
+
+t_START_DATE = r'(?<=\bfor\s)' + t_DATE + r'(?=\s(?:at|to)\b)|' \
+               r'(?<=\bon\s)' + t_DATE + r'(?=\s(?:at|to|returning)\b)'
+
+t_END_DATE = r'(?<=\bto\s)' + t_DATE + r'(?=\s(?:for|at|\.|\b))'
 
 t_NUMBER = r'\b\d+\b'
 
@@ -98,7 +103,7 @@ lexer = lex(reflags=re.IGNORECASE)
 
 
 # Provide the input data
-data = "Book a Hotel in Miami on March 19,2025."
+data = "Book a flight from miami to New to York for March 20, 2025 at 10:00 PM to April 7, 2025 for jam_smi2."
 
 # Feed the input data to the lexer
 lexer.input(data)
