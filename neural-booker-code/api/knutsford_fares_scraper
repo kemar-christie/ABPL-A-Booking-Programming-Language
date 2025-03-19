@@ -1,0 +1,270 @@
+import time
+import os
+import sys
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import json
+
+def scrape_knutsford_fares():
+    # Setup Chrome options
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    
+    print("Starting browser...")
+    driver = webdriver.Chrome(options=chrome_options)
+    
+    try:
+        # Navigate to the fare table page
+        url = 'https://www.knutsfordexpress.com/fare-schedule/fare-table/'
+        print(f"Navigating to {url}...")
+        driver.get(url)
+        
+        # Wait for the page to load completely
+        print("Waiting for page to load completely...")
+        time.sleep(5)  # Initial wait to ensure page loads
+
+        # Wait for the div with class="table" and id="results"
+        print("Looking for div-based table...")
+        wait = WebDriverWait(driver, 15)
+        table_div = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.table#results')))
+        print("Found div-based table!")
+        
+        # Get table rows (div elements with class="table_row")
+        rows = driver.find_elements(By.CSS_SELECTOR, 'div.table_row')
+        print(f"Found {len(rows)} table rows.")
+        
+        if len(rows) == 0:
+            print("No table rows found. Waiting longer...")
+            time.sleep(5)  # Wait longer for JavaScript to finish
+            rows = driver.find_elements(By.CSS_SELECTOR, 'div.table_row')
+            print(f"After waiting: Found {len(rows)} table rows.")
+            
+            if len(rows) == 0:
+                # Try JavaScript to get rows
+                print("Trying to get rows via JavaScript...")
+                try:
+                    js_rows = driver.execute_script("return document.querySelectorAll('div.table_row');")
+                    print(f"Found {len(js_rows)} rows via JavaScript.")
+                    rows = js_rows
+                except Exception as e:
+                    print(f"Error getting rows via JavaScript: {e}")
+        
+        if len(rows) == 0:
+            print("Still no rows found. Taking screenshot for debugging...")
+            driver.save_screenshot("debug_screenshot.png")
+            print("Screenshot saved as debug_screenshot.png")
+            return None
+            
+        # Extract data from rows
+        fare_data = []
+        
+        # Identify the header row to determine column indices
+        header_cells = rows[0].find_elements(By.CSS_SELECTOR, 'div.table_cell')
+        header_texts = [cell.text.strip().lower() for cell in header_cells]
+        print(f"Header texts: {header_texts}")
+        
+        # Define expected column positions (with fallbacks)
+        try:
+            route_idx = next((i for i, text in enumerate(header_texts) if 'route' in text), 0)
+            discount_idx = next((i for i, text in enumerate(header_texts) if 'discount' in text), 1)
+            adult_idx = next((i for i, text in enumerate(header_texts) if 'adult' in text), 2)
+            child_idx = next((i for i, text in enumerate(header_texts) if 'child' in text), 3)
+            senior_idx = next((i for i, text in enumerate(header_texts) if 'senior' in text), 4)
+            student_idx = next((i for i, text in enumerate(header_texts) if 'student' in text), 5)
+            
+            print(f"Column indices - Route: {route_idx}, Discount: {discount_idx}, Adult: {adult_idx}, "
+                 f"Child: {child_idx}, Senior: {senior_idx}, Student: {student_idx}")
+        except Exception as e:
+            print(f"Error identifying column indices: {e}")
+            # Default to sequential indices if header detection fails
+            route_idx, discount_idx, adult_idx, child_idx, senior_idx, student_idx = 0, 1, 2, 3, 4, 5
+        
+        # Skip the header row
+        for row in rows[1:]:
+            cells = row.find_elements(By.CSS_SELECTOR, 'div.table_cell')
+            
+            if len(cells) >= max(route_idx, discount_idx, adult_idx, child_idx, senior_idx, student_idx) + 1:
+                # Debug each row
+                cell_texts = [cell.text.strip() for cell in cells]
+                print(f"Row data: {cell_texts}")
+                
+                # Get values using identified indices, with safety checks
+                route = cells[route_idx].text.strip() if route_idx < len(cells) else ""
+                discount = cells[discount_idx].text.strip() if discount_idx < len(cells) else ""
+                adult = cells[adult_idx].text.strip() if adult_idx < len(cells) else ""
+                child = cells[child_idx].text.strip() if child_idx < len(cells) else ""
+                senior = cells[senior_idx].text.strip() if senior_idx < len(cells) else ""
+                student = cells[student_idx].text.strip() if student_idx < len(cells) else ""
+                
+                # Skip rows with empty route
+                if not route:
+                    print("Skipping row with empty route")
+                    continue
+                
+                # Additional validation - if route doesn't have a $ sign but discount does,
+                # they might be swapped
+                if '$' not in route and '$' in discount:
+                    print(f"Potential column swap detected in row: {route} / {discount}")
+                    # Check if we have a consistent pattern of columns being shifted
+                    if len(fare_data) > 0:
+                        # Don't auto-correct; just warn
+                        print("WARNING: Data might be misaligned. Please verify column mapping.")
+                
+                fare_data.append({
+                    'Route': route,
+                    'Online_Discount': discount,
+                    'Adult': adult,
+                    'Child': child,
+                    'Senior': senior,
+                    'Student': student
+                })
+                print(f"Added route: {route}")
+        
+        if not fare_data:
+            print("No route data extracted from the rows.")
+            return None
+        
+        print(f"Successfully scraped {len(fare_data)} routes.")
+        return fare_data
+    
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
+    
+    finally:
+        # Close the browser
+        driver.quit()
+        print("Browser closed.")
+
+def save_json_file(data, directory, filename):
+    """
+    Save JSON data to a file with enhanced error checking and debugging.
+    """
+    try:
+        # Print current working directory for debugging
+        print(f"Current working directory: {os.getcwd()}")
+        
+        # Try to create directory with absolute path
+        abs_directory = os.path.abspath(directory)
+        print(f"Creating directory: {abs_directory}")
+        
+        try:
+            os.makedirs(abs_directory, exist_ok=True)
+            print(f"Directory created/verified successfully")
+        except Exception as e:
+            print(f"Error creating directory: {e}")
+            print("Trying to create directory components individually...")
+            
+            # Try creating parts of the path individually
+            path_parts = abs_directory.split(os.sep)
+            current_path = path_parts[0] + os.sep  # Start with drive letter on Windows
+            
+            for part in path_parts[1:]:
+                current_path = os.path.join(current_path, part)
+                try:
+                    if not os.path.exists(current_path):
+                        os.mkdir(current_path)
+                        print(f"Created directory component: {current_path}")
+                except Exception as e:
+                    print(f"Failed to create directory component {current_path}: {e}")
+            
+        # Check if directory exists
+        if not os.path.exists(abs_directory):
+            print(f"WARNING: Directory still doesn't exist after creation attempts!")
+            print("Falling back to current directory")
+            abs_directory = os.getcwd()
+            
+        # Construct the full file path
+        full_path = os.path.join(abs_directory, filename)
+        print(f"Saving JSON to: {full_path}")
+        
+        # Save the JSON file
+        with open(full_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        
+        # Verify file was created
+        if os.path.exists(full_path):
+            file_size = os.path.getsize(full_path)
+            print(f"File successfully saved. Size: {file_size} bytes")
+            return True
+        else:
+            print("File not found after saving attempt!")
+            return False
+            
+    except Exception as e:
+        print(f"Error saving JSON file: {e}")
+        import traceback
+        traceback.print_exc()
+        
+        # Try saving to a fallback location
+        print("Attempting to save to fallback location...")
+        try:
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=4, ensure_ascii=False)
+            print(f"File saved to current directory as {filename}")
+            return True
+        except Exception as e2:
+            print(f"Failed to save to fallback location: {e2}")
+            return False
+
+def main():
+    # Print Python version for debugging
+    print(f"Python version: {sys.version}")
+    print(f"Platform: {sys.platform}")
+    
+    # Scrape the fare data
+    fare_data = scrape_knutsford_fares()
+    
+    if fare_data is not None:
+        # Display the number of routes found
+        print(f"\nTotal routes scraped: {len(fare_data)}")
+        
+        # Display the first few entries
+        print("\nSample of the scraped data:")
+        for i, route in enumerate(fare_data[:3]):
+            print(f"{i+1}. {route['Route']}: Adult: {route['Adult']}, Child: {route['Child']}")
+        
+        # Validate data before saving
+        print("\nValidating data...")
+        issues_found = False
+        for i, item in enumerate(fare_data):
+            route = item['Route']
+            if not route or '$' in route:
+                print(f"Potential issue in entry {i+1}: Route '{route}' may be incorrect")
+                issues_found = True
+        
+        if issues_found:
+            print("\nWARNING: Potential data quality issues detected. You may need to manually verify the results.")
+        
+        # Try multiple directory paths with different separators
+        paths_to_try = [
+            "neural-booker-output\\Json",  # Windows-style
+            "neural-booker-output/Json",   # Unix-style
+            "./neural-booker-output/Json", # Relative with Unix-style
+            os.path.join("neural-booker-output", "Json")  # OS-independent
+        ]
+        
+        success = False
+        for path in paths_to_try:
+            print(f"\nAttempting to save to: {path}")
+            if save_json_file(fare_data, path, "knutsford_fares.json"):
+                success = True
+                break
+        
+        if not success:
+            print("\nAll attempts to save file failed. Saving to current directory.")
+            with open("knutsford_fares.json", 'w', encoding='utf-8') as f:
+                json.dump(fare_data, f, indent=4, ensure_ascii=False)
+            print("Data saved to knutsford_fares.json in current directory")
+    else:
+        print("No fare data could be scraped.")
+
+if __name__ == "__main__":
+    main()
