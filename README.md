@@ -1,12 +1,14 @@
 # Neural-Booker
 
-**DESCRIPTION:** 
-()
-
-**CONTRIBUTORS:** Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
+## DESCRIPTION
+<br>
 
 ## Contributors' Assignments Breakdown
 
-| Name           | ID Number | Deliverables                                       | Status |
-|----------------|-----------|----------------------------------------------------|--------|
-| Kemar Christie | 2005904   | Lexar Creation & Grammar Creation                  |   ⌛     |
+| Name           | Deliverables                                       | Status |
+|----------------|----------------------------------------------------|:------:|
+| Kemar Christie | Creation of Programming Language,                  |   ⌛   |
+| Roberto James | Creation of Programming Language,                   |   ⌛   |
+| Dwayne Gibbs |                                                      |   ❓   |
+| Tyoni Davis |                                                       |   ❓   |
+| Danielle Jones |                                                    |   ❓   |
