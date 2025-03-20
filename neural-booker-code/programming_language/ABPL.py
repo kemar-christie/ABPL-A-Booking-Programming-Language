@@ -11,7 +11,7 @@ import re
 
 # Working:
 
-# List all flights from Jamaica to USA. - Working
+# List flights from Jamaica to USA. - Working
 # Book a ticket to USA from Jamaica that cost less than $2000. - Working
 # Book a ticket to USA from Jamaica. - Working
 # How many tickets are there from USA to Jamaica. - Working
@@ -38,8 +38,10 @@ tokens = ('KEYWORD', 'DATE', 'START_DATE', 'END_DATE', 'NUMBER', 'SYMBOL', 'MONE
 
 # Define keywords as a Python list
 keywords = ['List', 'Book a', 'Confirm', 'Pay', 'From', 'To', 'On', 'For', 'Schedule', 
-            'Cancel', 'Cost', 'Duration', 'That', 'How many', 'There', 'Are', 'All', 
-            'At', 'Returning', 'in']
+            'Cancel', 'Cost', 'Duration of', 'That', 'How many', 'are there', 
+            'At', 'Returning', 'in','Reserve a']
+
+
 
 
 # Generate the t_KEYWORD regex dynamically
@@ -47,7 +49,7 @@ t_KEYWORD = r'\b(?:' + r'|'.join(keywords) + r')\b'
 
 t_CONDITIONS = r'\b(?:less than|more than|equal to|greater than|if|then)\b'
 
-t_RESOURCE = r'Reservations|Reservation|Tickets|Ticket|tickets|Flights|Flight|Reserve|Rooms|Room|Hotel'
+t_RESOURCE = r'Reservations|Reservation|Tickets|Ticket|tickets|Flights|Flight|Rooms|Room|Hotels|Hotel'
 
 # Regex for dates (abbreviated and full month names only)
 t_DATE = r'(\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d{1,2},\s*\d{4}\b|' \

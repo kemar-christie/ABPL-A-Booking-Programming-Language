@@ -1,3 +1,11 @@
 # Book a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1.
 
-keyword : keyword | Book a| Cancel | 
+START           : KEYWORD RESOURCE  LOCATION_MARKERS | KEYWORD service RESOURCE LOCATION_MARKERS | KEYWORD service schedule
+KEYWORD         : List |Book a |Confirm | Pay | From | To | On | For | Schedule | Cancel | Cost | Duration of | That | How many | There | Are | At | Returning | in
+RESOURCE        : Reservations|Reservation|Tickets|Ticket|tickets|Flights|Flight|Rooms|Room|Hotels|Hotel
+LOCATION_MARKERS: at | in | from | that | to | at 
+
+
+# certain keyword cannot Start a statement eg(in,that, there, at,To, on,for, Are)
+# create a speerate keywords list for keywords such as to, from, at, in that sepearates it from the keywords because they are used to hep us identify departure and destination.
+
