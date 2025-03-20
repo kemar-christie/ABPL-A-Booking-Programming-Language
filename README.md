@@ -1,6 +1,6 @@
 # Neural-Booker
 
-## DESCRIPTION
+## Description
 
 <br>
 
