@@ -1,6 +1,7 @@
 # Neural-Booker
 
 ## DESCRIPTION
+
 <br>
 
 ## Contributors' Assignments Breakdown
