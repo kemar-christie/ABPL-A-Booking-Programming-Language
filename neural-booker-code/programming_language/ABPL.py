@@ -12,7 +12,7 @@ from ply.yacc import yacc
 
 # --- Tokenizer
 
-tokens = ('ACTION_KEYWORD', 'CONTEXT_KEYWORD', 'LOCATION_MARKER', 'CONNECTIVE_WORD',
+tokens = ('ACTION_KEYWORD', 'CONTEXT_KEYWORD', 'LOCATION_MARKER', 'CONNECTIVE_WORD', 
           'DATE', 'START_DATE', 'END_DATE', 'NUMBER', 'SYMBOL', 'MONEY', 'RESOURCE', 
           'CONDITIONS', 'TIME', 'USERNAME', 'DEPARTURE', 'ARRIVAL', 'LOCATION', 
           'SERVICE', 'ARTICLE_CONJUNCTION')
@@ -35,20 +35,20 @@ connective_words = ['that']
 
 # Generate regex patterns for each category
 t_ACTION_KEYWORD = r'\b(?:' + r'|'.join(action_keywords) + r')\b'
+
 t_CONTEXT_KEYWORD = r'\b(?:' + r'|'.join(context_keywords) + r')\b'
+
 t_LOCATION_MARKER = r'\b(?:' + r'|'.join(location_markers) + r')\b'
+
 t_CONNECTIVE_WORD = r'\b(?:' + r'|'.join(connective_words) + r')\b'
 
-# Regex for dates (abbreviated and full month names only)
-t_DATE = r'(\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d{1,2},\s*\d{4}\b|' \
-         r'\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s\d{1,2},\s*\d{4}\b)'
+t_START_DATE = r'(?<=\bfrom\b\s).+?(?=\s\bto\b)|(?<=\bon\b\s).+?(?=\s\bat\b)'
 
-t_START_DATE = r'(?<=\bfor\s)' + t_DATE + r'|' \
-               r'(?<=\bon\s)' + t_DATE + r'|' \
-               r'(?<=\bfrom\s)' + t_DATE
+t_END_DATE = r'(?<=\breturning on\s).+?(?=\s(?:at)\b)|' \
+             r'(?<=\bto\s).+?(?=\s(?:for)\b)|' \
+             r'(?<=\bto\s).+?(?=\.)'
 
-t_END_DATE = r'(?<=\bto\s)' + t_DATE + r'|' \
-             r'(?<=\breturning on\s)' + t_DATE
+t_DATE = r'(?<=\bon\s)((?!\b(?:in|at|from|to)\b).)+?(?=\.)'
 
 t_NUMBER = r'\b\d+\b'
 
@@ -98,17 +98,17 @@ lexer = lex(reflags=re.IGNORECASE)
 
 
 # Provide the input data
-data = "Book a Ticket from Montego Bay to Miami on February 17, 2025 at 8:30 AM returning on March 17, 2025 at 8:30 AM."
+data = ""
 
 # Feed the input data to the lexer
 lexer.input(data)
 
 # Tokenize and print the output
-print("Tokenized Output:")
+print("\nTokenized Output:\n")
 while True:
     tok = lexer.token()  # Extract the next token
     if not tok:
-        break  # Stop when no more tokens are available
+        break # Stop when no more tokens are available
     print(tok)
 
 
