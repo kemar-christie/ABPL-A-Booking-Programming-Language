@@ -1,9 +1,0 @@
-# works for input like: Book a Room at AC Hotel from March 10, 2025.
-#t_SERVICE_ALT_1 = r'(?<=\bat\s)([A-Za-z\s]+?)(?=\sfrom\b)'
-
-# works for input like: Book a Knutsford Express ticket from Montego Bay.
-#t_SERVICE_ALT_3 = r'(?<=\ba\s)([A-Za-z\s]+?)(?=\s(?:' + t_RESOURCE + r')\b)'
-
-# work for input like: List Knutsford Express schedule.  
-# also works fo: Confirm reservation for Knutsford Express for Joy Reynolds.
-#t_SERVICE_ALT_4 = r'(?<=\bList\s)([A-Za-z\s]+?)(?=\s\bSchedule\b)|(?<=\bfor\s)([A-Za-z\s]+?)(?=\s\bfor\b)'

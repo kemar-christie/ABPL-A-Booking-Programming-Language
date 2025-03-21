@@ -169,7 +169,3 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
-
-
-# Single File
-neural-booker-code/programming_language/just_in_case.txt

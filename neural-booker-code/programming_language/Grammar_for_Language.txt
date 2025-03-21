@@ -95,25 +95,25 @@ CONNECTIVE_WORD      : 'that'
 ARTICLE_CONJUNCTION  : 'a' | 'and'
 RESOURCE             : 'Reservations' | 'Reservation' | 'Tickets' | 'Ticket' | 'tickets' | 'Flights' | 'Flight' | 'Rooms' | 'Room' | 'Hotels' | 'Hotel'
 CONDITIONS           : 'less than' | 'more than' | 'equal to' | 'greater than' | 'if' | 'then'
-DATE                 : 'Jan' NUM, NUM | 'Feb' NUM, NUM | 'Mar' NUM, NUM | 'Apr' NUM, NUM | 'May' NUM, NUM | 'Jun' NUM, NUM |
-                      'Jul' NUM, NUM | 'Aug' NUM, NUM | 'Sep' NUM, NUM | 'Oct' NUM, NUM | 'Nov' NUM, NUM | 'Dec' NUM, NUM |
-                      'January' NUM, NUM | 'February' NUM, NUM | 'March' NUM, NUM | 'April' NUM, NUM | 'May' NUM, NUM | 'June' NUM, NUM |
-                      'July' NUM, NUM | 'August' NUM, NUM | 'September' NUM, NUM | 'October' NUM, NUM | 'November' NUM, NUM | 'December' NUM, NUM
+DATE                 : 'Jan' NUMBER, NUMBER | 'Feb' NUMBER, NUMBER | 'Mar' NUMBER, NUMBER | 'Apr' NUMBER, NUMBER | 'May' NUMBER, NUMBER | 'Jun' NUMBER, NUMBER |
+                      'Jul' NUMBER, NUMBER | 'Aug' NUMBER, NUMBER | 'Sep' NUMBER, NUMBER | 'Oct' NUMBER, NUMBER | 'Nov' NUMBER, NUMBER | 'Dec' NUMBER, NUMBER |
+                      'January' NUMBER, NUMBER | 'February' NUMBER, NUMBER | 'March' NUMBER, NUMBER | 'April' NUMBER, NUMBER | 'May' NUMBER, NUMBER | 'June' NUMBER, NUMBER |
+                      'July' NUMBER, NUMBER | 'August' NUMBER, NUMBER | 'September' NUMBER, NUMBER | 'October' NUMBER, NUNUMBERM | 'November' NUMBER, NUMBER | 
+                      'December' NUMBER, NUMBER
 START_DATE           : DATE following 'for' or 'on'
 END_DATE             : DATE following 'to'
-TIME                 : NUM:NUM 'AM' | NUM:NUM 'PM'        // Must be in 12-hour format (1-12)
-NUMBER               : NUM
-MONEY                : '$' NUM | '$' NUM.NUM
+TIME                 : NUMBER:NUMBER 'AM' | NUMBER:NUMBER 'PM'
+NUMBER               : 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+MONEY                : '$' NUMBER | '$' NUMBER.NUMBER
 USERNAME             : ALPHANUMERIC_STRING following 'for'
 DEPARTURE            : LOCATION following 'from'
 ARRIVAL              : LOCATION following 'to'
 LOCATION             : LOCATION following 'in' or 'at'
 SERVICE              : ALPHANUMERIC_STRING not matching other tokens
-SYMBOL               : '.' | ',' | ':'
+SYMBOL               : '.'
 
 
 
 // Notes:
 
-// NUM represents one or more digits
 // ALPHANUMERIC_STRING represents a sequence of letters, numbers, and underscores
