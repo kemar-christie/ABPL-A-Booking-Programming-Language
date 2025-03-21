@@ -1,11 +1,119 @@
-# Book a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey1.
+// Grammar for Neural-Booker Booking Language (ABPL)
 
-START           : KEYWORD RESOURCE  LOCATION_MARKERS | KEYWORD service RESOURCE LOCATION_MARKERS | KEYWORD service schedule
-KEYWORD         : List |Book a |Confirm | Pay | From | To | On | For | Schedule | Cancel | Cost | Duration of | That | How many | There | Are | At | Returning | in
-RESOURCE        : Reservations|Reservation|Tickets|Ticket|tickets|Flights|Flight|Rooms|Room|Hotels|Hotel
-LOCATION_MARKERS: at | in | from | that | to | at 
+// Basic structure - every command ends with a symbol
+START                : BOOKING_COMMAND SYMBOL
 
 
-# certain keyword cannot Start a statement eg(in,that, there, at,To, on,for, Are)
-# create a speerate keywords list for keywords such as to, from, at, in that sepearates it from the keywords because they are used to hep us identify departure and destination.
+// Main command types
+BOOKING_COMMAND      : LIST_COMMAND
+                     | BOOKING_COMMAND
+                     | RESERVATION_COMMAND
+                     | CONFIRMATION_COMMAND
+                     | CANCELLATION_COMMAND
+                     | PAYMENT_COMMAND
+                     | INQUIRY_COMMAND
 
+
+// List commands
+                     // List flights from Jamaica to USA.
+LIST_COMMAND         : ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
+
+                     // List Knutsford Express schedule.
+                     | ACTION_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL
+
+
+// Booking commands
+                     // Book a ticket to USA from Jamaica that cost less than $2000.
+BOOKING_COMMAND      : ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE CONNECTIVE_WORD CONDITIONS MONEY SYMBOL
+
+                     // Book a ticket to USA from Jamaica.
+                     | ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE SYMBOL
+
+                     // Book a ticket to USA from Jamaica and a Reservation from Mar 10, 2025 To Mar 10, 2025.
+                     | ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE ARTICLE_CONJUNCTION ARTICLE_CONJUNCTION RESOURCE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE SYMBOL 
+
+                     // Book a Knutsford Express Ticket from Montego Bay to Kingston on February 17, 2025 at 8:30 AM for Joy_Reynolds.
+                     | ACTION_KEYWORD SERVICE RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL CONTEXT_KEYWORD DATE LOCATION_MARKER TIME CONTEXT_KEYWORD USERNAME SYMBOL
+
+                     // Book a Ticket from Montego Bay to Miami on February 17, 2025 at 8:30 AM returning on March 17, 2025 at 8:30 AM.
+                     | ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL CONTEXT_KEYWORD START_DATE LOCATION_MARKER TIME CONTEXT_KEYWORD CONTEXT_KEYWORD END_DATE LOCATION_MARKER TIME SYMBOL
+
+                     // Book a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds.
+                     | ACTION_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL
+
+
+// Reservation command
+                       // Reserve a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds.
+RESERVATION_COMMAND  : ACTION_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL
+
+
+// Confirmation command
+                       // Confirm a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds.
+CONFIRMATION_COMMAND : ACTION_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL
+
+
+// Cancellation command
+                        // Cancel a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds.
+CANCELLATION_COMMAND : ACTION_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL
+
+
+// Payment command
+                       // Pay reservation for Knutsford Express for Joy_Reynolds.
+PAYMENT_COMMAND      : ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD SERVICE CONTEXT_KEYWORD USERNAME SYMBOL
+
+
+// Inquiry command
+                       // How many tickets are there from USA to Jamaica.
+INQUIRY_COMMAND      : ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
+
+
+// Location patterns
+                     // from Jamaica to USA.
+LOCATION_DETAILS     : LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL
+
+                     // to USA from Jamaica.
+                     | LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE
+
+                     // in Jamaica
+                     | LOCATION_MARKER LOCATION
+
+                     // from Jamaica   
+                     | LOCATION_MARKER LOCATION
+
+
+// Date patterns
+                       // from Mar 10, 2025 to Mar 10, 2025.
+DATE_RANGE           : LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE
+
+
+
+// Terminal tokens
+ACTION_KEYWORD       : 'List' | 'Book a' | 'Confirm' | 'Pay' | 'Cancel' | 'Reserve a' | 'How many' | 'Duration of'
+CONTEXT_KEYWORD      : 'On' | 'For' | 'Schedule' | 'are there' | 'Returning' | 'cost' | 'returning on'
+LOCATION_MARKER      : 'in' | 'at' | 'from' | 'to'
+CONNECTIVE_WORD      : 'that'
+ARTICLE_CONJUNCTION  : 'a' | 'and'
+RESOURCE             : 'Reservations' | 'Reservation' | 'Tickets' | 'Ticket' | 'tickets' | 'Flights' | 'Flight' | 'Rooms' | 'Room' | 'Hotels' | 'Hotel'
+CONDITIONS           : 'less than' | 'more than' | 'equal to' | 'greater than' | 'if' | 'then'
+DATE                 : 'Jan' NUM, NUM | 'Feb' NUM, NUM | 'Mar' NUM, NUM | 'Apr' NUM, NUM | 'May' NUM, NUM | 'Jun' NUM, NUM |
+                      'Jul' NUM, NUM | 'Aug' NUM, NUM | 'Sep' NUM, NUM | 'Oct' NUM, NUM | 'Nov' NUM, NUM | 'Dec' NUM, NUM |
+                      'January' NUM, NUM | 'February' NUM, NUM | 'March' NUM, NUM | 'April' NUM, NUM | 'May' NUM, NUM | 'June' NUM, NUM |
+                      'July' NUM, NUM | 'August' NUM, NUM | 'September' NUM, NUM | 'October' NUM, NUM | 'November' NUM, NUM | 'December' NUM, NUM
+START_DATE           : DATE following 'for' or 'on'
+END_DATE             : DATE following 'to'
+TIME                 : NUM:NUM 'AM' | NUM:NUM 'PM'        // Must be in 12-hour format (1-12)
+NUMBER               : NUM
+MONEY                : '$' NUM | '$' NUM.NUM
+USERNAME             : ALPHANUMERIC_STRING following 'for'
+DEPARTURE            : LOCATION following 'from'
+ARRIVAL              : LOCATION following 'to'
+LOCATION             : LOCATION following 'in' or 'at'
+SERVICE              : ALPHANUMERIC_STRING not matching other tokens
+SYMBOL               : '.' | ',' | ':'
+
+
+
+// Notes:
+
+// NUM represents one or more digits
+// ALPHANUMERIC_STRING represents a sequence of letters, numbers, and underscores
