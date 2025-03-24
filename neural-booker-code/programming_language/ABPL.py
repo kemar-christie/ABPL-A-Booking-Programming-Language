@@ -83,22 +83,30 @@ t_SERVICE = r'(?<=\ba\s)(?!(?:' + r'|'.join(all_keywords) + r')\b)([A-Za-z]+(?:\
 
 t_ARTICLE_CONJUNCTION = r'\b(a|and)\b'
 
+
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
 # Ignored white spaces and tab
-t_ignore = ' \t\n'
+t_ignore = ' \t'
 
 
-# Define the error handling function
+
 def t_error(t):
-    print(f"Illegal character '{t.value[0]}' at line {t.lineno}")
-    t.lexer.skip(1)
+    column = t.lexpos - t.lexer.lexdata.rfind('\n', 0, t.lexpos)
+    print(f"Illegal character '{t.value[0]}' at line {t.lineno}, column {column} ")
+    t.lexer.skip(1)  # Skip the invalid character
+
+
+
 
 
 # Build the lexer object
 lexer = lex(reflags=re.IGNORECASE)
 
-
 # Provide the input data
-data = ""
+data = "List flights from Jamaica to USA."
 
 # Feed the input data to the lexer
 lexer.input(data)
@@ -112,6 +120,77 @@ while True:
     print(tok)
 
 
+# --Parser
+
+
+# Define the grammar rules for your parser
+
+# Parser rules with unique names to avoid conflicts with token names
+
+def p_command(p):
+    '''COMMAND : list_command'''
+    p[0] = ('COMMAND', p[1])
+
+def p_list_command(p):
+    '''list_command : ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
+                    | ACTION_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL'''
+    if len(p) == 8:  # Handling the first variant
+        p[0] = ('LIST_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
+                ('DEPARTURE', p[4]), ('LOCATION_MARKER', p[5]), ('ARRIVAL', p[6]), ('SYMBOL', p[7]))
+    elif len(p) == 5:  # Handling the second variant
+        p[0] = ('LIST_COMMAND', ('ACTION_KEYWORD', p[1]), ('SERVICE', p[2]), ('CONTEXT_KEYWORD', p[3]),
+                ('SYMBOL', p[4]))
+
+def p_departure(p):
+    '''departure : DEPARTURE'''
+    p[0] = ('DEPARTURE', p[1])
+
+def p_arrival(p):
+    '''arrival : ARRIVAL'''
+    p[0] = ('ARRIVAL', p[1])
+
+def p_action_keyword_rule(p):
+    '''action_keyword_rule : ACTION_KEYWORD'''
+    p[0] = ('ACTION_KEYWORD', p[1])
+
+def p_resource_rule(p):
+    '''resource_rule : RESOURCE'''
+    p[0] = ('RESOURCE', p[1])
+
+def p_location_marker_rule(p):
+    '''location_marker_rule : LOCATION_MARKER'''
+    p[0] = ('LOCATION_MARKER', p[1])
+
+def p_context_keyword_rule(p):
+    '''context_keyword_rule : CONTEXT_KEYWORD'''
+    p[0] = ('CONTEXT_KEYWORD', p[1])
+
+def p_service_rule(p):
+    '''service_rule : SERVICE'''
+    p[0] = ('SERVICE', p[1])
+
+def p_symbol_rule(p):
+    '''symbol_rule : SYMBOL'''
+    p[0] = ('SYMBOL', p[1])
+
+# Error handling
+def p_error(p):
+    if p:
+        print(f"Syntax error at token '{p.value}', line {p.lineno}")
+    else:
+        print("Syntax error at end of input")
+
+
+
+# Build the parser
+parser = yacc()
+
+# Test the parser with an input string
+input_data = data
+result = parser.parse(input_data)
+
+print("\nParsed Result:")
+print(result)
 
 # Stuff to look out for:
 
@@ -126,6 +205,7 @@ while True:
 
 # Working:
 
+# List Knutsford Express Schedule.
 # List flights from Jamaica to USA. - Working
 # Book a ticket to USA from Jamaica that cost less than $2000. - Working
 # Book a ticket to USA from Jamaica. - Working

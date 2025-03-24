@@ -1,0 +1,165 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ARTICLE_CONJUNCTION
+    CONDITIONS
+    CONNECTIVE_WORD
+    DATE
+    END_DATE
+    LOCATION
+    MONEY
+    NUMBER
+    START_DATE
+    TIME
+    USERNAME
+
+Grammar
+
+Rule 0     S' -> COMMAND
+Rule 1     COMMAND -> list_command
+Rule 2     list_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
+Rule 3     list_command -> ACTION_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL
+Rule 4     departure -> DEPARTURE
+Rule 5     arrival -> ARRIVAL
+Rule 6     action_keyword_rule -> ACTION_KEYWORD
+Rule 7     resource_rule -> RESOURCE
+Rule 8     location_marker_rule -> LOCATION_MARKER
+Rule 9     context_keyword_rule -> CONTEXT_KEYWORD
+Rule 10    service_rule -> SERVICE
+Rule 11    symbol_rule -> SYMBOL
+
+Terminals, with rules where they appear
+
+ACTION_KEYWORD       : 2 3 6
+ARRIVAL              : 2 5
+ARTICLE_CONJUNCTION  : 
+CONDITIONS           : 
+CONNECTIVE_WORD      : 
+CONTEXT_KEYWORD      : 3 9
+DATE                 : 
+DEPARTURE            : 2 4
+END_DATE             : 
+LOCATION             : 
+LOCATION_MARKER      : 2 2 8
+MONEY                : 
+NUMBER               : 
+RESOURCE             : 2 7
+SERVICE              : 3 10
+START_DATE           : 
+SYMBOL               : 2 3 11
+TIME                 : 
+USERNAME             : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+COMMAND              : 0
+action_keyword_rule  : 
+arrival              : 
+context_keyword_rule : 
+departure            : 
+list_command         : 1
+location_marker_rule : 
+resource_rule        : 
+service_rule         : 
+symbol_rule          : 
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . COMMAND
+    (1) COMMAND -> . list_command
+    (2) list_command -> . ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
+    (3) list_command -> . ACTION_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL
+
+    ACTION_KEYWORD  shift and go to state 3
+
+    COMMAND                        shift and go to state 1
+    list_command                   shift and go to state 2
+
+state 1
+
+    (0) S' -> COMMAND .
+
+
+
+state 2
+
+    (1) COMMAND -> list_command .
+
+    $end            reduce using rule 1 (COMMAND -> list_command .)
+
+
+state 3
+
+    (2) list_command -> ACTION_KEYWORD . RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
+    (3) list_command -> ACTION_KEYWORD . SERVICE CONTEXT_KEYWORD SYMBOL
+
+    RESOURCE        shift and go to state 4
+    SERVICE         shift and go to state 5
+
+
+state 4
+
+    (2) list_command -> ACTION_KEYWORD RESOURCE . LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
+
+    LOCATION_MARKER shift and go to state 6
+
+
+state 5
+
+    (3) list_command -> ACTION_KEYWORD SERVICE . CONTEXT_KEYWORD SYMBOL
+
+    CONTEXT_KEYWORD shift and go to state 7
+
+
+state 6
+
+    (2) list_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER . DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
+
+    DEPARTURE       shift and go to state 8
+
+
+state 7
+
+    (3) list_command -> ACTION_KEYWORD SERVICE CONTEXT_KEYWORD . SYMBOL
+
+    SYMBOL          shift and go to state 9
+
+
+state 8
+
+    (2) list_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE . LOCATION_MARKER ARRIVAL SYMBOL
+
+    LOCATION_MARKER shift and go to state 10
+
+
+state 9
+
+    (3) list_command -> ACTION_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL .
+
+    $end            reduce using rule 3 (list_command -> ACTION_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL .)
+
+
+state 10
+
+    (2) list_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER . ARRIVAL SYMBOL
+
+    ARRIVAL         shift and go to state 11
+
+
+state 11
+
+    (2) list_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL . SYMBOL
+
+    SYMBOL          shift and go to state 12
+
+
+state 12
+
+    (2) list_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL .
+
+    $end            reduce using rule 2 (list_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL .)
+
