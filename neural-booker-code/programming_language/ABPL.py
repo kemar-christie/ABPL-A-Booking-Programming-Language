@@ -92,13 +92,10 @@ def t_newline(t):
 t_ignore = ' \t'
 
 
-
 def t_error(t):
     column = t.lexpos - t.lexer.lexdata.rfind('\n', 0, t.lexpos)
     print(f"Illegal character '{t.value[0]}' at line {t.lineno}, column {column} ")
     t.lexer.skip(1)  # Skip the invalid character
-
-
 
 
 
@@ -120,11 +117,11 @@ while True:
     print(tok)
 
 
-# --Parser
 
+
+# --- Parser
 
 # Define the grammar rules for your parser
-
 # Parser rules with unique names to avoid conflicts with token names
 
 def p_command(p):
@@ -192,7 +189,9 @@ result = parser.parse(input_data)
 print("\nParsed Result:")
 print(result)
 
-# Stuff to look out for:
+
+
+# Stuff to look out for (Parser):
 
 # When reserving a ticket the customer must make a down payment of 60 % of the total cost
 # When ever the keyword confirm is used, we take the full amount from the customer
@@ -205,7 +204,7 @@ print(result)
 
 # Working:
 
-# List Knutsford Express Schedule.
+# List Knutsford Express Schedule - Working
 # List flights from Jamaica to USA. - Working
 # Book a ticket to USA from Jamaica that cost less than $2000. - Working
 # Book a ticket to USA from Jamaica. - Working

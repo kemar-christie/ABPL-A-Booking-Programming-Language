@@ -1,4 +1,4 @@
-
+# This is a context-free grammar (CFG) for a simple booking system.
 
 # List Knutsford Express Schedule.
 # List flights from Jamaica to USA. 
