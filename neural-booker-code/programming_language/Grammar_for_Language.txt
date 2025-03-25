@@ -1,11 +1,14 @@
+#Book a ticket to USA from Jamaica that cost less than $2000.
+
 // Grammar for Neural-Booker Booking Language (ABPL)
 
 // Basic structure - every command ends with a symbol
-START                : BOOKING_COMMAND SYMBOL
+START                : COMMAND SYMBOL
+
 
 
 // Main command types
-BOOKING_COMMAND      : LIST_COMMAND
+COMMAND              : LIST_COMMAND
                      | BOOKING_COMMAND
                      | RESERVATION_COMMAND
                      | CONFIRMATION_COMMAND
@@ -24,7 +27,7 @@ LIST_COMMAND         : ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATIO
 
 // Booking commands
                      // Book a ticket to USA from Jamaica that cost less than $2000.
-BOOKING_COMMAND      : ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE CONNECTIVE_WORD CONDITIONS MONEY SYMBOL
+BOOKING_COMMAND      : ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE CONNECTIVE_WORD CONTEXT_KEYWORD CONDITIONS MONEY SYMBOL
 
                      // Book a ticket to USA from Jamaica.
                      | ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE SYMBOL

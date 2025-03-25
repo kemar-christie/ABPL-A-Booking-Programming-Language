@@ -106,7 +106,7 @@ def t_error(t):
 lexer = lex(reflags=re.IGNORECASE)
 
 # Provide the input data
-data = "List flights from Jamaica to USA."
+data = "Book a ticket to USA from Jamaica that cost less than $2000."
 
 # Feed the input data to the lexer
 lexer.input(data)
