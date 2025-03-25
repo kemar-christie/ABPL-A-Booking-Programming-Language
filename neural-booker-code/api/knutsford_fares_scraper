@@ -234,8 +234,10 @@ def main():
         
         # Save the results
         scraper.save_results_to_json(fare_data, "knutsford_fares.json")
+        print("Saved")
     else:
         print("No fare data could be scraped.")
+
 
 if __name__ == "__main__":
     main()
