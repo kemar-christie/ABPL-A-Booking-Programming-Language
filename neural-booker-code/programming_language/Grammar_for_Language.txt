@@ -44,6 +44,7 @@ BOOKING_COMMAND      : ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_
                      // Book a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds.
                      | ACTION_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL
 
+------ Should remove RESERVATION_COMMAND, CONFIRMATION_COMMAND and CANCELLATION_COMMAND
 
 // Reservation command
                        // Reserve a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds.
@@ -59,6 +60,7 @@ CONFIRMATION_COMMAND : ACTION_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_
                         // Cancel a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds.
 CANCELLATION_COMMAND : ACTION_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL
 
+-----------------------------------------------------------------------------------------------------------------------------------
 
 // Payment command
                        // Pay reservation for Knutsford Express for Joy_Reynolds.

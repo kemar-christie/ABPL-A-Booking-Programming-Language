@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ACTION_KEYWORD ARRIVAL ARTICLE_CONJUNCTION CONDITIONS CONNECTIVE_WORD CONTEXT_KEYWORD DATE DEPARTURE END_DATE LOCATION LOCATION_MARKER MONEY NUMBER RESOURCE SERVICE START_DATE SYMBOL TIME USERNAMECOMMAND : list_commandlist_command : ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL\n| ACTION_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOLdeparture : DEPARTUREarrival : ARRIVALaction_keyword_rule : ACTION_KEYWORDresource_rule : RESOURCElocation_marker_rule : LOCATION_MARKERcontext_keyword_rule : CONTEXT_KEYWORDservice_rule : SERVICEsymbol_rule : SYMBOL'
+_lr_signature = 'ACTION_KEYWORD ARRIVAL ARTICLE_CONJUNCTION CONDITIONS CONNECTIVE_WORD CONTEXT_KEYWORD DATE DEPARTURE END_DATE LOCATION LOCATION_MARKER MONEY NUMBER RESOURCE SERVICE START_DATE SYMBOL TIME USERNAMECOMMAND : booking_command\n| list_command\n| payment_command\n| inquiry_commandlist_command : ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL\n| ACTION_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOLbooking_command : ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE SYMBOL\n| ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE CONNECTIVE_WORD CONTEXT_KEYWORD CONDITIONS MONEY SYMBOL\n| ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE ARTICLE_CONJUNCTION ARTICLE_CONJUNCTION RESOURCE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE SYMBOL\n| ACTION_KEYWORD SERVICE RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL CONTEXT_KEYWORD START_DATE LOCATION_MARKER TIME CONTEXT_KEYWORD USERNAME SYMBOL\n| ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL CONTEXT_KEYWORD START_DATE LOCATION_MARKER TIME CONTEXT_KEYWORD CONTEXT_KEYWORD END_DATE LOCATION_MARKER TIME SYMBOL\n| ACTION_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOLpayment_command : ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD SERVICE CONTEXT_KEYWORD USERNAME SYMBOLinquiry_command : ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOLdeparture : DEPARTUREarrival : ARRIVALaction_keyword_rule : ACTION_KEYWORDresource_rule : RESOURCEservice_rule : SERVICElocation_marker_rule : LOCATION_MARKERcontext_keyword_rule : CONTEXT_KEYWORDstart_date_rule : START_DATEtime_rule : TIMEusername_rule : USERNAMEsymbol_rule : SYMBOL'
     
-_lr_action_items = {'ACTION_KEYWORD':([0,],[3,]),'$end':([1,2,9,12,],[0,-1,-3,-2,]),'RESOURCE':([3,],[4,]),'SERVICE':([3,],[5,]),'LOCATION_MARKER':([4,8,],[6,10,]),'CONTEXT_KEYWORD':([5,],[7,]),'DEPARTURE':([6,],[8,]),'SYMBOL':([7,11,],[9,12,]),'ARRIVAL':([10,],[11,]),}
+_lr_action_items = {'ACTION_KEYWORD':([0,],[6,]),'$end':([1,2,3,4,5,19,32,36,38,45,57,60,68,70,72,],[0,-1,-2,-3,-4,-6,-7,-5,-13,-14,-8,-12,-9,-10,-11,]),'RESOURCE':([6,8,42,],[7,11,48,]),'SERVICE':([6,9,10,],[8,15,16,]),'LOCATION_MARKER':([7,10,11,13,14,15,24,25,28,43,48,51,58,66,],[9,17,18,20,21,22,30,31,37,49,53,56,62,69,]),'CONTEXT_KEYWORD':([7,8,16,27,33,40,44,54,59,61,],[10,12,23,35,41,46,50,59,63,64,]),'ARRIVAL':([9,21,30,31,],[13,27,39,40,]),'DEPARTURE':([9,17,18,20,],[14,24,25,26,]),'SYMBOL':([12,26,27,29,39,52,55,65,67,71,],[19,32,36,38,45,57,60,68,70,72,]),'START_DATE':([22,35,46,53,],[28,43,51,58,]),'USERNAME':([23,50,64,],[29,55,67,]),'CONNECTIVE_WORD':([26,],[33,]),'ARTICLE_CONJUNCTION':([26,34,],[34,42,]),'END_DATE':([37,62,63,],[44,65,66,]),'CONDITIONS':([41,],[47,]),'MONEY':([47,],[52,]),'TIME':([49,56,69,],[54,61,71,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'COMMAND':([0,],[1,]),'list_command':([0,],[2,]),}
+_lr_goto_items = {'COMMAND':([0,],[1,]),'booking_command':([0,],[2,]),'list_command':([0,],[3,]),'payment_command':([0,],[4,]),'inquiry_command':([0,],[5,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,15 +27,29 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> COMMAND","S'",1,None,None,None),
-  ('COMMAND -> list_command','COMMAND',1,'p_command','ABPL.py',133),
+  ('COMMAND -> booking_command','COMMAND',1,'p_command','ABPL.py',129),
+  ('COMMAND -> list_command','COMMAND',1,'p_command','ABPL.py',130),
+  ('COMMAND -> payment_command','COMMAND',1,'p_command','ABPL.py',131),
+  ('COMMAND -> inquiry_command','COMMAND',1,'p_command','ABPL.py',132),
   ('list_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL','list_command',7,'p_list_command','ABPL.py',137),
   ('list_command -> ACTION_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL','list_command',4,'p_list_command','ABPL.py',138),
-  ('departure -> DEPARTURE','departure',1,'p_departure','ABPL.py',147),
-  ('arrival -> ARRIVAL','arrival',1,'p_arrival','ABPL.py',151),
-  ('action_keyword_rule -> ACTION_KEYWORD','action_keyword_rule',1,'p_action_keyword_rule','ABPL.py',155),
-  ('resource_rule -> RESOURCE','resource_rule',1,'p_resource_rule','ABPL.py',159),
-  ('location_marker_rule -> LOCATION_MARKER','location_marker_rule',1,'p_location_marker_rule','ABPL.py',163),
-  ('context_keyword_rule -> CONTEXT_KEYWORD','context_keyword_rule',1,'p_context_keyword_rule','ABPL.py',167),
-  ('service_rule -> SERVICE','service_rule',1,'p_service_rule','ABPL.py',171),
-  ('symbol_rule -> SYMBOL','symbol_rule',1,'p_symbol_rule','ABPL.py',175),
+  ('booking_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE SYMBOL','booking_command',7,'p_booking_command','ABPL.py',148),
+  ('booking_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE CONNECTIVE_WORD CONTEXT_KEYWORD CONDITIONS MONEY SYMBOL','booking_command',11,'p_booking_command','ABPL.py',149),
+  ('booking_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE ARTICLE_CONJUNCTION ARTICLE_CONJUNCTION RESOURCE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE SYMBOL','booking_command',14,'p_booking_command','ABPL.py',150),
+  ('booking_command -> ACTION_KEYWORD SERVICE RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL CONTEXT_KEYWORD START_DATE LOCATION_MARKER TIME CONTEXT_KEYWORD USERNAME SYMBOL','booking_command',14,'p_booking_command','ABPL.py',151),
+  ('booking_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL CONTEXT_KEYWORD START_DATE LOCATION_MARKER TIME CONTEXT_KEYWORD CONTEXT_KEYWORD END_DATE LOCATION_MARKER TIME SYMBOL','booking_command',16,'p_booking_command','ABPL.py',152),
+  ('booking_command -> ACTION_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL','booking_command',11,'p_booking_command','ABPL.py',153),
+  ('payment_command -> ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD SERVICE CONTEXT_KEYWORD USERNAME SYMBOL','payment_command',7,'p_payment_command','ABPL.py',184),
+  ('inquiry_command -> ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL','inquiry_command',8,'p_inquiry_command','ABPL.py',189),
+  ('departure -> DEPARTURE','departure',1,'p_departure','ABPL.py',194),
+  ('arrival -> ARRIVAL','arrival',1,'p_arrival','ABPL.py',198),
+  ('action_keyword_rule -> ACTION_KEYWORD','action_keyword_rule',1,'p_action_keyword_rule','ABPL.py',202),
+  ('resource_rule -> RESOURCE','resource_rule',1,'p_resource_rule','ABPL.py',206),
+  ('service_rule -> SERVICE','service_rule',1,'p_service_rule','ABPL.py',210),
+  ('location_marker_rule -> LOCATION_MARKER','location_marker_rule',1,'p_location_marker_rule','ABPL.py',214),
+  ('context_keyword_rule -> CONTEXT_KEYWORD','context_keyword_rule',1,'p_context_keyword_rule','ABPL.py',218),
+  ('start_date_rule -> START_DATE','start_date_rule',1,'p_start_date_rule','ABPL.py',222),
+  ('time_rule -> TIME','time_rule',1,'p_time_rule','ABPL.py',226),
+  ('username_rule -> USERNAME','username_rule',1,'p_username_rule','ABPL.py',230),
+  ('symbol_rule -> SYMBOL','symbol_rule',1,'p_symbol_rule','ABPL.py',234),
 ]
