@@ -1,10 +1,10 @@
-#Book a ticket to USA from Jamaica that cost less than $2000.
+# Copyright (c) 2025 Kemar Christie, Roberto james, Dwayne Gibbs, Tyoni Davis, Danielle Jones
+# Authors: Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
 
 // Grammar for Neural-Booker Booking Language (ABPL)
 
 // Basic structure - every command ends with a symbol
 START                : COMMAND SYMBOL
-
 
 
 // Main command types
@@ -122,4 +122,3 @@ SYMBOL               : '.'
 // Notes:
 
 // ALPHANUMERIC_STRING represents a sequence of letters, numbers, and underscores
-
