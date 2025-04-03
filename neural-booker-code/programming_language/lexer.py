@@ -44,7 +44,7 @@ t_END_DATE = r'(?<=\breturning on\s).+?(?=\s(?:at)\b)|' \
              r'(?<=\bto\s).+?(?=\s(?:for)\b)|' \
              r'(?<=\bto\s).+?(?=\.)'
 
-t_DATE = r'(?<=\bon\s)((?!\b(?:in|at|from|to|it)\b).)+?(?=\.)'
+t_DATE = r'(?<=\bon\s)((?!\b(?:in|at|from|to)\b).)+?(?=\s\bto\b|\.)'
 
 t_NUMBER = r'\b\d+\b'
 
@@ -99,7 +99,7 @@ lexer = lex(reflags=re.IGNORECASE)
 
 # Test the lexer (optional, for testing the lexer in isolation)
 if __name__ == '__main__':
-    data = "book a flight from montego bay on jun 2, 2025 to newyork on june 3, 2025."
+    data = "book a flight from montego bay on june 2, 2025 to newyork on june 3, 2025."
     lexer.input(data)
 
     print("\nTokenized Output:\n")
@@ -108,3 +108,5 @@ if __name__ == '__main__':
         if not tok:
             break # Stop when no more tokens are available
         print(tok)
+
+

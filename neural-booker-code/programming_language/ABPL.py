@@ -263,7 +263,7 @@ print(result)
 
 # Working:
 
-# List Knutsford Express Schedule - Working
+# List Knutsford Express Schedule. - Working
 # List flights from Jamaica to USA. - Working
 # Book a ticket to USA from Jamaica that cost less than $2000. - Working
 # Book a ticket to USA from Jamaica. - Working
@@ -278,7 +278,7 @@ print(result)
 # List Knutsford Express schedule. - Working
 # Pay reservation for Knutsford Express for Joy_Reynolds. - Working
 # Book a Hotel in Miami on March 19, 2025. - Working
-
+# book a flight from montego bay on june 2, 2025 to New York on june 3, 2025.
 
 
 # issues to tell Kemar:
