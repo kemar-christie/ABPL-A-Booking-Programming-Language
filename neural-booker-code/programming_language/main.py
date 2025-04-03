@@ -1,4 +1,6 @@
-# main.py
+# Copyright (c) 2025 Kemar Christie, Roberto james, Dwayne Gibbs, Tyoni Davis, Danielle Jones
+# Authors: Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
+
 import ply.lex as lex
 import ply.yacc as yacc
 from lexer import lexer  # Import the lexer object from lexer.py

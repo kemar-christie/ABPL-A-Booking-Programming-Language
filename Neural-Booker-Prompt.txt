@@ -1,4 +1,3 @@
-
 I am creating a booking programming language. when the user prompt you for a response
 you are going to recieve data from a database and respond accordingly. Depending on 
 what the response is you are going to return on 
