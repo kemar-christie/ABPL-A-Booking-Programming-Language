@@ -4,13 +4,13 @@ from ply.lex import lex
 
 # --- Tokenizer
 
-tokens = ('ACTION_KEYWORD', 'CONTEXT_KEYWORD', 'LOCATION_MARKER', 'CONNECTIVE_WORD', 
+tokens = ('ACTION_KEYWORD','LIST_KEYWORD', 'CONTEXT_KEYWORD', 'LOCATION_MARKER', 'CONNECTIVE_WORD', 
           'DATE', 'START_DATE', 'END_DATE', 'NUMBER', 'SYMBOL', 'MONEY', 'RESOURCE', 
           'CONDITIONS', 'TIME', 'USERNAME', 'DEPARTURE', 'ARRIVAL', 'LOCATION', 
           'SERVICE', 'ARTICLE_CONJUNCTION')
 
 # Define action keywords - commands that initiate an action
-action_keywords = ['List', 'Book a', 'Confirm a', 'Pay', 'Cancel a', 
+action_keywords = [ 'Book a', 'Confirm a', 'Pay', 'Cancel a', 
                    'Reserve a', 'How many', 'Duration of']
 
 # Define context keywords - words that provide context to actions
@@ -24,6 +24,8 @@ location_markers = ['in', 'at', 'from', 'to']
 
 # Define connective words - words that connect clauses or phrases
 connective_words = ['that']
+
+t_LIST_KEYWORD=r'List'
 
 # Generate regex patterns for each category
 t_ACTION_KEYWORD = r'\b(?:' + r'|'.join(action_keywords) + r')\b'
@@ -40,7 +42,7 @@ t_END_DATE = r'(?<=\breturning on\s).+?(?=\s(?:at)\b)|' \
              r'(?<=\bto\s).+?(?=\s(?:for)\b)|' \
              r'(?<=\bto\s).+?(?=\.)'
 
-t_DATE = r'(?<=\bon\s)((?!\b(?:in|at|from|to)\b).)+?(?=\.)'
+t_DATE = r'(?<=\bon\s)((?!\b(?:in|at|from|to|it)\b).)+?(?=\.)'
 
 t_NUMBER = r'\b\d+\b'
 
@@ -95,7 +97,7 @@ lexer = lex(reflags=re.IGNORECASE)
 
 # Test the lexer (optional, for testing the lexer in isolation)
 if __name__ == '__main__':
-    data = "How many tickets are there from USA to Jamaica."
+    data = "book a flight from montego bay on jun 2, 2025 to newyork on june 3, 2025."
     lexer.input(data)
 
     print("\nTokenized Output:\n")

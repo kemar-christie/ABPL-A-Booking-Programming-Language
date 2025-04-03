@@ -7,13 +7,13 @@ from parser import parser  # Import the parser object from parser.py
 def run_lexer(input_string):
     """Runs the lexer and prints the tokens."""
     lexer.input(input_string)
-    print("\n----------------------------------------\nTokens:")
+    print("----------------------------------------\nTokens:")
     while True:
         tok = lexer.token()
         if not tok:
             break
         print(tok)
-    print("----------------------------------------")
+    print("----------------------------------------\n")
 
 def run_parser(input_string):
     """Runs the parser and prints the parse result."""
@@ -61,7 +61,7 @@ def main():
             input_string = input("\nEnter the input string for the complete project: ")
             run_complete_project(input_string)
         elif choice == '4':
-            print("\nExiting...")
+            print("Exiting...")
             break
         else:
             print("Invalid choice. Please enter a number between 1 and 4.")

@@ -12,6 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import json
 
 class KnutsfordFaresScraper:
+    
     def __init__(self, output_dir=os.path.join("neural-booker-output", "json")):
         """
         Initialize the scraper with output directory.
@@ -40,6 +41,51 @@ class KnutsfordFaresScraper:
         
         print("Starting browser...")
         return webdriver.Chrome(options=chrome_options)
+
+
+    def displayKnutsfordData(self, cell_texts):
+        """
+        Append the scraped data to a JSON file.
+        
+        Args:
+            cell_texts (list): A list of strings representing the data from each cell in a row.
+        """
+        print("Data: " + str(cell_texts) + " ||")
+        
+        # Define the path to the JSON file
+        json_file_path = os.path.join(self.json_dir, "knutsford_data.json")
+
+        # Use a list comprehension to create a new list without empty strings
+        new_array = [item for item in cell_texts if item.strip() != '']
+
+        cell_texts = new_array
+        
+        # Prepare data to be appended
+        data_to_append = {
+            "Route": cell_texts[0] if len(cell_texts) > 0 else "",
+            "Discount": cell_texts[1] if len(cell_texts) > 1 else "",
+            "Adult": cell_texts[2] if len(cell_texts) > 2 else "",
+            "Child": cell_texts[3] if len(cell_texts) > 3 else "",
+            "Senior": cell_texts[4] if len(cell_texts) > 4 else "",
+            "Student": cell_texts[5] if len(cell_texts) > 5 else "",
+        }
+        
+        try:
+            # Try to read the existing JSON file
+            with open(json_file_path, 'r', encoding='utf-8') as f:
+                existing_data = json.load(f)
+        except FileNotFoundError:
+            # If the file doesn't exist, create an empty list
+            existing_data = []
+        
+        # Append the new data
+        existing_data.append(data_to_append)
+        
+        # Write the updated data back to the JSON file
+        with open(json_file_path, 'w', encoding='utf-8') as f:
+            json.dump(existing_data, f, indent=4, ensure_ascii=False)
+        
+        print(f"Data appended to {json_file_path}")
 
     def scrape_fares(self):
         """
@@ -120,10 +166,15 @@ class KnutsfordFaresScraper:
             for row in rows[1:]:
                 cells = row.find_elements(By.CSS_SELECTOR, 'div.table_cell')
                 
+                
+                
+
                 if len(cells) >= max(route_idx, discount_idx, adult_idx, child_idx, senior_idx, student_idx) + 1:
                     # Debug each row
                     cell_texts = [cell.text.strip() for cell in cells]
                     print(f"Row data: {cell_texts}")
+                    
+                    self.displayKnutsfordData(cell_texts)
                     
                     # Get values using identified indices, with safety checks
                     route = cells[route_idx].text.strip() if route_idx < len(cells) else ""
@@ -133,6 +184,7 @@ class KnutsfordFaresScraper:
                     senior = cells[senior_idx].text.strip() if senior_idx < len(cells) else ""
                     student = cells[student_idx].text.strip() if student_idx < len(cells) else ""
                     
+
                     # Skip rows with empty route
                     if not route:
                         print("Skipping row with empty route")

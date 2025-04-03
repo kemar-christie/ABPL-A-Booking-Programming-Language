@@ -4,7 +4,6 @@ from lexer import tokens  # Import the token list from lexer.py
 
 # Parser rules with unique names to avoid conflicts with token names
 
-
 def p_command(p):
     '''COMMAND : booking_command
                | list_command
@@ -13,28 +12,25 @@ def p_command(p):
     p[0] = ('COMMAND', p[1])
 
 
-def p_list_command(p):
-    '''list_command : ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
-                    | ACTION_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL'''
-    if len(p) == 8:  # Handling the first variant
-        p[0] = ('LIST_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
-                ('DEPARTURE', p[4]), ('LOCATION_MARKER', p[5]), ('ARRIVAL', p[6]), ('SYMBOL', p[7]))
-    elif len(p) == 5:  # Handling the second variant
-        p[0] = ('LIST_COMMAND', ('ACTION_KEYWORD', p[1]), ('SERVICE', p[2]), ('CONTEXT_KEYWORD', p[3]),
-                ('SYMBOL', p[4]))
-
 
 def p_booking_command(p):
-    '''booking_command : ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE SYMBOL
+    '''booking_command : ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
+                       | ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE SYMBOL
                        | ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE CONNECTIVE_WORD CONTEXT_KEYWORD CONDITIONS MONEY SYMBOL
                        | ACTION_KEYWORD RESOURCE LOCATION_MARKER ARRIVAL LOCATION_MARKER DEPARTURE ARTICLE_CONJUNCTION ARTICLE_CONJUNCTION RESOURCE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE SYMBOL
                        | ACTION_KEYWORD SERVICE RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL CONTEXT_KEYWORD START_DATE LOCATION_MARKER TIME CONTEXT_KEYWORD USERNAME SYMBOL
                        | ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL CONTEXT_KEYWORD START_DATE LOCATION_MARKER TIME CONTEXT_KEYWORD CONTEXT_KEYWORD END_DATE LOCATION_MARKER TIME SYMBOL
-                       | ACTION_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL'''
+                       | ACTION_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL
+                       | ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE CONTEXT_KEYWORD DATE ARRIVAL CONTEXT_KEYWORD DATE SYMBOL'''
 
-    if len(p) == 8:  # Variant 1: Booking with ARRIVAL, DEPARTURE, and SYMBOL
+
+    if len(p)==8: # Variant 1.1:
+        p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
+        ('DEPARTURE', p[4]), ('LOCATION_MARKER', p[5]), ('ARRIVAL', p[6]), ('SYMBOL', p[7]))
+    elif len(p) == 8:  # Variant 1: Booking with ARRIVAL, DEPARTURE, and SYMBOL
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
                 ('ARRIVAL', p[4]), ('LOCATION_MARKER', p[5]), ('DEPARTURE', p[6]), ('SYMBOL', p[7]))
+
     elif len(p) == 12:  # Variant 2: Booking with CONNECTIVE_WORD, CONTEXT_KEYWORD, CONDITIONS, and MONEY
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
                 ('ARRIVAL', p[4]), ('LOCATION_MARKER', p[5]), ('DEPARTURE', p[6]), ('CONNECTIVE_WORD', p[7]),
@@ -59,11 +55,29 @@ def p_booking_command(p):
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
                 ('SERVICE', p[4]), ('LOCATION_MARKER', p[5]), ('START_DATE', p[6]), ('LOCATION_MARKER', p[7]),
                 ('END_DATE', p[8]), ('CONTEXT_KEYWORD', p[9]), ('USERNAME', p[10]), ('SYMBOL', p[11]))
+    elif len(p) == 10: # New Variant
+        p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
+                ('DEPARTURE', p[4]), ('CONTEXT_KEYWORD', p[5]), ('DATE', p[6]), ('ARRIVAL', p[7]),
+                ('CONTEXT_KEYWORD', p[8]), ('DATE', p[9]), ('SYMBOL', p[10]))
+
+
+def p_list_command(p):
+    '''list_command : LIST_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
+                    | LIST_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL'''
+
+    if len(p) == 8:  # Handling the first variant
+        p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
+                ('DEPARTURE', p[4]), ('LOCATION_MARKER', p[5]), ('ARRIVAL', p[6]), ('SYMBOL', p[7]))
+    elif len(p) == 5:  # Handling the second variant
+        p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('SERVICE', p[2]), ('CONTEXT_KEYWORD', p[3]),
+                ('SYMBOL', p[4]))
+
 
 def p_payment_command(p):
     '''payment_command : ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD SERVICE CONTEXT_KEYWORD USERNAME SYMBOL'''
     p[0] = ('PAYMENT_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('CONTEXT_KEYWORD', p[3]),
             ('SERVICE', p[4]), ('CONTEXT_KEYWORD', p[5]), ('USERNAME', p[6]), ('SYMBOL', p[7]))
+
 
 def p_inquiry_command(p):
     '''inquiry_command : ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL'''
@@ -127,8 +141,14 @@ parser = yacc()
 
 # Test the parser (optional, for testing the parser in isolation)
 if __name__ == '__main__':
-    data = "How many tickets are there from USA to Jamaica."
-    result = parser.parse(data)
+    
+    data = "Book a flight from montego bay on jun 2, 2025 to newyork on june 3, 2025."
+    result = parser.parse(data) 
 
     print("\nParsed Result:")
     print(result)
+
+
+#Note:
+#Book a flight from Montego Bay to New York.
+#Extra space throws an error
