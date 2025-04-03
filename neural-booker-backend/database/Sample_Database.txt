@@ -13,14 +13,14 @@ CREATE TABLE Customer
 
 CREATE TABLE Booking_Information 
 (
-
     booking_id SERIAL PRIMARY KEY,
     type VARCHAR(50) NOT NULL,
     date_of_booking DATETIME NOT NULL,
     status enum('cancelled','Confirmed','pending')
 );
 
-CREATE TABLE Payments (
+CREATE TABLE Payments 
+(
     payment_id SERIAL PRIMARY KEY,
     booking_id INT NOT NULL,
     amount_paid DECIMAL(10,2) NOT NULL,
