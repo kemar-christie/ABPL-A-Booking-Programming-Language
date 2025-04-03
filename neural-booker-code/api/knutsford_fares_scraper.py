@@ -13,7 +13,7 @@ import json
 
 class KnutsfordFaresScraper:
     
-    def __init__(self, output_dir=os.path.join("neural-booker-output", "json")):
+    def __init__(self, output_dir=os.path.join("../../neural-booker-output", "json")):
         """
         Initialize the scraper with output directory.
         
@@ -25,7 +25,7 @@ class KnutsfordFaresScraper:
         
         # Ensure output directory exists
         os.makedirs(self.json_dir, exist_ok=True)
-        print(f"Output directory set to: {self.json_dir}")
+        #print(f"Output directory set to: {self.json_dir}")
 
     def setup_webdriver(self):
         """
@@ -38,54 +38,13 @@ class KnutsfordFaresScraper:
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--remote-debugging-options=0")  # Suppress DevTools message
         
-        print("Starting browser...")
+
+        chrome_options.add_argument("--log-level=3")  # 3 = LOG_FATAL. 0 = LOG_INFO, 1 = LOG_WARNING, 2 = LOG_ERROR, 3 = LOG_FATAL
+
         return webdriver.Chrome(options=chrome_options)
 
-
-    def displayKnutsfordData(self, cell_texts):
-        """
-        Append the scraped data to a JSON file.
-        
-        Args:
-            cell_texts (list): A list of strings representing the data from each cell in a row.
-        """
-        print("Data: " + str(cell_texts) + " ||")
-        
-        # Define the path to the JSON file
-        json_file_path = os.path.join(self.json_dir, "knutsford_data.json")
-
-        # Use a list comprehension to create a new list without empty strings
-        new_array = [item for item in cell_texts if item.strip() != '']
-
-        cell_texts = new_array
-        
-        # Prepare data to be appended
-        data_to_append = {
-            "Route": cell_texts[0] if len(cell_texts) > 0 else "",
-            "Discount": cell_texts[1] if len(cell_texts) > 1 else "",
-            "Adult": cell_texts[2] if len(cell_texts) > 2 else "",
-            "Child": cell_texts[3] if len(cell_texts) > 3 else "",
-            "Senior": cell_texts[4] if len(cell_texts) > 4 else "",
-            "Student": cell_texts[5] if len(cell_texts) > 5 else "",
-        }
-        
-        try:
-            # Try to read the existing JSON file
-            with open(json_file_path, 'r', encoding='utf-8') as f:
-                existing_data = json.load(f)
-        except FileNotFoundError:
-            # If the file doesn't exist, create an empty list
-            existing_data = []
-        
-        # Append the new data
-        existing_data.append(data_to_append)
-        
-        # Write the updated data back to the JSON file
-        with open(json_file_path, 'w', encoding='utf-8') as f:
-            json.dump(existing_data, f, indent=4, ensure_ascii=False)
-        
-        print(f"Data appended to {json_file_path}")
 
     def scrape_fares(self):
         """
@@ -94,27 +53,22 @@ class KnutsfordFaresScraper:
         Returns:
             list: Extracted fare data or None if scraping fails
         """
+
         driver = self.setup_webdriver()
-        
+
         try:
             # Navigate to the fare table page
             url = 'https://www.knutsfordexpress.com/fare-schedule/fare-table/'
-            print(f"Navigating to {url}...")
+            #print(f"Navigating to {url}...")
             driver.get(url)
-            
+
             # Wait for the page to load completely
-            print("Waiting for page to load completely...")
+            #print("Waiting for page to load completely...")
             time.sleep(5)  # Initial wait to ensure page loads
 
-            # Wait for the div with class="table" and id="results"
-            print("Looking for div-based table...")
-            wait = WebDriverWait(driver, 15)
-            table_div = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.table#results')))
-            print("Found div-based table!")
-            
             # Get table rows (div elements with class="table_row")
             rows = driver.find_elements(By.CSS_SELECTOR, 'div.table_row')
-            print(f"Found {len(rows)} table rows.")
+            #print(f"Found {len(rows)} table rows.")
             
             if len(rows) == 0:
                 print("No table rows found. Waiting longer...")
@@ -138,13 +92,11 @@ class KnutsfordFaresScraper:
                 print("Screenshot saved as debug_screenshot.png")
                 return None
                 
-            # Extract data from rows
-            fare_data = []
             
             # Identify the header row to determine column indices
             header_cells = rows[0].find_elements(By.CSS_SELECTOR, 'div.table_cell')
             header_texts = [cell.text.strip().lower() for cell in header_cells]
-            print(f"Header texts: {header_texts}")
+            #print(f"Header texts: {header_texts}")
             
             # Define expected column positions (with fallbacks)
             try:
@@ -155,66 +107,53 @@ class KnutsfordFaresScraper:
                 senior_idx = next((i for i, text in enumerate(header_texts) if 'senior' in text), 4)
                 student_idx = next((i for i, text in enumerate(header_texts) if 'student' in text), 5)
                 
-                print(f"Column indices - Route: {route_idx}, Discount: {discount_idx}, Adult: {adult_idx}, "
-                     f"Child: {child_idx}, Senior: {senior_idx}, Student: {student_idx}")
+                #print(f"Column indices - Route: {route_idx}, Discount: {discount_idx}, Adult: {adult_idx}, "f"Child: {child_idx}, Senior: {senior_idx}, Student: {student_idx}")
             except Exception as e:
                 print(f"Error identifying column indices: {e}")
                 # Default to sequential indices if header detection fails
                 route_idx, discount_idx, adult_idx, child_idx, senior_idx, student_idx = 0, 1, 2, 3, 4, 5
             
             # Skip the header row
+            print("Scraping Knutsford Express...")
+
             for row in rows[1:]:
                 cells = row.find_elements(By.CSS_SELECTOR, 'div.table_cell')
                 
-                
-                
 
                 if len(cells) >= max(route_idx, discount_idx, adult_idx, child_idx, senior_idx, student_idx) + 1:
+                    
                     # Debug each row
-                    cell_texts = [cell.text.strip() for cell in cells]
-                    print(f"Row data: {cell_texts}")
-                    
-                    self.displayKnutsfordData(cell_texts)
-                    
-                    # Get values using identified indices, with safety checks
-                    route = cells[route_idx].text.strip() if route_idx < len(cells) else ""
-                    discount = cells[discount_idx].text.strip() if discount_idx < len(cells) else ""
-                    adult = cells[adult_idx].text.strip() if adult_idx < len(cells) else ""
-                    child = cells[child_idx].text.strip() if child_idx < len(cells) else ""
-                    senior = cells[senior_idx].text.strip() if senior_idx < len(cells) else ""
-                    student = cells[student_idx].text.strip() if student_idx < len(cells) else ""
+                    cell_texts = [cell.text.strip() for cell in cells if cell.text.strip() != '']
                     
 
-                    # Skip rows with empty route
-                    if not route:
-                        print("Skipping row with empty route")
-                        continue
+                    json_file_path = os.path.join(self.json_dir, "knutsford_data.json")
+
+                    # Prepare data to be appended
+                    data_to_append = {
+                        "Route": cell_texts[0] if len(cell_texts) > 0 else "",
+                        "Discount": cell_texts[1] if len(cell_texts) > 1 else "",
+                        "Adult": cell_texts[2] if len(cell_texts) > 2 else "",
+                        "Child": cell_texts[3] if len(cell_texts) > 3 else "",
+                        "Senior": cell_texts[4] if len(cell_texts) > 4 else "",
+                        "Student": cell_texts[5] if len(cell_texts) > 5 else "",
+                    }
                     
-                    # Additional validation - if route doesn't have a $ sign but discount does,
-                    # they might be swapped
-                    if '$' not in route and '$' in discount:
-                        print(f"Potential column swap detected in row: {route} / {discount}")
-                        # Check if we have a consistent pattern of columns being shifted
-                        if len(fare_data) > 0:
-                            # Don't auto-correct; just warn
-                            print("WARNING: Data might be misaligned. Please verify column mapping.")
+                    try:
+                        # Try to read the existing JSON file
+                        with open(json_file_path, 'r', encoding='utf-8') as f:
+                            existing_data = json.load(f)
+                    except FileNotFoundError:
+                        # If the file doesn't exist, create an empty list
+                        existing_data = []
                     
-                    fare_data.append({
-                        'Route': route,
-                        'Online_Discount': discount,
-                        'Adult': adult,
-                        'Child': child,
-                        'Senior': senior,
-                        'Student': student
-                    })
-                    print(f"Added route: {route}")
-            
-            if not fare_data:
-                print("No route data extracted from the rows.")
-                return None
-            
-            print(f"Successfully scraped {len(fare_data)} routes.")
-            return fare_data
+                    # Append the new data
+                    existing_data.append(data_to_append)
+                    
+                    # Write the updated data back to the JSON file
+                    with open(json_file_path, 'w', encoding='utf-8') as f:
+                        json.dump(existing_data, f, indent=4, ensure_ascii=False)
+                
+            return None
         
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
@@ -225,74 +164,16 @@ class KnutsfordFaresScraper:
         finally:
             # Close the browser
             driver.quit()
-            print("Browser closed.")
-
-    def save_results_to_json(self, data, filename):
-        """
-        Save results to a JSON file in the output directory.
-        
-        Args:
-            data (list): The data to be saved to JSON
-            filename (str): Name of the JSON file to be created
-        """
-        # Use the full path directly
-        output_path = os.path.join(self.json_dir, filename)
-       
-        try:
-            # Save the JSON file with indentation
-            with open(output_path, 'w', encoding='utf-8') as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
-            
-            print(f"Data saved to {output_path}")
-            
-            # Verify file exists and print its size
-            if os.path.exists(output_path):
-                file_size = os.path.getsize(output_path)
-                print(f"File size: {file_size} bytes")
-            
-            return True
-        except Exception as e:
-            print(f"Error saving JSON file: {e}")
-            return False
+            print("Done.....")
 
 def main():
-    # Print Python version for debugging
-    print(f"Python version: {sys.version}")
-    print(f"Platform: {sys.platform}")
-    
+
     # Create scraper instance with relative path
     scraper = KnutsfordFaresScraper()
     
     # Scrape the fare data
-    fare_data = scraper.scrape_fares()
+    scraper.scrape_fares()
     
-    if fare_data is not None:
-        # Display the number of routes found
-        print(f"\nTotal routes scraped: {len(fare_data)}")
-        
-        # Display the first few entries
-        print("\nSample of the scraped data:")
-        for i, route in enumerate(fare_data[:3]):
-            print(f"{i+1}. {route['Route']}: Adult: {route['Adult']}, Child: {route['Child']}")
-        
-        # Validate data before saving
-        print("\nValidating data...")
-        issues_found = False
-        for i, item in enumerate(fare_data):
-            route = item['Route']
-            if not route or '$' in route:
-                print(f"Potential issue in entry {i+1}: Route '{route}' may be incorrect")
-                issues_found = True
-        
-        if issues_found:
-            print("\nWARNING: Potential data quality issues detected. You may need to manually verify the results.")
-        
-        # Save the results
-        scraper.save_results_to_json(fare_data, "knutsford_fares.json")
-        print("Saved")
-    else:
-        print("No fare data could be scraped.")
-
 
 if __name__ == "__main__":
     main()
