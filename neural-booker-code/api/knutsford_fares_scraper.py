@@ -100,38 +100,44 @@ class KnutsfordFaresScraper:
             
             # Define expected column positions (with fallbacks)
             try:
-                route_idx = next((i for i, text in enumerate(header_texts) if 'route' in text), 0)
+                route = next((i for i, text in enumerate(header_texts) if 'route' in text), 0)
                 discount_idx = next((i for i, text in enumerate(header_texts) if 'discount' in text), 1)
                 adult_idx = next((i for i, text in enumerate(header_texts) if 'adult' in text), 2)
                 child_idx = next((i for i, text in enumerate(header_texts) if 'child' in text), 3)
                 senior_idx = next((i for i, text in enumerate(header_texts) if 'senior' in text), 4)
                 student_idx = next((i for i, text in enumerate(header_texts) if 'student' in text), 5)
                 
-                #print(f"Column indices - Route: {route_idx}, Discount: {discount_idx}, Adult: {adult_idx}, "f"Child: {child_idx}, Senior: {senior_idx}, Student: {student_idx}")
+                #print(f"Column indices - Route: {route}, Discount: {discount_idx}, Adult: {adult_idx}, "f"Child: {child_idx}, Senior: {senior_idx}, Student: {student_idx}")
             except Exception as e:
                 print(f"Error identifying column indices: {e}")
                 # Default to sequential indices if header detection fails
-                route_idx, discount_idx, adult_idx, child_idx, senior_idx, student_idx = 0, 1, 2, 3, 4, 5
+                route, discount_idx, adult_idx, child_idx, senior_idx, student_idx = 0, 1, 2, 3, 4, 5
             
             # Skip the header row
             print("Scraping Knutsford Express...")
 
-
+            
+            num=1
+            routeID="RTE"
             all_data = []
             for row in rows[1:]:
                 cells = row.find_elements(By.CSS_SELECTOR, 'div.table_cell')
                 
 
-                if len(cells) >= max(route_idx, discount_idx, adult_idx, child_idx, senior_idx, student_idx) + 1:
+                if len(cells) >= max(route, discount_idx, adult_idx, child_idx, senior_idx, student_idx) + 1:
                     
                     # Debug each row
                     cell_texts = [cell.text.strip() for cell in cells if cell.text.strip() != '']
                     
 
                     json_file_path = os.path.join(self.json_dir, "knutsford_data.json")
-
+                    
+                    # Create the route ID
+                    formatted_num = str(num).zfill(3)  # Pad with leading zeros
+                    full_route_id = routeID + formatted_num
                     # Prepare data to be appended
                     data_to_append = {
+                        "RouteID": full_route_id,
                         "Route": cell_texts[0] if len(cell_texts) > 0 else "",
                         "Discount": cell_texts[1] if len(cell_texts) > 1 else "",
                         "Adult": cell_texts[2] if len(cell_texts) > 2 else "",
@@ -141,6 +147,7 @@ class KnutsfordFaresScraper:
                     }
                     
                     all_data.append(data_to_append) # Append the data to the list
+                    num += 1  # Increment the counter for the next RouteID
 
                 # Write all data to the JSON file *after* the loop is finished
                 with open(json_file_path, 'w', encoding='utf-8') as f:
