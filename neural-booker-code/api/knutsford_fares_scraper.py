@@ -116,6 +116,8 @@ class KnutsfordFaresScraper:
             # Skip the header row
             print("Scraping Knutsford Express...")
 
+
+            all_data = []
             for row in rows[1:]:
                 cells = row.find_elements(By.CSS_SELECTOR, 'div.table_cell')
                 
@@ -138,21 +140,12 @@ class KnutsfordFaresScraper:
                         "Student": cell_texts[5] if len(cell_texts) > 5 else "",
                     }
                     
-                    try:
-                        # Try to read the existing JSON file
-                        with open(json_file_path, 'r', encoding='utf-8') as f:
-                            existing_data = json.load(f)
-                    except FileNotFoundError:
-                        # If the file doesn't exist, create an empty list
-                        existing_data = []
-                    
-                    # Append the new data
-                    existing_data.append(data_to_append)
-                    
-                    # Write the updated data back to the JSON file
-                    with open(json_file_path, 'w', encoding='utf-8') as f:
-                        json.dump(existing_data, f, indent=4, ensure_ascii=False)
-                
+                    all_data.append(data_to_append) # Append the data to the list
+
+                # Write all data to the JSON file *after* the loop is finished
+                with open(json_file_path, 'w', encoding='utf-8') as f:
+                    json.dump(all_data, f, indent=4, ensure_ascii=False)
+    
             return None
         
         except Exception as e:
