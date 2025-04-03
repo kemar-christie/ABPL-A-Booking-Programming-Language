@@ -76,9 +76,13 @@ def p_list_command(p):
 
 
 def p_payment_command(p):
-    '''payment_command : ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD SERVICE CONTEXT_KEYWORD USERNAME SYMBOL'''
-    p[0] = ('PAYMENT_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('CONTEXT_KEYWORD', p[3]),
+    '''payment_command : ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD SERVICE CONTEXT_KEYWORD USERNAME SYMBOL
+                       | PAYMENT_TYPE SYMBOL'''
+    if len(p)== 8:
+        p[0] = ('PAYMENT_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('CONTEXT_KEYWORD', p[3]),
             ('SERVICE', p[4]), ('CONTEXT_KEYWORD', p[5]), ('USERNAME', p[6]), ('SYMBOL', p[7]))
+    elif len(p) == 3:
+        p[0] = ('PAYMENT_COMMAND',('PAYMENT_TYPE',p[1]),('SYMBOL', p[2]))
 
 
 def p_inquiry_command(p):
@@ -139,12 +143,12 @@ def p_error(p):
 
 
 # Build the parser
-parser = yacc()
+parser = yacc(optimize=True)
 
 # Test the parser (optional, for testing the parser in isolation)
 if __name__ == '__main__':
     
-    data = "Book a flight from montego bay on jun 2, 2025 to newyork on june 3, 2025."
+    data = "Credit Card."
     result = parser.parse(data) 
 
     print("\nParsed Result:")
@@ -154,3 +158,4 @@ if __name__ == '__main__':
 #Note:
 #Book a flight from Montego Bay to New York.
 #Extra space throws an error
+#No full stop at the end should throw an error

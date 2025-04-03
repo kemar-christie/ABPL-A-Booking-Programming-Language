@@ -7,7 +7,7 @@ __pycache__/
 # Ignore .env file with api keys
 .env
 *.json
-parsetab.py
+neural-booker-code/programming_language/parsetab.py
 # Distribution / packaging
 .Python
 build/

@@ -9,7 +9,7 @@ from ply.lex import lex
 tokens = ('ACTION_KEYWORD','LIST_KEYWORD', 'CONTEXT_KEYWORD', 'LOCATION_MARKER', 'CONNECTIVE_WORD', 
           'DATE', 'START_DATE', 'END_DATE', 'NUMBER', 'SYMBOL', 'MONEY', 'RESOURCE', 
           'CONDITIONS', 'TIME', 'USERNAME', 'DEPARTURE', 'ARRIVAL', 'LOCATION', 
-          'SERVICE', 'ARTICLE_CONJUNCTION')
+          'SERVICE', 'ARTICLE_CONJUNCTION','PAYMENT_TYPE')
 
 # Define action keywords - commands that initiate an action
 action_keywords = [ 'Book a', 'Confirm a', 'Pay', 'Cancel a', 
@@ -79,6 +79,7 @@ t_SERVICE = r'(?<=\ba\s)(?!(?:' + r'|'.join(all_keywords) + r')\b)([A-Za-z]+(?:\
 
 t_ARTICLE_CONJUNCTION = r'\b(a|and)\b'
 
+t_PAYMENT_TYPE = r'\b(credit card|debit card|bank transfer)\b'
 
 def t_newline(t):
     r'\n+'
@@ -99,7 +100,7 @@ lexer = lex(reflags=re.IGNORECASE)
 
 # Test the lexer (optional, for testing the lexer in isolation)
 if __name__ == '__main__':
-    data = "book a flight from montego bay on june 2, 2025 to newyork on june 3, 2025."
+    data = "Bank transfer."
     lexer.input(data)
 
     print("\nTokenized Output:\n")

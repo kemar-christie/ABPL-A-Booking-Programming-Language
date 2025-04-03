@@ -7,30 +7,53 @@ CREATE TABLE Customer
     customer_username VARCHAR(20) NOT NULL,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL
+    email VARCHAR(255) UNIQUE NOT NULL,
+    balance float NOT NULL
 );
 
 CREATE TABLE Booking_Information 
 (
-    type VARCHAR(100) NOT NULL,
-    id SERIAL PRIMARY KEY
+
+    booking_id SERIAL PRIMARY KEY,
+    type VARCHAR(50) NOT NULL,
+    date_of_booking DATETIME NOT NULL,
+    status enum('cancelled','Confirmed','pending')
 );
+
+CREATE TABLE Payments (
+    payment_id SERIAL PRIMARY KEY,
+    booking_id INT NOT NULL,
+    amount_paid DECIMAL(10,2) NOT NULL,
+    balance AS (total_price - amount_paid) PERSISTED,
+    payment_date DATETIME DEFAULT GETDATE(),
+    payment_method VARCHAR(50) CHECK (payment_method IN ('Credit Card', 'PayPal', 'Cash', 'Bank Transfer')) NOT NULL,
+    FOREIGN KEY (booking_id) REFERENCES Booking_Infomation(booking_id)
+);
+
 
 # Make Gui
 # Send an email of the booking confirmation to customer through email
 
 
 ############################################################################### - Look at after
-CREATE TABLE Events (
-event_id INT IDENTITY(1,1) PRIMARY KEY,
-event_name VARCHAR(255) NOT NULL,
-event_type VARCHAR(50) CHECK (event_type IN ('Concert', 'Sports', 'Travel', 'Movie', 'Other')) NOT NULL,
-description TEXT NULL,
-event_date DATETIME NOT NULL,
-location VARCHAR(255) NOT NULL,
-available_tickets INT NOT NULL,
-ticket_price DECIMAL(10,2) NOT NULL
-);
+JSON format for 
+
+events.json file:
+
+[
+    [
+        event_id:"",
+        event_name:"",
+        event_type:"",
+        description:"",
+        event_date:"",
+        location:"",
+        available_tickets:"",
+        ticket_price:"",
+    ]
+
+]
+
 
 CREATE TABLE TicketTypes (
 ticket_type_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -54,16 +77,6 @@ FOREIGN KEY (event_id) REFERENCES Events(event_id) ON DELETE CASCADE,
 FOREIGN KEY (ticket_type_id) REFERENCES TicketTypes(ticket_type_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Payments (
-payment_id INT IDENTITY(1,1) PRIMARY KEY,
-reservation_id INT NOT NULL,
-amount_paid DECIMAL(10,2) NOT NULL,
-balance AS (total_price - amount_paid) PERSISTED,
-payment_date DATETIME DEFAULT GETDATE(),
-payment_method VARCHAR(50) CHECK (payment_method IN ('Credit Card', 'PayPal', 'Cash', 'Bank Transfer')) NOT NULL,
-payment_status VARCHAR(50) CHECK (payment_status IN ('Completed', 'Pending', 'Partial')) NOT NULL,
-FOREIGN KEY (reservation_id) REFERENCES Reservations(reservation_id) ON DELETE CASCADE
-);
 
 CREATE TABLE Cancellations (
 cancellation_id INT IDENTITY(1,1) PRIMARY KEY,
