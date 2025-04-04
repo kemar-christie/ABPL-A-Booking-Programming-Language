@@ -74,20 +74,35 @@ print("Type 'exit' to end the conversation.")
 # Start the main loop for the interactive chat
 while True:
     # Get user input
-    user_input = input("You(type exit to end convo): ")
+    user_input = input("\nYou(type exit to end convo): ")
     # Check if the user wants to exit the chat
     if user_input.lower() == 'exit':
         break
 
-    # Generate a response from Gemini, considering the conversation history
     response_text = generate_with_context(user_input, conversation_history)
-    # Print Gemini's response
-    print(f"Gemini: {response_text}")
+
+    if "getKnutsfordDetails()" in response_text:
+        import getDataForAI
+        knutsford_data = getDataForAI.getKnutsfordDetails()
+        data_prompt = f"Here is the Knutsford Express data: {knutsford_data}. Please present this information to the user in a readable format."
+
+
+        response_text = generate_with_context(data_prompt, conversation_history)  # Get Gemini's formatted response
+
+        print(f"\nGemini: {response_text}") # Print Gemini's response
+    else:
+        print(f"\nGemini: {response_text}")
+
+    conversation_history.append({"role": "user", "content": user_input})
+    conversation_history.append({"role": "model", "content": response_text})
+
 
     # Add the current user input to the conversation history list
     conversation_history.append({"role": "user", "content": user_input})
     # Add Gemini's response to the conversation history list
     conversation_history.append({"role": "model", "content": response_text})
+
+
 
     # Append the current turn (user input and Gemini's response) to the history file
     with open(HISTORY_FILE, "a") as f:  # Open the file in append mode ("a")

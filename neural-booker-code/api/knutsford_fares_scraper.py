@@ -139,7 +139,7 @@ class KnutsfordFaresScraper:
                     data_to_append = {
                         "RouteID": full_route_id,
                         "Route": cell_texts[0] if len(cell_texts) > 0 else "",
-                        "Discount": cell_texts[1] if len(cell_texts) > 1 else "",
+                        "Online Discount": cell_texts[1] if len(cell_texts) > 1 else "",
                         "Adult": cell_texts[2] if len(cell_texts) > 2 else "",
                         "Child": cell_texts[3] if len(cell_texts) > 3 else "",
                         "Senior": cell_texts[4] if len(cell_texts) > 4 else "",
