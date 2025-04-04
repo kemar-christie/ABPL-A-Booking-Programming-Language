@@ -82,7 +82,7 @@ while True:
     response_text = generate_with_context(user_input, conversation_history)
 
     if "getKnutsfordDetails()" in response_text:
-        print(f"\nGemini: {response_text}") # Print Gemini's response
+        print(f"\n-----Gemini:\n {response_text}") # Print Gemini's response
         import getDataForAI
         knutsford_data = getDataForAI.getKnutsfordDetails()
         
@@ -100,9 +100,9 @@ while True:
         response_text = generate_with_context(data_prompt, conversation_history)  # Get Gemini's formatted response
 
 
-        print(f"\nGemini: {response_text}") # Print Gemini's response
+        print(f"\n-----Gemini:\n{response_text}") # Print Gemini's response
     else:
-        print(f"\nGemini: {response_text}")
+        print(f"\n-----Gemini:\n{response_text}")
         # Add the current user input to the conversation history list
         conversation_history.append({"role": "user", "content": user_input})
         # Add Gemini's response to the conversation history list
