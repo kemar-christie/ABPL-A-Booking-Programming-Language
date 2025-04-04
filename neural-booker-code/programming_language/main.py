@@ -7,6 +7,7 @@ from lexer import lexer  # Import the lexer object from lexer.py
 from parser import parser  # Import the parser object from parser.py
 import gemini
 
+
 def run_lexer(input_string):
     """Runs the lexer and prints the tokens."""
     lexer.input(input_string)
@@ -39,12 +40,9 @@ def run_complete_project(input_string):
     #  parse tree, which you can now traverse and analyze.
     #  You would also make calls to the LLM and simulate the
     #  booking process here.
-    
+
     gemini.send_prompt_to_gemini(input_string)
 
-    print("\n--- Placeholder for Semantic Analysis, LLM Integration, and Simulation ---")
-    print("Add your code here to handle semantic analysis, LLM integration,")
-    print("and the simulation of booking operations.")
 
 def main():
     while True:
