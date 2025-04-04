@@ -31,4 +31,5 @@ MANIFEST
 neural-booker-code/programming_language/parsetab.py
 chat_history.txt
 *.github
-neural-booker-backend/automation_script/connect.js
+*.vscode
+neural-booker-backend/database/manual_referencing_of_connections.txt
