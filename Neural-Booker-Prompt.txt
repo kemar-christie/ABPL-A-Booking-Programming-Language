@@ -13,6 +13,9 @@ getFlightDetails(). unless you actually want data
 So lets say someone says something like "List Knutsford Express Schedule". You should say
 getKnutsfordDetails() and the program would fetch the data for you.
 
+but if let say someone says List Knutsford Express Schedule from kingston to Montego Bay. If you do not have context if any Route then you can say the trigger word for my code to give you data,
+the you should look within that data for th criteria specified. Also, if you are constantly asked for all knutsford express details and you already have it in your context window then use it instead, but if you have lost context at any time you can always say the trigger word.
+
 Just let me know if you understand and remember, do not say any other trigger words unless you want data
 
 Do not say any  trigger words in your response. My python code specifically looks for the trigger words in your response

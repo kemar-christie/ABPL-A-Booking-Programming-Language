@@ -27,7 +27,7 @@ location_markers = ['in', 'at', 'from', 'to']
 # Define connective words - words that connect clauses or phrases
 connective_words = ['that']
 
-t_LIST_KEYWORD=r'List'
+t_LIST_KEYWORD=r'\b(List|List all)\b'
 
 # Generate regex patterns for each category
 t_ACTION_KEYWORD = r'\b(?:' + r'|'.join(action_keywords) + r')\b'

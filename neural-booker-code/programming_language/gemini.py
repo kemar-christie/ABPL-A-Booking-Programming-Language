@@ -76,41 +76,49 @@ while True:
     # Get user input
     user_input = input("\nYou(type exit to end convo): ")
     # Check if the user wants to exit the chat
-    if user_input.lower() == 'exit':
+    if user_input.lower() == 'exit' or user_input.lower() == 'exit.':
         break
 
     response_text = generate_with_context(user_input, conversation_history)
 
     if "getKnutsfordDetails()" in response_text:
-        #print(f"\nGemini: {response_text}") # Print Gemini's response
+        print(f"\nGemini: {response_text}") # Print Gemini's response
         import getDataForAI
         knutsford_data = getDataForAI.getKnutsfordDetails()
-        data_prompt = f"Here is the Knutsford Express data: {knutsford_data}. Please present this information to the user in a readable format."
+        
+        data_prompt = f"Here is the Knutsford Express data from the code: {knutsford_data} use it to {user_input} "
+        conversation_history.append({"role": "user", "content": data_prompt})
+
+        # Append the current turn (user input and Gemini's response) to the history file
+        with open(HISTORY_FILE, "a") as f:  # Open the file in append mode ("a")
+            # Write Gemini's turn as a JSON object to the file, followed by a newline
+            f.write(json.dumps({"role": "model", "content": response_text}) + "\n")
+            # Write the user's turn as a JSON object to the file, followed by a newline
+            f.write(json.dumps({"role": "user", "content": data_prompt}) + "\n")
 
 
         response_text = generate_with_context(data_prompt, conversation_history)  # Get Gemini's formatted response
 
+
         print(f"\nGemini: {response_text}") # Print Gemini's response
     else:
         print(f"\nGemini: {response_text}")
+        # Add the current user input to the conversation history list
+        conversation_history.append({"role": "user", "content": user_input})
+        # Add Gemini's response to the conversation history list
+        conversation_history.append({"role": "model", "content": response_text})
+            # Append the current turn (user input and Gemini's response) to the history file
 
-    conversation_history.append({"role": "user", "content": user_input})
-    conversation_history.append({"role": "model", "content": response_text})
-
-
-    # Add the current user input to the conversation history list
-    conversation_history.append({"role": "user", "content": user_input})
-    # Add Gemini's response to the conversation history list
-    conversation_history.append({"role": "model", "content": response_text})
+        with open(HISTORY_FILE, "a") as f:  # Open the file in append mode ("a")
+            # Write the user's turn as a JSON object to the file, followed by a newline
+            f.write(json.dumps({"role": "user", "content": user_input}) + "\n")
+            # Write Gemini's turn as a JSON object to the file, followed by a newline
+            f.write(json.dumps({"role": "model", "content": response_text}) + "\n")
 
 
 
-    # Append the current turn (user input and Gemini's response) to the history file
-    with open(HISTORY_FILE, "a") as f:  # Open the file in append mode ("a")
-        # Write the user's turn as a JSON object to the file, followed by a newline
-        f.write(json.dumps({"role": "user", "content": user_input}) + "\n")
-        # Write Gemini's turn as a JSON object to the file, followed by a newline
-        f.write(json.dumps({"role": "model", "content": response_text}) + "\n")
+
+
 
 # Print a thank you message when the chat ends
 print("Thank you for chatting!")
