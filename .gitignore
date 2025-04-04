@@ -29,3 +29,4 @@ MANIFEST
 .env
 *.json
 neural-booker-code/programming_language/parsetab.py
+chat_history.txt
