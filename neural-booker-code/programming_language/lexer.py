@@ -27,7 +27,7 @@ location_markers = ['in', 'at', 'from', 'to']
 # Define connective words - words that connect clauses or phrases
 connective_words = ['that']
 
-t_LIST_KEYWORD=r'\b(List|List all)\b'
+t_LIST_KEYWORD=r'\b(List all|List)\b'
 
 # Generate regex patterns for each category
 t_ACTION_KEYWORD = r'\b(?:' + r'|'.join(action_keywords) + r')\b'
@@ -74,8 +74,10 @@ t_LOCATION = r'(?<=\bin\b\s)([a-zA-Z\s]+?)(?=\s\b(?:' + r'|'.join(all_keywords) 
 
 t_SERVICE = r'(?<=\ba\s)(?!(?:' + r'|'.join(all_keywords) + r')\b)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_RESOURCE + r')\b)|' \
             r'(?<=\bList\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bSchedule\b)|' \
+            r'(?<=\bList all\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bSchedule\b)|' \
             r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bfor\b)|' \
             r'(?<=\bat\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:From|from)\b)'
+
 
 t_ARTICLE_CONJUNCTION = r'\b(a|and)\b'
 
@@ -100,7 +102,7 @@ lexer = lex(reflags=re.IGNORECASE)
 
 # Test the lexer (optional, for testing the lexer in isolation)
 if __name__ == '__main__':
-    data = "Bank transfer."
+    data = "List all Knutsford Express Schedule."
     lexer.input(data)
 
     print("\nTokenized Output:\n")
