@@ -65,7 +65,8 @@ def p_booking_command(p):
 
 def p_list_command(p):
     '''list_command : LIST_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
-                    | LIST_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL'''
+                    | LIST_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL
+                    | LIST_KEYWORD SERVICE CONTEXT_KEYWORD LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL'''
 
     if len(p) == 8:  # Handling the first variant
         p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
@@ -73,6 +74,10 @@ def p_list_command(p):
     elif len(p) == 5:  # Handling the second variant
         p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('SERVICE', p[2]), ('CONTEXT_KEYWORD', p[3]),
                 ('SYMBOL', p[4]))
+    elif len(p) == 9:  #Handle third variant
+        p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('SERVICE', p[2]), ('CONTEXT_KEYWORD', p[3]),
+                ('LOCATION_MARKER', p[4]), ('DEPARTURE', p[5]), ('LOCATION_MARKER', p[6]), ('ARRIVAL', p[7]), 
+                ('SYMBOL', p[8]))
 
 
 def p_payment_command(p):
@@ -148,7 +153,7 @@ parser = yacc(optimize=True)
 # Test the parser (optional, for testing the parser in isolation)
 if __name__ == '__main__':
     
-    data = "Credit Card."
+    data = "List Knutsford Express Schedule from Kingston To Montego Bay."
     result = parser.parse(data) 
 
     print("\nParsed Result:")

@@ -102,7 +102,7 @@ lexer = lex(reflags=re.IGNORECASE)
 
 # Test the lexer (optional, for testing the lexer in isolation)
 if __name__ == '__main__':
-    data = "List all Knutsford Express Schedule."
+    data = "List Knutsford Express Schedule from Kingston To Montego Bay."
     lexer.input(data)
 
     print("\nTokenized Output:\n")
