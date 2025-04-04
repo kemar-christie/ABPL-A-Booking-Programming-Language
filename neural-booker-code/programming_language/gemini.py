@@ -68,7 +68,7 @@ def generate_with_context(prompt, history):
         return f"Error generating response: {e}"
 
 # Print a welcome message to the user
-print("Welcome to the interactive chat with Gemini!")
+print("\n______________________________________________________________\nWelcome to the interactive chat with Gemini!")
 print("Type 'exit' to end the conversation.")
 
 # Start the main loop for the interactive chat
@@ -82,6 +82,7 @@ while True:
     response_text = generate_with_context(user_input, conversation_history)
 
     if "getKnutsfordDetails()" in response_text:
+        #print(f"\nGemini: {response_text}") # Print Gemini's response
         import getDataForAI
         knutsford_data = getDataForAI.getKnutsfordDetails()
         data_prompt = f"Here is the Knutsford Express data: {knutsford_data}. Please present this information to the user in a readable format."

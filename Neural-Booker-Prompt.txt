@@ -33,7 +33,10 @@ Senior: $3250.00
 Student: $3100.00
 Discount: $3478.00
 
+I realize that you can only display all route information full up to RTE115. so when you are ask to display all information can you just display up to 115 then at the end you can say ....and so on
 
+
+When you are asked about seat availabilityfor knutsford just make up a number between 0 and 10
 __________________________________________________________
 
 Additionally if the user says "Pay reservation for Knutsford Express for Joy_Reynolds23." then
