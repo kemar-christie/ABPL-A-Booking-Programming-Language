@@ -40,3 +40,5 @@
 {"role": "model", "content": "*   **RouteID:** RTE072\n*   **Route:** Kingston - MAY PEN\n*   **Online Discount:** $1974.00\n*   **Adult:** $2100.00\n*   **Child:** $1700.00\n*   **Senior:** $1800.00\n*   **Student:** $1750.00\n"}
 {"role": "user", "content": "List Knutsford Express from Kingston to May Pen on February 17, 2025 at 8:30 AM."}
 {"role": "model", "content": "*   **RouteID:** RTE072\n*   **Route:** Kingston - MAY PEN\n*   **Online Discount:** $1974.00\n*   **Adult:** $2100.00\n*   **Child:** $1700.00\n*   **Senior:** $1800.00\n*   **Student:** $1750.00\n"}
+{"role": "user", "content": "How mny seats available."}
+{"role": "model", "content": "I do not have the ability to access real-time booking information or check seat availability for specific dates and times for Knutsford Express.\n"}
