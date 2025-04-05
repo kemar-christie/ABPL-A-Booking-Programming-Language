@@ -1,0 +1,50 @@
+# Copyright (c) 2025 Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
+# Authors: Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
+
+// events.json
+[
+    {
+        "event_id": "",
+        "event_name": "",
+        "event_type": "",
+        "description": "",
+        "event_date": "",
+        "location": "",
+        "available_tickets": "",
+        "ticket_price": ""
+    }
+]
+
+// ticket_types.json
+[
+    {
+        "ticket_type_id": "",
+        "event_id": "",
+        "ticket_name": "",
+        "ticket_price": ""
+    }
+]
+
+// reservations.json
+[
+    {
+        "reservation_id": "",
+        "customer_id": "",
+        "event_id": "",
+        "ticket_type_id": "",
+        "reservation_date": "",
+        "ticket_count": "",
+        "total_price": "",
+        "status": ""
+    }
+]
+
+// cancellations.json
+[
+    {
+        "cancellation_id": "",
+        "reservation_id": "",
+        "cancellation_date": "",
+        "reason": ""
+    }
+]
