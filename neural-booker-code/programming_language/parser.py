@@ -10,7 +10,8 @@ def p_command(p):
     '''COMMAND : booking_command
                | list_command
                | payment_command
-               | inquiry_command'''
+               | inquiry_command
+               | rent_command'''
     p[0] = ('COMMAND', p[1])
 
 
@@ -23,7 +24,8 @@ def p_booking_command(p):
                        | ACTION_KEYWORD SERVICE RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL CONTEXT_KEYWORD START_DATE LOCATION_MARKER TIME CONTEXT_KEYWORD USERNAME SYMBOL
                        | ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL CONTEXT_KEYWORD START_DATE LOCATION_MARKER TIME CONTEXT_KEYWORD CONTEXT_KEYWORD END_DATE LOCATION_MARKER TIME SYMBOL
                        | ACTION_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL
-                       | ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE CONTEXT_KEYWORD DATE ARRIVAL CONTEXT_KEYWORD DATE SYMBOL'''
+                       | ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE CONTEXT_KEYWORD DATE ARRIVAL CONTEXT_KEYWORD DATE SYMBOL
+                       | ACTION_KEYWORD RESOURCE LOCATION_MARKER LOCATION LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL'''
 
 
     if len(p)==8: # Variant 1.1:
@@ -32,7 +34,6 @@ def p_booking_command(p):
     elif len(p) == 8:  # Variant 1: Booking with ARRIVAL, DEPARTURE, and SYMBOL
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
                 ('ARRIVAL', p[4]), ('LOCATION_MARKER', p[5]), ('DEPARTURE', p[6]), ('SYMBOL', p[7]))
-
     elif len(p) == 12:  # Variant 2: Booking with CONNECTIVE_WORD, CONTEXT_KEYWORD, CONDITIONS, and MONEY
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
                 ('ARRIVAL', p[4]), ('LOCATION_MARKER', p[5]), ('DEPARTURE', p[6]), ('CONNECTIVE_WORD', p[7]),
@@ -61,16 +62,24 @@ def p_booking_command(p):
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
                 ('DEPARTURE', p[4]), ('CONTEXT_KEYWORD', p[5]), ('DATE', p[6]), ('ARRIVAL', p[7]),
                 ('CONTEXT_KEYWORD', p[8]), ('DATE', p[9]), ('SYMBOL', p[10]))
+    elif len(p) == 12:
+        p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
+                ('LOCATION', p[4]), ('LOCATION_MARKER', p[5]), ('START_DATE', p[6]), ('LOCATION_MARKER', p[7]),
+                ('END_DATE', p[8]), ('CONTEXT_KEYWORD', p[9]), ('USERNAME', p[10]), ('SYMBOL', p[11]))
 
 
 def p_list_command(p):
     '''list_command : LIST_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
+                    | LIST_KEYWORD CONTEXT_KEYWORD RENT_KEYWORD RESOURCE LOCATION_MARKER LOCATION SYMBOL
                     | LIST_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL
                     | LIST_KEYWORD SERVICE CONTEXT_KEYWORD LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL'''
 
     if len(p) == 8:  # Handling the first variant
         p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
                 ('DEPARTURE', p[4]), ('LOCATION_MARKER', p[5]), ('ARRIVAL', p[6]), ('SYMBOL', p[7]))
+    elif len(p) == 8:
+        p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('CONTEXT_KEYWORD', p[2]),('RENT_KEYWORD', p[3]),
+                ('RESOURCE',p[4]), ('LOCATION_MARKER', p[5]), ('LOCATION', p[6]), ('SYMBOL', p[7]))
     elif len(p) == 5:  # Handling the second variant
         p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('SERVICE', p[2]), ('CONTEXT_KEYWORD', p[3]),
                 ('SYMBOL', p[4]))
@@ -78,6 +87,7 @@ def p_list_command(p):
         p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('SERVICE', p[2]), ('CONTEXT_KEYWORD', p[3]),
                 ('LOCATION_MARKER', p[4]), ('DEPARTURE', p[5]), ('LOCATION_MARKER', p[6]), ('ARRIVAL', p[7]), 
                 ('SYMBOL', p[8]))
+        
 
 
 def p_payment_command(p):
@@ -94,6 +104,14 @@ def p_inquiry_command(p):
     '''inquiry_command : ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL'''
     p[0] = ('INQUIRY_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('CONTEXT_KEYWORD', p[3]),
             ('LOCATION_MARKER', p[4]), ('DEPARTURE', p[5]), ('LOCATION_MARKER', p[6]), ('ARRIVAL', p[7]), ('SYMBOL', p[8]))
+
+def p_rent_command(p):
+    '''rent_command : RENT_KEYWORD RESOURCE LOCATION_MARKER LOCATION LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL'''
+
+    p[0] = ('RENT_COMMAND', ('RENT_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
+            ('LOCATION', p[4]), ('LOCATION_MARKER', p[5]), ('START_DATE', p[6]), ('LOCATION_MARKER', p[7]),
+            ('END_DATE', p[8]), ('CONTEXT_KEYWORD', p[9]), ('USERNAME', p[10]), ('SYMBOL', p[11]))
+
 
 def p_departure(p):
     '''departure : DEPARTURE'''
@@ -153,7 +171,7 @@ parser = yacc(optimize=True)
 # Test the parser (optional, for testing the parser in isolation)
 if __name__ == '__main__':
     
-    data = "List Knutsford Express Schedule from Kingston To Montego Bay."
+    data = "Book a vehicle in Kingston from April 10, 2025 at 9:00 AM to April 15, 2025 at 6:00 PM for rob_jam1."
     result = parser.parse(data) 
 
     print("\nParsed Result:")

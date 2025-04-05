@@ -176,4 +176,4 @@ def send_prompt_to_gemini(user_input):
     print("Thank you for chatting!")
 
 #send_prompt_to_gemini("List all Knutsford Express ")
-#trainAI()
+trainAI()

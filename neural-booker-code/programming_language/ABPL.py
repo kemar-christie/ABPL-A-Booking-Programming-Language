@@ -281,5 +281,14 @@ print(result)
 # book a flight from montego bay on june 2, 2025 to New York on june 3, 2025.
 
 
+# Rent a sedan in Kingston from April 10, 2025 at 9:00 AM to April 15, 2025 at 6:00 PM for rob_jam1.
+# List vehicles that I can rent in Kingston.
+# Book a vehicle in Kingston from April 10, 2025 at 9:00 AM to April 15, 2025 at 6:00 PM for rob_jam1. -working
+
+# Flight token
+# List flights from Kingston to New york on February 17, 2025.
+# Book flights from Kingston to New york on February 17, 2025 at 8:00 am.
+
+
 # issues to tell Kemar:
 # the 6th rule for booking command is exactly the same as reservtion command

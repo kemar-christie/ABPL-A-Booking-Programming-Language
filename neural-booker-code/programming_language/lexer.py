@@ -6,7 +6,7 @@ from ply.lex import lex
 
 # --- Tokenizer
 
-tokens = ('ACTION_KEYWORD','LIST_KEYWORD', 'CONTEXT_KEYWORD', 'LOCATION_MARKER', 'CONNECTIVE_WORD', 
+tokens = ('ACTION_KEYWORD','LIST_KEYWORD','RENT_KEYWORD', 'CONTEXT_KEYWORD', 'LOCATION_MARKER', 'CONNECTIVE_WORD', 
           'DATE', 'START_DATE', 'END_DATE', 'NUMBER', 'SYMBOL', 'MONEY', 'RESOURCE', 
           'CONDITIONS', 'TIME', 'USERNAME', 'DEPARTURE', 'ARRIVAL', 'LOCATION', 
           'SERVICE', 'ARTICLE_CONJUNCTION','PAYMENT_TYPE')
@@ -17,7 +17,7 @@ action_keywords = [ 'Book a', 'Confirm a', 'Pay', 'Cancel a',
 
 # Define context keywords - words that provide context to actions
 context_keywords = ['on', 'For', 'Schedule', 'are there', 'Returning', 
-                    'cost']
+                    'cost','available']
 
 all_keywords = action_keywords + context_keywords
 
@@ -28,6 +28,8 @@ location_markers = ['in', 'at', 'from', 'to']
 connective_words = ['that']
 
 t_LIST_KEYWORD=r'\b(List all|List)\b'
+
+t_RENT_KEYWORD=r'\b(Rent a|Rent|Rental)\b'
 
 # Generate regex patterns for each category
 t_ACTION_KEYWORD = r'\b(?:' + r'|'.join(action_keywords) + r')\b'
@@ -53,7 +55,7 @@ t_SYMBOL = r'\.+(?=[ \t]*$)|,|:'
 # The backslash escapes the $ to avoid it being interpreted as a special character.
 t_MONEY = r'\$\d+(\.\d+)?'
 
-t_RESOURCE = r'Reservations|Reservation|Tickets|Ticket|tickets|Flights|Flight|Rooms|Room|Hotels|Hotel'
+t_RESOURCE = r'(?<=\bRent a\s|Rental\s|Book a\s)([A-Za-z]+)(?=\sin)|Reservations|Reservation|Tickets|Ticket|tickets|Flights|Flight|Rooms|Room|Hotels|Hotel'
 
 t_CONDITIONS = r'\b(?:less than|more than|equal to|greater than|if|then)\b'
 
@@ -70,7 +72,8 @@ t_ARRIVAL = r'(?<=\bTo\b\s)([a-zA-Z\s]+?)(?=\s\bFrom\b)|' \
             r'(?<=\bTo\b\s)([a-zA-Z\s]+?)(?=\s\b(?:' + r'|'.join(all_keywords) + r')\b)'
 
 t_LOCATION = r'(?<=\bin\b\s)([a-zA-Z\s]+?)(?=\s\b(?:' + r'|'.join(all_keywords) + r')\b)|' \
-             r'(?<=\bin\b\s)([a-zA-Z\s]+?)(?=\s*\.)'
+             r'(?<=\bin\b\s)([a-zA-Z\s]+?)(?=\s*\.)|' \
+             r'(?<=\bin\s)([a-zA-Z\s]+?)(?=\s\bfrom\b)'
 
 t_SERVICE = r'(?<=\ba\s)(?!(?:' + r'|'.join(all_keywords) + r')\b)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_RESOURCE + r')\b)|' \
             r'(?<=\bList\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bSchedule\b)|' \
@@ -102,7 +105,7 @@ lexer = lex(reflags=re.IGNORECASE)
 
 # Test the lexer (optional, for testing the lexer in isolation)
 if __name__ == '__main__':
-    data = "List Knutsford Express Schedule from Kingston To Montego Bay."
+    data = "Book a vehicle in Kingston from April 10, 2025 at 9:00 AM to April 15, 2025 at 6:00 PM for rob_jam1."
     lexer.input(data)
 
     print("\nTokenized Output:\n")
