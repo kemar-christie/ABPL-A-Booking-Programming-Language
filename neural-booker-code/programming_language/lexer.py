@@ -4,7 +4,7 @@
 import re
 from ply.lex import lex
 
-# --- Tokenizer
+# --- Tokenizer 
 
 tokens = ('ACTION_KEYWORD','LIST_KEYWORD','RENT_KEYWORD', 'CONTEXT_KEYWORD', 'LOCATION_MARKER', 'CONNECTIVE_WORD', 
           'DATE', 'START_DATE', 'END_DATE', 'NUMBER', 'SYMBOL', 'MONEY', 'RESOURCE', 
@@ -40,6 +40,8 @@ t_LOCATION_MARKER = r'\b(?:' + r'|'.join(location_markers) + r')\b'
 
 t_CONNECTIVE_WORD = r'\b(?:' + r'|'.join(connective_words) + r')\b'
 
+t_TIME = r'\b(?:[0-9]*):[0-9]*\s*(?:AM|PM)?\b'
+
 t_START_DATE = r'(?<=\bfrom\b\s).+?(?=\s\bto\b)|(?<=\bon\b\s).+?(?=\s\bat\b)'
 
 t_END_DATE = r'(?<=\breturning on\s).+?(?=\s(?:at)\b)|' \
@@ -58,8 +60,6 @@ t_MONEY = r'\$\d+(\.\d+)?'
 t_RESOURCE = r'(?<=\bRent a\s|Rental\s|Book a\s)([A-Za-z]+)(?=\sin)|Reservations|Reservation|Tickets|Ticket|tickets|Flights|Flight|Rooms|Room|Hotels|Hotel'
 
 t_CONDITIONS = r'\b(?:less than|more than|equal to|greater than|if|then)\b'
-
-t_TIME = r'\b(?:([0-9])?[0-9]):[0-9][0-9]\s*(?:AM|PM)\b'
 
 t_USERNAME = r'(?<=\bfor\b\s)[A-Za-z0-9_]+'
 
@@ -105,7 +105,7 @@ lexer = lex(reflags=re.IGNORECASE)
 
 # Test the lexer (optional, for testing the lexer in isolation)
 if __name__ == '__main__':
-    data = "Book a vehicle in Kingston from April 10, 2025 at 9:00 AM to April 15, 2025 at 6:00 PM for rob_jam1."
+    data = "Book a Ticket from Montego Bay to Miami on Jan 17, 2025 at 19:30 returning on Mar 17, 2025 at 8:30 AM."
     lexer.input(data)
 
     print("\nTokenized Output:\n")
