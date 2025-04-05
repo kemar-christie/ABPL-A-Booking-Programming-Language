@@ -84,8 +84,8 @@ def trainAI():
 
         if "getKnutsfordDetails()" in response_text:
             print(f"\n-----Gemini:\n {response_text}") # Print Gemini's response
-            import getDataForAI
-            knutsford_data = getDataForAI.getKnutsfordDetails()
+            import get_data_for_AI
+            knutsford_data = get_data_for_AI.getKnutsfordDetails()
             
             data_prompt = f"Here is the Knutsford Express data from the code: {knutsford_data} use it to {user_input} "
             conversation_history.append({"role": "user", "content": data_prompt})
@@ -140,8 +140,8 @@ def send_prompt_to_gemini(user_input):
 
     if "getKnutsfordDetails()" in response_text:
         print(f"\n-----Gemini:\n {response_text}") # Print Gemini's response
-        import getDataForAI
-        knutsford_data = getDataForAI.getKnutsfordDetails()
+        import get_data_for_AI
+        knutsford_data = get_data_for_AI.getKnutsfordDetails()
         
         data_prompt = f"Here is the Knutsford Express data from the code: {knutsford_data} use it to {user_input} "
         conversation_history.append({"role": "user", "content": data_prompt})
