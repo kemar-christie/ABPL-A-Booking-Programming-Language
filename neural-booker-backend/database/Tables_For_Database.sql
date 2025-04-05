@@ -2,7 +2,7 @@
 -- Authors: Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
 
 -- Query to Create Customer Information Table.
-CREATE TABLE Customer_Information
+CREATE TABLE "Customer_Information"
 (
 	customer_id SERIAL PRIMARY KEY,
 	customer_username VARCHAR(20),
@@ -13,7 +13,7 @@ CREATE TABLE Customer_Information
 );
 
 -- Query to Create Booking Information Table.
-CREATE TABLE Booking_Information
+CREATE TABLE "Booking_Information"
 (
 	booking_id SERIAL PRIMARY KEY,
 	booking_type VARCHAR(50) NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE Booking_Information
 );
 
 -- Query to Create Payment Information Table.
-CREATE TABLE Payment_Information
+CREATE TABLE "Payment_Information"
 (
 	payment_id SERIAL PRIMARY KEY,
 	booking_id INT NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE Payment_Information
     balance NUMERIC(10,2) GENERATED ALWAYS AS (total_price - amount_paid) STORED,
 	payment_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	payment_method payment_method_enum NOT NULL,
-	FOREIGN KEY (booking_id) REFERENCES Booking_Information(booking_id)
+	FOREIGN KEY (booking_id) REFERENCES "Booking_Information"(booking_id)
 );
 
 -- Enum Creation for Booking Information Table and Payment Information Table.
@@ -39,7 +39,7 @@ CREATE TYPE booking_status_enum AS ENUM ('Cancelled', 'Confirmed', 'Pending');
 CREATE TYPE payment_method_enum AS ENUM ('Credit Card', 'PayPal', 'Bank Transfer');
 
 -- Addition of Customers to Database.
-INSERT INTO customer_information
+INSERT INTO "Customer_Information"
 ( 
 	customer_id,
 	first_name, 
@@ -54,8 +54,10 @@ VALUES
 ('4', 'Tyoni', 'Davis', 'tyonidavis@example.com', 50000),
 ('5', 'Danielle', 'Jones', 'daniellejones@example.com', 50000);
 ('Benjamin', 'Robinson', 'benjaminrobinson@example.com', 50000);
+('Marcus', 'Manley', 'marcusmanley@example.com', 50000);
 
-SELECT * FROM Customer_Information;
+SELECT * FROM "Customer_Information";
+
 
 -- Additional Queries
 -- Query to Set Timezone for Database Session.
@@ -70,9 +72,9 @@ COMMENT ON COLUMN your_table.column_name IS 'Comment';
 -- Query for commenting on tables.
 COMMENT ON TABLE your_table IS 'Comment.';
 
--- This sets the sequence to match the highest customer_id you've inserted, so future auto-increments will be correct.
-SELECT pg_get_serial_sequence('Customer_Information', 'customer_id');
-SELECT setval('public.customer_customer_id_seq', (SELECT MAX(customer_id) FROM Customer_Information));
+-- This sets the sequence to match the highest customer_id you've inserted so that future auto-increments will be correct.
+SELECT pg_get_serial_sequence("Customer_Information", 'customer_id');
+SELECT setval('public.customer_customer_id_seq', (SELECT MAX(customer_id) FROM "Customer_Information"));
 
 -- Auto-generate customer_username based on name + ID
 CREATE OR REPLACE FUNCTION generate_customer_username()
@@ -87,7 +89,7 @@ END;
 $$ LANGUAGE plpgsql;
 --
 CREATE TRIGGER trg_generate_username
-BEFORE INSERT ON Customer_Information
+BEFORE INSERT ON "Customer_Information"
 FOR EACH ROW
 EXECUTE FUNCTION generate_customer_username();
 
@@ -96,8 +98,16 @@ ALTER TABLE name_of_table
 ALTER COLUMN name_column DROP NOT NULL;
 
 -- Query to Delete Data from the table based on column.
-DELETE FROM Customer_Information
-WHERE customer_id = 101;
+DELETE FROM name_of_table
+WHERE name_of_field = "value";
 
--- Query to Delete all Data from table.
-DELETE FROM Customer_Information;
+-- Query to Delete all Data from a table.
+DELETE FROM name_of_table;
+
+-- Query to Rename a table.
+ALTER TABLE name_of_table
+RENAME TO new_table_name;
+
+-- Query to Rename a column.
+ALTER TABLE name_of_table
+RENAME COLUMN old_column_name TO new_column_name;
