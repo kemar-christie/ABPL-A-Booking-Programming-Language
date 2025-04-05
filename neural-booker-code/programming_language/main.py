@@ -4,7 +4,7 @@
 import ply.lex as lex
 import ply.yacc as yacc
 from lexer import lexer  # Import the lexer object from lexer.py
-from parser import parser  # Import the parser object from parser.py
+from parser import parse_and_validate
 import gemini
 
 
@@ -20,11 +20,13 @@ def run_lexer(input_string):
     print("----------------------------------------\n")
 
 def run_parser(input_string):
-    """Runs the parser and prints the parse result."""
-    result = parser.parse(input_string)
-    print("\nParse Result:")
-    print(result)
-    return result  # Return the result for the complete project
+    """Runs the parser and validates the parse result."""
+    from parser import parse_and_validate  # Import the unified function
+    result = parse_and_validate(input_string)
+    if result:
+        print("\nParse Result:")
+        print(result)
+    return result  # Return the valid result if available
 
 def run_complete_project(input_string):
     """Runs the lexer, parser, and the complete project (semantic analysis, etc.)."""
