@@ -195,6 +195,56 @@ def p_rent_command(p):
             ('END_DATE', p[8]), ('CONTEXT_KEYWORD', p[9]), ('USERNAME', p[10]), ('SYMBOL', p[11]))
 
 
+def p_inquiry_command(p):
+    '''inquiry_command : ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL'''
+    p[0] = ('INQUIRY_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('CONTEXT_KEYWORD', p[3]),
+            ('LOCATION_MARKER', p[4]), ('DEPARTURE', p[5]), ('LOCATION_MARKER', p[6]), ('ARRIVAL', p[7]), ('SYMBOL', p[8]))
+
+def p_departure(p):
+    '''departure : DEPARTURE'''
+    p[0] = ('DEPARTURE', p[1])
+
+def p_arrival(p):
+    '''arrival : ARRIVAL'''
+    p[0] = ('ARRIVAL', p[1])
+
+def p_action_keyword_rule(p):
+    '''action_keyword_rule : ACTION_KEYWORD'''
+    p[0] = ('ACTION_KEYWORD', p[1])
+
+def p_resource_rule(p):
+    '''resource_rule : RESOURCE'''
+    p[0] = ('RESOURCE', p[1])
+
+def p_service_rule(p):
+    '''service_rule : SERVICE'''
+    p[0] = ('SERVICE', p[1])
+
+def p_location_marker_rule(p):
+    '''location_marker_rule : LOCATION_MARKER'''
+    p[0] = ('LOCATION_MARKER', p[1])
+
+def p_context_keyword_rule(p):
+    '''context_keyword_rule : CONTEXT_KEYWORD'''
+    p[0] = ('CONTEXT_KEYWORD', p[1])
+
+def p_start_date_rule(p):
+    '''start_date_rule : START_DATE'''
+    p[0] = ('START_DATE', p[1])
+
+def p_time_rule(p):
+    '''time_rule : TIME'''
+    p[0] = ('TIME', p[1])
+
+def p_username_rule(p):
+    '''username_rule : USERNAME'''
+    p[0] = ('USERNAME', p[1])
+
+def p_symbol_rule(p):
+    '''symbol_rule : SYMBOL'''
+    p[0] = ('SYMBOL', p[1])
+
+
 # Error handling
 def p_error(p):
     if p:

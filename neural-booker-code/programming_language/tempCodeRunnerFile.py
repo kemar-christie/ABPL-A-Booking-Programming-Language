@@ -1,0 +1,1 @@
+get_initial_prompt
