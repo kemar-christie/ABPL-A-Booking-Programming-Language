@@ -135,22 +135,32 @@ def save_data_for_json(json_string):
         print("Data appended successfully to booking_data.json")
 
 
-def trainAI():
-    # Print a welcome message to the user
-    print("\n______________________________________________________________\nWelcome to the interactive chat with Gemini!")
-    print("Type 'exit' to end the conversation.")
+def promptAI(mode,singlePrompt=None):
+
+    if mode!= "train" and mode != "single input":
+        raise ValueError("Invalid mode. Use 'train' or 'single input'.")
+
+    if mode == "train":
+        # Print a welcome message to the user
+        print("\n______________________________________________________________\nWelcome to the interactive chat with Gemini!")
+        print("Type 'exit' to end the conversation.")
 
     # Start the main loop for the interactive chat
     while True:
-        # Get user input
-        user_input = input("\nYou(type exit to end convo): ")
-        # Check if the user wants to exit the chat
-        if user_input.lower() == 'exit' or user_input.lower() == 'exit.':
-            break
+
+        if mode == "train":
+            # Get user input
+            user_input = input("\nYou(type exit to end convo): ")
+            # Check if the user wants to exit the chat
+            if user_input.lower() == 'exit' or user_input.lower() == 'exit.':
+                break
+        elif mode == "single input":
+            # Use the provided single prompt for testing
+            user_input = singlePrompt
 
         response_text = generate_with_context(user_input, conversation_history)
+       
         # Remove escape characters before searching for the trigger word
-
         response_text = response_text.replace("\\", "")  # Remove all backslashes
 
         if "getKnutsfordDetails()" in response_text:
@@ -229,85 +239,20 @@ def trainAI():
                 # Write Gemini's turn as a JSON object to the file, followed by a newline
                 f.write(json.dumps({"role": "model", "content": response_text}) + "\n")
 
+        
+        if mode == "single input":
+            # If in single input mode, break the loop after one iteration
+            break
+
         # Print a thank you message when the chat ends
         print("Thank you for chatting!")
 
 
 
 
-def send_prompt_to_gemini(user_input):
-    # Print a welcome message to the user
-    print("\n______________________________________________________________\nWelcome to the interactive chat with Gemini!")
-    print("Type 'exit' to end the conversation.")
-
-    # Start the main loop for the interactive chat
-    #while True:
-        # Get user input
-        #user_input = input("\nYou(type exit to end convo): ")
-        # Check if the user wants to exit the chat
-    #if user_input.lower() == 'exit' or user_input.lower() == 'exit.':
-    #    break
-
-    response_text = generate_with_context(user_input, conversation_history)
-
-    if "getKnutsfordDetails()" in response_text:
-        print(f"\n-----Gemini:\n {response_text}") # Print Gemini's response
-        import get_data_for_AI
-        knutsford_data = get_data_for_AI.getKnutsfordDetails()
-        
-        data_prompt = f"Here is the Knutsford Express data from the code: {knutsford_data} use it to {user_input} "
-        conversation_history.append({"role": "user", "content": data_prompt})
-
-        # Append the current turn (user input and Gemini's response) to the history file
-        with open(HISTORY_FILE, "a") as f:  # Open the file in append mode ("a")
-            # Write Gemini's turn as a JSON object to the file, followed by a newline
-            f.write(json.dumps({"role": "model", "content": response_text}) + "\n")
-            # Write the user's turn as a JSON object to the file, followed by a newline
-            f.write(json.dumps({"role": "user", "content": data_prompt}) + "\n")
-
-
-        response_text = generate_with_context(data_prompt, conversation_history)  # Get Gemini's formatted response
-
-
-        print(f"\n-----Gemini:\n{response_text}") # Print Gemini's response
-    # Check if the AI response contains the trigger word "saveDataforJSON"
-    elif "save_data_for_json(" in response_text:
-        print("\n--------------processed!!!\n\n")
-        print(f"\n-----Gemini:\n{response_text}")  # Print Gemini's response
-
-        # Extract the data string within saveDataforJSON(...)
-        start_index = response_text.find("saveDataforJSON(") + len("saveDataforJSON(")
-        end_index = response_text.find(")", start_index)
-        data_string = response_text[start_index:end_index]
-        
- 
-        # Call the JSON saving function from the imported module
-        save_data_for_json(data_string)
-
-        # Append the current turn (user input and Gemini's response) to the history file
-        with open(HISTORY_FILE, "a") as f:  # Open the file in append mode ("a")
-            # Write Gemini's turn as a JSON object to the file, followed by a newline
-            f.write(json.dumps({"role": "model", "content": response_text}) + "\n")
-            # Write the user's turn as a JSON object to the file, followed by a newline
-            f.write(json.dumps({"role": "user", "content": data_prompt}) + "\n")
-
-    else:
-        print(f"\n-----Gemini:\n{response_text}")
-        # Add the current user input to the conversation history list
-        conversation_history.append({"role": "user", "content": user_input})
-        # Add Gemini's response to the conversation history list
-        conversation_history.append({"role": "model", "content": response_text})
-            # Append the current turn (user input and Gemini's response) to the history file
-
-        with open(HISTORY_FILE, "a") as f:  # Open the file in append mode ("a")
-            # Write the user's turn as a JSON object to the file, followed by a newline
-            f.write(json.dumps({"role": "user", "content": user_input}) + "\n")
-            # Write Gemini's turn as a JSON object to the file, followed by a newline
-            f.write(json.dumps({"role": "model", "content": response_text}) + "\n")
-
-    # Print a thank you message when the chat ends
-    print("Thank you for chatting!")
-
 #send_prompt_to_gemini("List all Knutsford Express ")
-trainAI()
+#promptAI("single input", "List all Knutsford Express bookings for rob_jam1.")
+#promptAI("train")
+
 #save_data_for_json('{"username": "rob_jam1", "route": "Montego Bay to Kingston", "date": "February 21 2025", "departure_time": "10:00 AM", "arrival_time": "2:00 PM", "ticket_type": "Adult", "total_cost": 55.44, "amount_paid": 55.44, "booking_type": "Knutsford Express"}')
+

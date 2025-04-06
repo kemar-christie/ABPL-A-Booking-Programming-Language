@@ -1,10 +1,8 @@
 # Copyright (c) 2025 Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
 # Authors: Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
 
-import ply.lex as lex
-import ply.yacc as yacc
 from lexer import lexer  # Import the lexer object from lexer.py
-from parser import parse_and_validate
+from parser import parser
 import gemini
 
 
@@ -21,8 +19,8 @@ def run_lexer(input_string):
 
 def run_parser(input_string):
     """Runs the parser and validates the parse result."""
-    from parser import parse_and_validate  # Import the unified function
-    result = parse_and_validate(input_string)
+    result = parser.parse(input_string) 
+
     if result:
         print("\nParse Result:")
         print(result)
@@ -30,20 +28,15 @@ def run_parser(input_string):
 
 def run_complete_project(input_string):
     """Runs the lexer, parser, and the complete project (semantic analysis, etc.)."""
-    print("--- Running Lexer ---")
+    print("\n--- Running Lexer ---")
     run_lexer(input_string)
 
     print("\n--- Running Parser ---")
-    parse_result = run_parser(input_string)
+    result = run_parser(input_string)
 
-    # --- Semantic Analysis, LLM Integration, and Simulation ---
-    #  This is where you would add the code to perform the remaining
-    #  parts of your assignment. The 'parse_result' variable contains the
-    #  parse tree, which you can now traverse and analyze.
-    #  You would also make calls to the LLM and simulate the
-    #  booking process here.
 
-    gemini.send_prompt_to_gemini(input_string)
+    if result:
+        gemini.promptAI("single input",input_string)
 
 
 def main():
@@ -63,8 +56,16 @@ def main():
             input_string = input("\nEnter the input string for the parser: ")
             run_parser(input_string)
         elif choice == '3':
-            input_string = input("\nEnter the input string for the complete project: ")
-            run_complete_project(input_string)
+            
+            while True:
+                input_string = input("\nEnter the input string for the complete project\n(enter exit to quit)\n: ")
+                
+                if "exit" in input_string.lower():
+                    print("Exiting...")
+                    break
+                else:
+                    run_complete_project(input_string)
+
         elif choice == '4':
             print("Exiting...")
             break
