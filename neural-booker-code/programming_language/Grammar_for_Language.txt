@@ -70,5 +70,3 @@ ARRIVAL              -> arrival
 LOCATION             -> location
 SERVICE              -> service
 SYMBOL               -> '.' | '?'
-
-

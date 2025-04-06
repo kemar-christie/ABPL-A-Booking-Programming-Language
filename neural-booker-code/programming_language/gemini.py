@@ -149,6 +149,9 @@ def trainAI():
             break
 
         response_text = generate_with_context(user_input, conversation_history)
+        # Remove escape characters before searching for the trigger word
+
+        response_text = response_text.replace("\\", "")  # Remove all backslashes
 
         if "getKnutsfordDetails()" in response_text:
             print(f"\n-----Gemini:\n {response_text}") # Print Gemini's response
@@ -175,12 +178,24 @@ def trainAI():
             print("\n--------------processed!!!\n\n")
             print(f"\n-----Gemini:\n{response_text}")  # Print Gemini's response
 
-            start_index += len("saveDataforJSON(")
-            end_index = response_text.find(")", start_index)
+            #Initialize start_index properly
+            start_index = response_text.find("save_data_for_json(")
+            if start_index == -1:
+                print("Error: Trigger word 'save_data_for_json(' not found in response_text.")
+                return  # Exit the function if the trigger word is missing
+
+            start_index += len("save_data_for_json(")  # Adjust start_index to the position after the trigger word
+            end_index = response_text.rfind(")")
+
+
             if end_index == -1:
                 print("Error: Closing parenthesis ')' not found after 'saveDataforJSON('.")
-                return  # Exit the function if the closing parenthesis is missing
+                return  
             data_string = response_text[start_index:end_index]
+
+            data_string = data_string.strip()  # Remove leading/trailing whitespace
+            data_string = data_string.replace("\n", "")  # Remove any newlines
+            data_string = data_string.strip("'")  # Remove the enclosing single quotes
 
             # Add the current user input to the conversation history list
             conversation_history.append({"role": "user", "content": user_input})
@@ -194,6 +209,8 @@ def trainAI():
                 # Write Gemini's turn as a JSON object to the file, followed by a newline
                 f.write(json.dumps({"role": "model", "content": response_text}) + "\n")
             
+            print(f"Extracted Data String: {data_string}")
+
             # Call the JSON saving function from the imported module
             save_data_for_json(data_string)
 
@@ -293,4 +310,4 @@ def send_prompt_to_gemini(user_input):
 
 #send_prompt_to_gemini("List all Knutsford Express ")
 trainAI()
-#save_data_for_json('{"username": "john_doe1", "route": "Montego Bay (Sangster MBJ) to Kingston", "date": "February 21, 2025", "departure_time": "6:00 AM", "arrival_time": "10:00 AM", "ticket_type": "Adult", "total_cost": 27.72, "amount_paid": 27.72, "booking_type": "Knutsford Express"}')
+#save_data_for_json('{"username": "rob_jam1", "route": "Montego Bay to Kingston", "date": "February 21 2025", "departure_time": "10:00 AM", "arrival_time": "2:00 PM", "ticket_type": "Adult", "total_cost": 55.44, "amount_paid": 55.44, "booking_type": "Knutsford Express"}')

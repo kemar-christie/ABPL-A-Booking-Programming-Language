@@ -9,11 +9,12 @@ from ply.lex import lex
 tokens = ('ACTION_KEYWORD','LIST_KEYWORD','RENT_KEYWORD', 'CONTEXT_KEYWORD', 'LOCATION_MARKER', 'CONNECTIVE_WORD', 
           'DATE', 'START_DATE', 'END_DATE', 'NUMBER', 'SYMBOL', 'MONEY', 'RESOURCE', 
           'CONDITIONS', 'TIME', 'USERNAME', 'DEPARTURE', 'ARRIVAL', 'LOCATION', 
-          'SERVICE', 'ARTICLE_CONJUNCTION','PAYMENT_TYPE')
+          'SERVICE', 'ARTICLE_CONJUNCTION','PAYMENT_TYPE','INQUIRY_KEYWORD','PASSENGER_TYPE', 'CONFIRM_KEYWORD',
+          'TICKET_TYPE')
 
 # Define action keywords - commands that initiate an action
-action_keywords = [ 'Book a', 'Confirm a', 'Pay', 'Cancel a', 
-                   'Reserve a', 'How many', 'Duration of']
+action_keywords = [ 'Book a','Book', 'Pay', 'Cancel a', 
+                   'Reserve a', 'How many', 'Duration of','Booking']
 
 # Define context keywords - words that provide context to actions
 context_keywords = ['on', 'For', 'Schedule', 'are there', 'Returning', 
@@ -27,9 +28,16 @@ location_markers = ['in', 'at', 'from', 'to']
 # Define connective words - words that connect clauses or phrases
 connective_words = ['that']
 
-t_LIST_KEYWORD=r'\b(List all|List)\b'
+t_CONFIRM_KEYWORD = r'\b(Confirm a|Confirm the|Confirm)\b'
+t_INQUIRY_KEYWORD = r'\b(How many|What is the)\b'
 
-t_RENT_KEYWORD=r'\b(Rent a|Rent|Rental)\b'
+t_LIST_KEYWORD=r'\b(List all|List bookings|List)\b'
+
+t_RENT_KEYWORD=r'\b(Rent a|Rental|Rent)\b'
+
+t_PASSENGER_TYPE=r'\b(adults|children|seniors|students|adult|child|senior|student)\b'
+
+t_TICKET_TYPE = r'(?<=\d\s)(.*?)(?=\s(?:ticket|tickets))'
 
 # Generate regex patterns for each category
 t_ACTION_KEYWORD = r'\b(?:' + r'|'.join(action_keywords) + r')\b'
@@ -48,20 +56,23 @@ t_END_DATE = r'(?<=\breturning on\s).+?(?=\s(?:at)\b)|' \
              r'(?<=\bto\s).+?(?=\s(?:for)\b)|' \
              r'(?<=\bto\s).+?(?=\.)'
 
-t_DATE = r'(?<=\bon\s)((?!\b(?:in|at|from|to)\b).)+?(?=\s\bto\b|\.)'
+t_DATE = r'(?<=\bon\s)((?!\b(?:in|at|from|to)\b).)+?(?=\s\bto\b|[?\.])'
 
 t_NUMBER = r'\b\d+\b'
 
-t_SYMBOL = r'\.+(?=[ \t]*$)|,|:'
+t_SYMBOL = r'\.+(?=[ \t]*$)|,|:|\?'
 
 # The backslash escapes the $ to avoid it being interpreted as a special character.
 t_MONEY = r'\$\d+(\.\d+)?'
 
-t_RESOURCE = r'(?<=\bRent a\s|Rental\s|Book a\s)([A-Za-z]+)(?=\sin)|Reservations|Reservation|Tickets|Ticket|tickets|Flights|Flight|Rooms|Room|Hotels|Hotel'
+t_RESOURCE = (
+    r'(?<=\bRent a\s|Rental\s|Book a\s)([A-Za-z]+)(?=\sin)|'
+    r'Reservations|Reservation|Tickets|Ticket|tickets|Flights|Flight|Rooms|Room|Hotels|Hotel|'
+    r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bon\b)'
+)
 
 t_CONDITIONS = r'\b(?:less than|more than|equal to|greater than|if|then)\b'
 
-t_USERNAME = r'(?<=\bfor\b\s)[A-Za-z0-9_]+'
 
 # Starting Point
 t_DEPARTURE = r'(?<=\bfrom\b\s)([a-zA-Z\s]+?)(?=\s\band\b)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s\bTo\b)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s\bThat\b)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s*\.)|(?<=\bFrom\b\s)([a-zA-Z\s]+)(?=\s\b(?:' + r'|'.join(all_keywords) + r')\b)'
@@ -79,8 +90,15 @@ t_SERVICE = r'(?<=\ba\s)(?!(?:' + r'|'.join(all_keywords) + r')\b)([A-Za-z]+(?:\
             r'(?<=\bList\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bSchedule\b)|' \
             r'(?<=\bList all\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bSchedule\b)|' \
             r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bfor\b)|' \
-            r'(?<=\bat\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:From|from)\b)'
+            r'(?<=\bat\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:From|from)\b)|'\
+            r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:From|from)\b)|'\
+            r'(?<=\bConfirm the\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_ACTION_KEYWORD + r')\b)|'\
+            r'(?<=\bConfirm a\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_ACTION_KEYWORD + r')\b)|'\
+            r'(?<=\bConfirm\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_ACTION_KEYWORD + r')\b)'
 
+           
+
+t_USERNAME = r'(?<=\bfor\b\s)[A-Za-z0-9_]+(?=\.)'
 
 t_ARTICLE_CONJUNCTION = r'\b(a|and)\b'
 
@@ -105,7 +123,8 @@ lexer = lex(reflags=re.IGNORECASE)
 
 # Test the lexer (optional, for testing the lexer in isolation)
 if __name__ == '__main__':
-    data = "Book a Ticket from Montego Bay to Miami on Jan 17, 2025 at 19:30 returning on Mar 17, 2025 at 8:30 AM."
+    data = "List Bookings for rob_jam1."
+
     lexer.input(data)
 
     print("\nTokenized Output:\n")
