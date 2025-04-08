@@ -17,7 +17,7 @@ action_keywords = [ 'Book a','Book', 'Pay', 'Cancel a',
                    'Reserve a', 'How many', 'Duration of','Booking']
 
 # Define context keywords - words that provide context to actions
-context_keywords = ['on', 'For', 'Schedule', 'are there', 'Returning', 
+context_keywords = ['on', 'For', 'Schedules','Schedule', 'are there', 'Returning', 
                     'cost','available']
 
 all_keywords = action_keywords + context_keywords
@@ -65,11 +65,14 @@ t_SYMBOL = r'\.+(?=[ \t]*$)|,|:|\?'
 # The backslash escapes the $ to avoid it being interpreted as a special character.
 t_MONEY = r'\$\d+(\.\d+)?'
 
+resource_keywords = ['Reservations', 'Reservation', 'Tickets', 'Ticket', 'Flights', 'Flight', 'Rooms', 'Room', 'Hotels', 'Hotel', 'Trains', 'Train']
+
 t_RESOURCE = (
     r'(?<=\bRent a\s|Rental\s|Book a\s)([A-Za-z]+)(?=\sin)|'
-    r'Reservations|Reservation|Tickets|Ticket|tickets|Flights|Flight|Rooms|Room|Hotels|Hotel|'
+    r'\b(?:' + r'|'.join(resource_keywords) + r')\b|' \
     r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bon\b)'
 )
+
 
 t_CONDITIONS = r'\b(?:less than|more than|equal to|greater than|if|then)\b'
 
@@ -80,22 +83,23 @@ t_DEPARTURE = r'(?<=\bfrom\b\s)([a-zA-Z\s]+?)(?=\s\band\b)|(?<=\bFrom\b\s)([a-zA
 # Destination
 t_ARRIVAL = r'(?<=\bTo\b\s)([a-zA-Z\s]+?)(?=\s\bFrom\b)|' \
             r'(?<=\bTo\b\s)([a-zA-Z\s]+?)(?=\s*\.)|' \
-            r'(?<=\bTo\b\s)([a-zA-Z\s]+?)(?=\s\b(?:' + r'|'.join(all_keywords) + r')\b)'
+            r'(?<=\bTo\b\s)([a-zA-Z\s]+?)(?=\s\b(?:' + r'|'.join(all_keywords) + r')\b)|'\
+            r'(?<=\bTo\b\s)([a-zA-Z\-\s]+?)(?=\s\bOn\b)'
 
 t_LOCATION = r'(?<=\bin\b\s)([a-zA-Z\s]+?)(?=\s\b(?:' + r'|'.join(all_keywords) + r')\b)|' \
              r'(?<=\bin\b\s)([a-zA-Z\s]+?)(?=\s*\.)|' \
              r'(?<=\bin\s)([a-zA-Z\s]+?)(?=\s\bfrom\b)'
 
+
 t_SERVICE = r'(?<=\ba\s)(?!(?:' + r'|'.join(all_keywords) + r')\b)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_RESOURCE + r')\b)|' \
             r'(?<=\bList\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bSchedule\b)|' \
-            r'(?<=\bList all\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bSchedule\b)|' \
+            r'(?<=\bList all\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bSchedule\b)(?!\b(?:' + r'|'.join(resource_keywords) + r')\b)|'\
             r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bfor\b)|' \
             r'(?<=\bat\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:From|from)\b)|'\
             r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:From|from)\b)|'\
             r'(?<=\bConfirm the\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_ACTION_KEYWORD + r')\b)|'\
             r'(?<=\bConfirm a\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_ACTION_KEYWORD + r')\b)|'\
             r'(?<=\bConfirm\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_ACTION_KEYWORD + r')\b)'
-
            
 
 t_USERNAME = r'(?<=\bfor\b\s)[A-Za-z0-9_]+(?=\.)'
@@ -123,7 +127,7 @@ lexer = lex(reflags=re.IGNORECASE)
 
 # Test the lexer (optional, for testing the lexer in isolation)
 if __name__ == '__main__':
-    data = "List Bookings for rob_jam1."
+    data = "Confirm a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds."
 
     lexer.input(data)
 

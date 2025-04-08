@@ -5,15 +5,27 @@ from ply.yacc import yacc
 from lexer import tokens  # Import the token list from lexer.py
 
 #semanrtic validation functions
-def valid_date_format(date_str):
-    import datetime
-    try:
-        datetime.datetime.strptime(date_str, "%b %d, %Y")  # '%b' matches abbreviated month names
-        return True
-    except ValueError:
-        print(f"Error: Invalid date format '{date_str}'. Expected format: 'Jan 18, 2025'.")
-        return False
 
+# only accept date in either format March 10, 2025 or Mar 10, 2025
+def valid_date_format(date_str):
+    import re
+    
+    # Regular expression to validate the full month name format
+    fulldate_regex = r"^(January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4}$"
+    
+    # Strip leading/trailing whitespace and match the full month name format
+    date_str = date_str.strip()  # Remove leading/trailing whitespace
+    if re.match(fulldate_regex, date_str, re.IGNORECASE):  # Case-insensitive match
+        return True
+    
+    # Regular expression to validate the abbreviated month name format
+    date_regex = r"^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}, \d{4}$"
+    if re.match(date_regex, date_str, re.IGNORECASE):  # Case-insensitive match
+        return True
+    
+    # If no match, return an error message
+    print(f"\nError: Invalid date '{date_str}'. Expected format: 'Mar 10, 2025'.")
+    return False
 
 def valid_time_format(time_str):
         import re
@@ -24,28 +36,54 @@ def valid_time_format(time_str):
         if re.match(time_regex, time_str):
             return True
         else:
-            print(f"Error: Invalid time '{time_str}'. Expected formats: '10:30 AM' or '19:30'.")
+            print(f"\nError: Invalid time '{time_str}'. Expected formats: '10:30 AM' or '19:30'.")
             return False
 
 
 def validate_date_order(start_date, end_date):
+    
     from datetime import datetime
 
     try:
-        # Parse the dates into datetime objects
-        start = datetime.strptime(start_date, "%b %d, %Y")
-        end = datetime.strptime(end_date, "%b %d, %Y")
+        # Define possible formats for parsing the dates
+        formats = ["%B %d, %Y", "%b %d, %Y"]
+
+        # Attempt to parse the start and end dates
+        for fmt in formats:
+            try:
+                start = datetime.strptime(start_date, fmt)
+                end = datetime.strptime(end_date, fmt)
+                break
+            except ValueError:
+                continue
+        else:
+            # Raise an error if parsing fails for both formats
+            raise ValueError("Dates must be in the format 'March 10, 2025' or 'Mar 10, 2025'.")
 
         # Check if the start date is earlier than the end date
-        if start >= end:
-            print(f"Error: Start date '{start_date}' must be earlier than end date '{end_date}'.")
-            return False
+        if start < end:
+            return True  # Valid order
         else:
-            return True
-    except ValueError as e:
-        print(f"Invalid date format: {e}")
-        return False    
+            print(f"Error: Start date '{start_date}' is not earlier than end date '{end_date}'.")
+            return False  # Invalid order
+    except Exception as e:
+        print(f"Error: {e}")
+        return False
+
+
 # Parser rules with unique names to avoid conflicts with token names
+
+#username should have 3 letters, then a underscore, 3 letters again then any amount of numbers at the end
+def validUsernameFromat(username):
+    import re
+    # Regular expression to validate the username format
+    username_regex = r"^[a-zA-Z]{3}_[a-zA-Z]{3}\d+$"
+    if re.match(username_regex, username):
+        return True
+    else:
+        print(f"\nError: Invalid username '{username}'. Expected format: 'abc_def123'.")
+        return False
+
 
 def p_command(p):
     '''COMMAND : booking_command
@@ -79,6 +117,11 @@ def p_command(p):
                 elif isinstance(element, tuple):  # Recur for nested tuples
                     if not validate(element):
                         return False
+                #semantic validation for username
+                if isinstance(element, tuple) and element[0] == "USERNAME":
+                    username = element[1]
+                    if not validUsernameFromat(username):
+                        return False
 
             # Call validate_date_order if both start_date and end_date are available
             if start_date and end_date:
@@ -109,7 +152,9 @@ def p_booking_command(p):
                        | ACTION_KEYWORD RESOURCE LOCATION_MARKER LOCATION LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL
                        | ACTION_KEYWORD SERVICE RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL CONTEXT_KEYWORD START_DATE LOCATION_MARKER TIME CONTEXT_KEYWORD NUMBER PASSENGER_TYPE SYMBOL
                        | ACTION_KEYWORD NUMBER RESOURCE CONTEXT_KEYWORD RESOURCE CONTEXT_KEYWORD DATE SYMBOL
-                       | ACTION_KEYWORD NUMBER TICKET_TYPE RESOURCE CONTEXT_KEYWORD RESOURCE CONTEXT_KEYWORD DATE SYMBOL'''
+                       | ACTION_KEYWORD NUMBER TICKET_TYPE RESOURCE CONTEXT_KEYWORD RESOURCE CONTEXT_KEYWORD DATE SYMBOL
+                       | ACTION_KEYWORD RESOURCE LOCATION_MARKER DEPARTURE LOCATION_MARKER END_DATE SYMBOL
+                       | ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL'''
 
     if len(p)==8: # Variant 1.1:
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
@@ -117,16 +162,17 @@ def p_booking_command(p):
     elif len(p) == 8:  # Variant 1: Booking with ARRIVAL, DEPARTURE, and SYMBOL
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
                 ('ARRIVAL', p[4]), ('LOCATION_MARKER', p[5]), ('DEPARTURE', p[6]), ('SYMBOL', p[7]))
-    elif len(p) == 12:  # Variant 2: Booking with CONNECTIVE_WORD, CONTEXT_KEYWORD, CONDITIONS, and MONEY
+    elif len(p) == 12 and p[11]=="MONEY":  # Variant 2: Booking with CONNECTIVE_WORD, CONTEXT_KEYWORD, CONDITIONS, and MONEY
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
                 ('ARRIVAL', p[4]), ('LOCATION_MARKER', p[5]), ('DEPARTURE', p[6]), ('CONNECTIVE_WORD', p[7]),
                 ('CONTEXT_KEYWORD', p[8]), ('CONDITIONS', p[9]), ('MONEY', p[10]), ('SYMBOL', p[11]))
-    elif len(p) == 15:  # Variant 3: Booking with ARTICLE_CONJUNCTION and DATE elements
+    elif len(p) == 15 and p[11]== "START_DATE":  # Variant 3: Booking with ARTICLE_CONJUNCTION and DATE elements
+  
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
                 ('ARRIVAL', p[4]), ('LOCATION_MARKER', p[5]), ('DEPARTURE', p[6]), ('ARTICLE_CONJUNCTION', p[7]),
                 ('ARTICLE_CONJUNCTION', p[8]), ('RESOURCE', p[9]), ('LOCATION_MARKER', p[10]),
                 ('START_DATE', p[11]), ('LOCATION_MARKER', p[12]), ('END_DATE', p[13]), ('SYMBOL', p[14]))
-    elif len(p) == 14:  # Variant 4: Booking with SERVICE, DATE, TIME, and USERNAME elements
+    elif len(p) == 15:  # Variant 4: Booking with SERVICE, DATE, TIME, and USERNAME elements
 
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('SERVICE', p[2]), ('RESOURCE', p[3]),
                 ('LOCATION_MARKER', p[4]), ('DEPARTURE', p[5]), ('LOCATION_MARKER', p[6]), ('ARRIVAL', p[7]),
@@ -157,12 +203,18 @@ def p_booking_command(p):
                ('LOCATION_MARKER', p[4]), ('DEPARTURE', p[5]), ('LOCATION_MARKER', p[6]), ('ARRIVAL', p[7]),
                 ('CONTEXT_KEYWORD', p[8]), ('START_DATE', p[9]), ('LOCATION_MARKER', p[10]), ('TIME', p[11]),
                 ('CONTEXT_KEYWORD', p[12]), ('NUMBER', p[13]), ('PASSENGER_TYPE', p[14]), ('SYMBOL', p[15]))
-    elif len(p) == 9:  
+    elif len(p) == 9 and p[2] == 'NUMBER':  
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('NUMBER', p[2]), ('RESOURCE', p[3]),
                 ('CONTEXT_KEYWORD', p[4]), ('RESOURCE', p[5]), ('CONTEXT_KEYWORD', p[6]), ('DATE', p[7]), ('SYMBOL', p[8]))
     elif len(p) == 10:
         p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('NUMBER', p[2]), ('TICKET_TYPE', p[3]), ('RESOURCE', p[4]),
                 ('CONTEXT_KEYWORD', p[5]), ('RESOURCE', p[6]), ('CONTEXT_KEYWORD', p[7]), ('DATE', p[8]), ('SYMBOL', p[9]))
+    elif len(p) == 8:
+        p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
+                ('DEPARTURE', p[4]), ('LOCATION_MARKER', p[5]), ('END_DATE', p[6]), ('SYMBOL', p[7]))
+    elif len(p) == 9 :
+        p[0] = ('BOOKING_COMMAND', ('ACTION_KEYWORD', p[1]), ('RESOURCE', p[2]), ('CONTEXT_KEYWORD', p[3]),
+                ('LOCATION_MARKER', p[4]), ('DEPARTURE', p[5]), ('LOCATION_MARKER', p[6]), ('ARRIVAL', p[7]), ('SYMBOL', p[8]))
 
 
 def p_list_command(p):
@@ -170,7 +222,9 @@ def p_list_command(p):
                     | LIST_KEYWORD CONTEXT_KEYWORD RENT_KEYWORD RESOURCE LOCATION_MARKER LOCATION SYMBOL
                     | LIST_KEYWORD SERVICE CONTEXT_KEYWORD SYMBOL
                     | LIST_KEYWORD SERVICE CONTEXT_KEYWORD LOCATION_MARKER DEPARTURE LOCATION_MARKER ARRIVAL SYMBOL
-                    | LIST_KEYWORD CONTEXT_KEYWORD USERNAME SYMBOL'''
+                    | LIST_KEYWORD RESOURCE CONTEXT_KEYWORD SYMBOL
+                    | LIST_KEYWORD CONTEXT_KEYWORD USERNAME SYMBOL
+                    | LIST_KEYWORD SERVICE CONTEXT_KEYWORD LOCATION_MARKER LOCATION SYMBOL'''
 
     if len(p) == 8:  # Handling the first variant
         p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
@@ -178,18 +232,25 @@ def p_list_command(p):
     elif len(p) == 8:
         p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('CONTEXT_KEYWORD', p[2]),('RENT_KEYWORD', p[3]),
                 ('RESOURCE',p[4]), ('LOCATION_MARKER', p[5]), ('LOCATION', p[6]), ('SYMBOL', p[7]))
-    elif len(p) == 5:  # Handling the second variant
+    
+    elif len(p) == 5 and p[2] == 'RESOURCE':  # Handling the second variant
         p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('SERVICE', p[2]), ('CONTEXT_KEYWORD', p[3]),
                 ('SYMBOL', p[4]))
     elif len(p) == 9:  #Handle third variant
         p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('SERVICE', p[2]), ('CONTEXT_KEYWORD', p[3]),
                 ('LOCATION_MARKER', p[4]), ('DEPARTURE', p[5]), ('LOCATION_MARKER', p[6]), ('ARRIVAL', p[7]), 
                 ('SYMBOL', p[8]))
+    elif len(p) == 5:
+        p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('RESOURCE', p[2]), ('CONTEXT_KEYWORD', p[3]),
+                ('SYMBOL', p[4]))
     elif len(p) == 6:
         p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('CONTEXT_KEYWORD', p[2]), ('USERNAME', p[3]),
                 ('SYMBOL', p[4]))
-        
-
+ 
+    elif len(p) == 7:
+        p[0] = ('LIST_COMMAND', ('LIST_KEYWORD', p[1]), ('SERVICE', p[2]), ('CONTEXT_KEYWORD', p[3]),
+                ('LOCATION_MARKER', p[4]), ('LOCATION', p[5]), ('SYMBOL', p[6]))
+    
 
 def p_payment_command(p):
     '''payment_command : ACTION_KEYWORD RESOURCE CONTEXT_KEYWORD SERVICE CONTEXT_KEYWORD USERNAME SYMBOL
@@ -223,11 +284,27 @@ def p_inquiry_command(p):
                 ('ARRIVAL', p[8]), ('CONTEXT_KEYWORD', p[9]), ('DATE', p[10]), ('SYMBOL', p[11]))
 
 def p_confirm_command(p):
-    '''confirm_command : CONFIRM_KEYWORD SERVICE ACTION_KEYWORD CONTEXT_KEYWORD USERNAME SYMBOL'''
+    '''confirm_command : CONFIRM_KEYWORD SERVICE ACTION_KEYWORD CONTEXT_KEYWORD USERNAME SYMBOL
+                       | CONFIRM_KEYWORD SERVICE ACTION_KEYWORD SYMBOL
+                       | CONFIRM_KEYWORD NUMBER RESOURCE CONTEXT_KEYWORD USERNAME SYMBOL
+                       | CONFIRM_KEYWORD ACTION_KEYWORD CONTEXT_KEYWORD USERNAME SYMBOL
+                       | CONFIRM_KEYWORD RESOURCE LOCATION_MARKER SERVICE LOCATION_MARKER START_DATE LOCATION_MARKER END_DATE CONTEXT_KEYWORD USERNAME SYMBOL'''
 
     if len(p) == 7:  
         p[0] = ('CONFIRM_COMMAND', ('CONFIRM_KEYWORD', p[1]), ('SERVICE', p[2]), ('ACTION_KEYWORD', p[3]),
                 ('CONTEXT_KEYWORD', p[4]), ('USERNAME', p[5]), ('SYMBOL', p[6]))
+    elif len(p) ==5:
+        p[0] = ('CONFIRM_COMMAND', ('CONFIRM_KEYWORD', p[1]), ('SERVICE', p[2]), ('ACTION_KEYWORD', p[3]), ('SYMBOL', p[4]))
+    elif len(p) == 7:
+        p[0] = ('CONFIRM_COMMAND', ('CONFIRM_KEYWORD', p[1]), ('NUMBER', p[2]), ('RESOURCE', p[3]),
+                ('CONTEXT_KEYWORD', p[4]), ('USERNAME', p[5]), ('SYMBOL', p[6]))
+    elif len(p) == 6:
+        p[0] = ('CONFIRM_COMMAND', ('CONFIRM_KEYWORD', p[1]), ('ACTION_KEYWORD', p[2]), ('CONTEXT_KEYWORD', p[3]),
+                ('USERNAME', p[4]), ('SYMBOL', p[5]))
+    elif len(p) == 12:
+        p[0] = ('CONFIRM_COMMAND', ('CONFIRM_KEYWORD', p[1]), ('RESOURCE', p[2]), ('LOCATION_MARKER', p[3]),
+                ('SERVICE', p[4]), ('LOCATION_MARKER', p[5]), ('START_DATE', p[6]), ('LOCATION_MARKER', p[7]),
+                ('END_DATE', p[8]), ('CONTEXT_KEYWORD', p[9]), ('USERNAME', p[10]), ('SYMBOL', p[11]))
         
 def p_departure(p):
     '''departure : DEPARTURE'''
@@ -288,7 +365,7 @@ parser = yacc(optimize=False)
 # Test the parser (optional, for testing the parser in isolation)
 if __name__ == '__main__':
     
-    data = "List Bookings for rob_jam1."
+    data = "Confirm a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Rey."
     result = parser.parse(data) 
 
     print("\nParsed Result:")

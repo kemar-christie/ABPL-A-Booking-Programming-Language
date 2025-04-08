@@ -25,12 +25,9 @@
 All the data that you will be giving is fictional. dont add any disclaimer or Notes
 
 upon a user confirming a booking you need to let me know the info that i should save in JSON by passing the attribute name and value as a json string :
-save_data_for_json('{"username": "john_doe1", "route": "Montego Bay (Sangster MBJ) to Kingston", "date": "February 21 2025", "departure_time": "6:00 AM", "arrival_time": "10:00 AM", "ticket_type": "Adult", "total_cost": 27.72, "amount_paid": 27.72, "booking_type": "Knutsford Express"}') ensure that when puting in date in the json string that it does not have a comman after the month.
+save_data_for_json('{"Booking_ID":"BK1001","username": "john_doe1", "route": "Montego Bay (Sangster MBJ) to Kingston", "date": "February 21 2025", "departure_time": "6:00 AM", "arrival_time": "10:00 AM", "ticket_type": "Adult", "total_cost": 27.72, "amount_paid": 27.72, "booking_type": "Knutsford Express"}') ensure that when puting in date in the json string that it does not have a comman after the month.
 No attribute value must have a comma
 this is just an example. you as the ai would send the data that needs to be save as aa JSON string we should do some string manipulation and save  it to the json file
-
-dont worry about creating a unique ID. my code will do that automatically.
-
 Please note that for anything that is being confirmed the ai needs to incorporate to add the username, total_cost,booking_type, amount_paid. these are all amndatory when confirming any booking.
 
 
