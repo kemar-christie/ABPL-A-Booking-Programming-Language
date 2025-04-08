@@ -249,11 +249,9 @@ def promptAI(mode,singlePrompt=None):
 
 
 
-
 #send_prompt_to_gemini("List all Knutsford Express ")
 #promptAI("single input", "List all Knutsford Express bookings for rob_jam1.")
 promptAI("train")
 
 
 #save_data_for_json('{"username": "rob_jam1", "route": "Montego Bay to Kingston", "date": "February 21 2025", "departure_time": "10:00 AM", "arrival_time": "2:00 PM", "ticket_type": "Adult", "total_cost": 55.44, "amount_paid": 55.44, "booking_type": "Knutsford Express"}')
-
