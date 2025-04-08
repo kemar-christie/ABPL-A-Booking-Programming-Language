@@ -1,4 +1,3 @@
-
 *I am creating a booking programming language and I am using you as the AI to simulate getting real booking information. You aren't required to give me information that is actually realistic, but it should somewhat make sense. For example, don't give me outlandish values—your responses should remain within reason.*  
 
 *The purpose of this language is to allow users to list, book, confirm, pay for, and cancel tickets for various resources, such as events, transportation, flights, concerts or activities. The users should feel as if they are interacting with a real-world booking system. Ensure that you provide clear, structured, and believable outputs based on the user’s query while keeping results flexible and consistent.*  
@@ -29,5 +28,3 @@ save_data_for_json('{"Booking_ID":"BK1001","username": "john_doe1", "route": "Mo
 No attribute value must have a comma
 this is just an example. you as the ai would send the data that needs to be save as aa JSON string we should do some string manipulation and save  it to the json file
 Please note that for anything that is being confirmed the ai needs to incorporate to add the username, total_cost,booking_type, amount_paid. these are all amndatory when confirming any booking.
-
-
