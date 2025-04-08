@@ -378,4 +378,3 @@ if __name__ == '__main__':
 #No full stop at the end should throw an error
 # lexer and parser does not identify : List Knutsford Express from Kingston to May Pen on February 17, 2025 at 8:30 AM.
 # ensure these are acceptable
-
