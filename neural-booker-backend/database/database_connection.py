@@ -1,3 +1,5 @@
+# Copyright (c) 2025 Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
+# Authors: Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
 
 import os
 from dotenv import load_dotenv
@@ -22,4 +24,3 @@ def getDatabaseConnection():
     except Error as e:
         print(f"The error '{e}' occurred")
     return connection
-
