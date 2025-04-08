@@ -29,77 +29,48 @@ CREATE TABLE Payment_Information (
 );
 
 
-ALTER TABLE Customer_Information AUTO_INCREMENT = 0;
+DELIMITER $$
 
-SET @max_id = (SELECT MAX(customer_id) FROM Customer_Information);
-SET @auto_increment_value = IFNULL(@max_id, 0) + 1;
+CREATE PROCEDURE AddCustomer
+(
+    IN firstName VARCHAR(100),
+    IN lastName VARCHAR(100),
+    IN emailAddress VARCHAR(255),
+    IN accountBalance DECIMAL(10,2)
+)
+BEGIN
+    DECLARE maxCustomerId INT DEFAULT 0;
+    DECLARE newCustomerId INT;
 
-SET @sql = CONCAT('ALTER TABLE Customer_Information AUTO_INCREMENT = ', @auto_increment_value);
-PREPARE stmt FROM @sql;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
+    -- Find the current highest customer_id in the table
+    SELECT IFNULL(MAX(customer_id), 0) INTO maxCustomerId FROM Customer_Information;
+
+    -- Increment the highest customer_id by 1 to get the new customer_id
+    SET newCustomerId = maxCustomerId + 1;
+
+    -- Generate the username using first 3 letters of first name, last name, and new customer_id
+    SET @username = CONCAT(SUBSTRING(firstName, 1, 3), '_', SUBSTRING(lastName, 1, 3), newCustomerId);
+
+    -- Insert the new customer record into the Customer_Information table
+    INSERT INTO Customer_Information (customer_id, customer_username, first_name, last_name, email_address, account_balance)
+    VALUES (newCustomerId, @username, firstName, lastName, emailAddress, accountBalance);
+END$$
+
+DELIMITER ;
 
 
 -- Insert records
-INSERT INTO Customer_Information (first_name, last_name, email_address, account_balance)
-VALUES ('Kemar', 'Christie', 'kemar.christie@example.com', 50000.00);
+CALL AddCustomer('Kemar', 'Christie', 'kemar.christie@example.com', 50000.00);
+CALL AddCustomer('Roberto', 'James', 'roberto.james@example.com', 50000.00);
+CALL AddCustomer('Dwayne', 'Gibbs', 'dwayne.gibbs@example.com', 50000.00);
+CALL AddCustomer('Tyoni', 'Davis', 'tyoni.davis@example.com', 50000.00);
+CALL AddCustomer('Danielle', 'Jones', 'danielle.jones@example.com', 50000.00);
+CALL AddCustomer('David', 'White', 'david.white@example.com', 40000.00);
+CALL AddCustomer('Benjamin', 'Robinson', 'benjamin.robinson@example.com', 50000.00);
+CALL AddCustomer('Marcus', 'Manley', 'marcus.manley@example.com', 50000.00);
+CALL AddCustomer('Aaliyah', 'Mitchell', 'aaliyah.mitchell@example.com', 50000.00);
+CALL AddCustomer('Adrianna', 'Marsh', 'adrianna.marsh@example.com', 50000.00);
 
--- Manually call the procedure (grab the last inserted ID)
-CALL generate_customer_username(LAST_INSERT_ID());
-
-INSERT INTO Customer_Information (first_name, last_name, email_address, account_balance)
-VALUES ('Roberto', 'James', 'roberto.james@example.com', 50000.00);
-
--- Manually call the procedure (grab the last inserted ID)
-CALL generate_customer_username(LAST_INSERT_ID());
-
-INSERT INTO Customer_Information (first_name, last_name, email_address, account_balance)
-VALUES ('Dwayne', 'Gibbs', 'dwayne.gibbs@example.com', 50000.00);
-
--- Manually call the procedure (grab the last inserted ID)
-CALL generate_customer_username(LAST_INSERT_ID());
-
-INSERT INTO Customer_Information (first_name, last_name, email_address, account_balance)
-VALUES ('Tyoni', 'Davis', 'tyoni.davis@example.com', 50000.00);
-
--- Manually call the procedure (grab the last inserted ID)
-CALL generate_customer_username(LAST_INSERT_ID());
-
-INSERT INTO Customer_Information (first_name, last_name, email_address, account_balance)
-VALUES ('Danielle', 'Jones', 'danielle.jones@example.com', 50000.00);
-
--- Manually call the procedure (grab the last inserted ID)
-CALL generate_customer_username(LAST_INSERT_ID());
-
-INSERT INTO Customer_Information (first_name, last_name, email_address, account_balance)
-VALUES ('David', 'White', 'david.white@example.com', 40000.00);
-
--- Manually call the procedure (grab the last inserted ID)
-CALL generate_customer_username(LAST_INSERT_ID());
-
-INSERT INTO Customer_Information (first_name, last_name, email_address, account_balance)
-VALUES ('Benjamin', 'Robinson', 'benjamin.robinson@example.com', 50000.00);
-
--- Manually call the procedure (grab the last inserted ID)
-CALL generate_customer_username(LAST_INSERT_ID());
-
-INSERT INTO Customer_Information (first_name, last_name, email_address, account_balance)
-VALUES ('Marcus', 'Manley', 'marcus.manley@example.com', 50000.00);
-
--- Manually call the procedure (grab the last inserted ID)
-CALL generate_customer_username(LAST_INSERT_ID());
-
-INSERT INTO Customer_Information (first_name, last_name, email_address, account_balance)
-VALUES ('Aaliyah', 'Mitchell', 'aaliyah.mitchell@example.com', 50000.00);
-
--- Manually call the procedure (grab the last inserted ID)
-CALL generate_customer_username(LAST_INSERT_ID());
-
-INSERT INTO Customer_Information (first_name, last_name, email_address, account_balance)
-VALUES ('Adrianna', 'Marsh', 'adrianna.marsh@example.com', 50000.00);
-
--- Manually call the procedure (grab the last inserted ID)
-CALL generate_customer_username(LAST_INSERT_ID());
 
 -- Update payment and balance should be calculated
 CALL insert_payment_and_update_balance(1, 100.00);
