@@ -1,6 +1,7 @@
 -- Copyright (c) 2025 Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
 -- Authors: Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
 
+-- Query to Create Customer Information Table.
 CREATE TABLE "Customer_Information"
 (
 	customer_id SERIAL PRIMARY KEY,
