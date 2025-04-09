@@ -1,0 +1,41 @@
+Copyright 2025 Kemar Christie, Roberto James, Dwayne Gibbs, Tyoni Davis, Danielle Jones
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+This product includes software developed by the Neural-Booker project
+(https://github.com/kemar-christie/Neural-Booker/).
+
+Portions of this software are derived from the following:
+
+- PLY (Python Lex-Yacc): Copyright 2001–2022 David Beazley
+
+We acknowledge the contributions of the following open-source libraries and their authors:
+- **PLY (Python Lex-Yacc)** by David Beazley – for providing parsing tools used in our project.
+- **Requests** by Kenneth Reitz and contributors – for simplifying HTTP requests.
+- **python-dotenv** by Saurabh Kumar and contributors – for managing environment variables.
+- **BeautifulSoup4** by Leonard Richardson – for parsing and navigating HTML/XML content.
+- **Selenium** by the Selenium Project – for enabling browser automation and testing.
+- **Google Generative AI Python SDK** by Google – for interfacing with Google's generative AI APIs.
+- **MySQL Connector/Python** by Oracle Corporation – for MySQL database connectivity.
+
+We extend our gratitude to the open-source community for their continued innovation and support.
+
+This product also uses the following open-source libraries (with their respective licenses):
+
+- PLY (Python Lex-Yacc) (License: BSD License https://opensource.org/licenses/BSD-3-Clause)
+- Requests (License: Apache 2.0 https://opensource.org/licenses/Apache-2.0)
+- python-dotenv (License: MIT License https://opensource.org/licenses/MIT)
+- BeautifulSoup4 (License: MIT License https://opensource.org/licenses/MIT)
+- Selenium (License: Apache 2.0 https://opensource.org/licenses/Apache-2.0)
+- Google Generative AI Python SDK (License: Apache 2.0 https://opensource.org/licenses/Apache-2.0)
+- MySQL Connector/Python (License: GPL 2.0 https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
