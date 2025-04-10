@@ -8,7 +8,7 @@ import gemini
 
 def run_lexer(input_string):
     """Runs the lexer and prints the tokens."""
-    lexer.input(input_string)
+    lexer.input(input_string),
     print("----------------------------------------\nTokens:")
     while True:
         tok = lexer.token()

@@ -5,6 +5,8 @@ import os
 from dotenv import load_dotenv
 import google.generativeai as genai
 import json
+import database_connection
+import mysql.connector
 
 # Load environment variables from .env file
 load_dotenv()
@@ -88,6 +90,7 @@ def generate_with_context(prompt, history):
         Returns:
             str: The generated response from the Gemini model.
     """
+    
     # Prepare the 'contents' for the Gemini API, including the conversation history
     contents = []
     for turn in history:
@@ -105,7 +108,45 @@ def generate_with_context(prompt, history):
 
 
 
+def addUserInfoToDatabase(username, total_price, amount_paid, booking_type):
+
+    # Get the database connection
+    dbConn = database_connection.getDatabaseConnection()
+
+    try:
+        # Create a cursor object
+        cursor = dbConn.cursor()
+
+        # Call the stored procedure
+        cursor.callproc('InsertBookingAndPayment', (booking_type, total_price, amount_paid, username))
+
+        # Fetch the result of the stored procedure (booking_id)
+        for result in cursor.stored_results():
+            booking_id = result.fetchone()[0]  # Assuming booking_id is the first column in the result
+
+        # Commit the transaction
+        dbConn.commit()
+
+        # Return the booking_id
+        return booking_id
+
+    except Exception as e:
+        # Handle any exceptions (e.g., database errors)
+        print(f"An error occurred: {e}")
+        dbConn.rollback()  # Rollback the transaction in case of an error
+        return None
+
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        dbConn.close()
+
+
+
 def save_data_for_json(json_string):
+    import os
+    import json
+
     # Parse the JSON string into a dictionary
     try:
         data_dict = json.loads(json_string)
@@ -113,7 +154,23 @@ def save_data_for_json(json_string):
         print(f"Error decoding JSON: {e}")
         return
 
-    # Check if the file exists, and load the current content if it does
+    # Define the attributes to extract and check
+    attributes_to_check = ['username', 'total_price', 'amount_paid', 'booking_type']
+    identified_attributes = {attr: data_dict.get(attr, None) for attr in attributes_to_check}
+
+    print("Identified attributes in JSON:")
+    for attr, value in identified_attributes.items():
+        if value is None:
+            print(f"{attr}: Not found")
+
+    # Call the function to add customer info to the database
+    bookingID = addUserInfoToDatabase( identified_attributes['username'],identified_attributes['total_price'],identified_attributes['amount_paid'],identified_attributes['booking_type'])
+
+    # Reorganize the dictionary with booking_id as the first key
+    reordered_data_dict = {'booking_id': bookingID}
+    reordered_data_dict.update(data_dict)  # Add all other key-value pairs
+
+    # Check if the file exists and load the current content if it does
     file_path = "neural-booker-output/json/booking_data.json"
     if os.path.exists(file_path):
         with open(file_path, "r") as file:
@@ -126,13 +183,101 @@ def save_data_for_json(json_string):
         existing_data = []
 
     # Append the new data to the existing content
-    existing_data.append(data_dict)
+    existing_data.append(reordered_data_dict)
 
     # Save the updated content back to the JSON file
     os.makedirs(os.path.dirname(file_path), exist_ok=True)  # Ensure the directory exists
     with open(file_path, "w") as file:
         json.dump(existing_data, file, indent=4)
         print("Data appended successfully to booking_data.json")
+    
+    return bookingID
+
+
+def cancel_and_remove_booking(booking_id):
+
+    try:
+        # Establish a database connection
+        db_conn = database_connection.getDatabaseConnection()
+        
+        # Create a cursor object
+        cursor = db_conn.cursor()
+
+        # Call the stored procedure
+        cursor.callproc('CancelBooking', [booking_id])
+
+        # Fetch the result from the stored procedure
+        for result in cursor.stored_results():
+            message = result.fetchone()[0]  # Get the first column of the first row (result message)
+
+        # Commit the transaction
+        db_conn.commit()
+
+        return message
+
+    except mysql.connector.Error as e:
+        # Handle database errors
+        print(f"Database error: {e}")
+        return "An error occurred while processing the request."
+
+    except Exception as e:
+        # Handle other potential errors
+        print(f"Error: {e}")
+        return "An unexpected error occurred."
+
+    finally:
+        # Ensure the connection is closed
+        if db_conn.is_connected():
+            cursor.close()
+            db_conn.close()
+
+
+import mysql.connector
+
+def addPartialPay(booking_id, amount_paid):
+    """
+    Calls the AddPartialPayment stored procedure to add a partial payment
+    for the specified booking, ensuring the customer's balance is sufficient and
+    updates payment and outstanding balance.
+    
+    :param booking_id: The ID of the booking to which the payment applies.
+    :param amount_paid: The amount of the partial payment.
+    :return: A success or error message from the stored procedure.
+    """
+    try:
+        # Establish a database connection
+        db_conn = database_connection.getDatabaseConnection()
+        
+        # Create a cursor object
+        cursor = db_conn.cursor()
+
+        # Call the stored procedure
+        cursor.callproc('AddPartialPayment', [booking_id, amount_paid])
+
+        # Fetch the result from the stored procedure
+        for result in cursor.stored_results():
+            message = result.fetchone()[0]  # Get the first column of the first row (result message)
+
+        # Commit the transaction
+        db_conn.commit()
+
+        return message
+
+    except mysql.connector.Error as e:
+        # Handle database errors
+        print(f"Database error: {e}")
+        return "An error occurred while processing the payment."
+
+    except Exception as e:
+        # Handle other potential errors
+        print(f"Error: {e}")
+        return "An unexpected error occurred."
+
+    finally:
+        # Ensure the connection is closed
+        if db_conn.is_connected():
+            cursor.close()
+            db_conn.close()
 
 
 def promptAI(mode,singlePrompt=None):
@@ -222,8 +367,136 @@ def promptAI(mode,singlePrompt=None):
             print(f"Extracted Data String: {data_string}")
 
             # Call the JSON saving function from the imported module
-            save_data_for_json(data_string)
+            bookingID=save_data_for_json(data_string)
+            user_input = f"User data is save and just to let you know for future context the booking ID used is: {bookingID}"
+            
+            print("\n-----------------------------------------------\nDatabase Returned Booking ID:", bookingID,"\n-------------------------------------------\n")
+            response_text =generate_with_context(user_input, conversation_history)  # Get Gemini's formatted response
 
+            # Add the current user input to the conversation history list
+            conversation_history.append({"role": "user", "content": user_input})
+            # Add Gemini's response to the conversation history list
+            conversation_history.append({"role": "model", "content": response_text})
+            
+            print(f"\n-----Gemini:\n{response_text}")  # Print Gemini's response
+
+            # Append the current turn (user input and Gemini's response) to the history file
+            with open(HISTORY_FILE, "a") as f:  # Open the file in append mode ("a")
+                # Write the user's turn as a JSON object to the file, followed by a newline
+                f.write(json.dumps({"role": "user", "content": user_input}) + "\n")
+                # Write Gemini's turn as a JSON object to the file, followed by a newline
+                f.write(json.dumps({"role": "model", "content": response_text}) + "\n")
+
+        #check if AI contains the trigger word "cancel_Booking"
+        elif "cancel_Booking(" in response_text:
+            print("\n--------------Cancelled!!!\n\n")
+            print(f"\n-----Gemini:\n{response_text}")       
+
+            start_index = response_text.find("cancel_Booking(")
+            if start_index == -1:
+                print("Error: Trigger word 'cancel_Booking(' not found in response_text.")
+                return  # Exit the function if the trigger word is missing
+            start_index += len("cancel_Booking(")  # Adjust start_index to the position after the trigger word
+            end_index = response_text.rfind(")")
+
+            if end_index == -1:
+                print("Error: Closing parenthesis ')' not found after 'cancel_Booking('.")
+                return
+            data_string = response_text[start_index:end_index]
+
+            data_string = data_string.strip()  # Remove leading/trailing whitespace
+            data_string = data_string.replace("\n", "")  # Remove any newlines
+            data_string = data_string.strip("'")  # Remove the enclosing single quotes
+
+            #Add Current user input to the conversation history list
+            conversation_history.append({"role": "user", "content": user_input})
+            # Add Gemini's response to the conversation history list
+            conversation_history.append({"role": "model", "content": response_text})
+
+            # Append the current turn (user input and Gemini's response) to the history file
+            with open(HISTORY_FILE, "a") as f:  # Open the file in append mode ("a")
+                # Write the user's turn as a JSON object to the file, followed by a newline
+                f.write(json.dumps({"role": "user", "content": user_input}) + "\n")
+                # Write Gemini's turn as a JSON object to the file, followed by a newline
+                f.write(json.dumps({"role": "model", "content": response_text}) + "\n")
+            
+            print(f"Extracted Data String: {data_string}")
+
+            #extract the booking ID from the string that the AI sends as cancel_Booking("Kem_Chr1",10)
+            bookingID = data_string.split(",")[1].strip().strip('"')  # Extract the booking ID from the string
+            db_response=cancel_and_remove_booking(bookingID)  # Call the function to cancel the booking
+
+            user_input = generate_with_context(db_response, conversation_history)  # Get Gemini's formatted response
+            # Add the current user input to the conversation history list
+            conversation_history.append({"role": "user", "content": user_input})
+            # Add Gemini's response to the conversation history list
+            conversation_history.append({"role": "model", "content": db_response})
+
+            print(f"\n-----Gemini:\n{user_input}")
+
+            # Append the current turn (user input and Gemini's response) to the history file
+            with open(HISTORY_FILE, "a") as f:  # Open the file in append mode ("a")
+                # Write the user's turn as a JSON object to the file, followed by a newline
+                f.write(json.dumps({"role": "user", "content": user_input}) + "\n")
+                # Write Gemini's turn as a JSON object to the file, followed by a newline
+                f.write(json.dumps({"role": "model", "content": response_text}) + "\n")
+
+        #check if AI contains the trigger word "partialPay"
+        elif "partialPay(" in response_text:
+            print("\n--------------Partial Payment!!!\n\n")
+            print(f"\n-----Gemini:\n{response_text}")       
+
+            start_index = response_text.find("partialPay(")
+            if start_index == -1:
+                print("Error: Trigger word 'partialPay(' not found in response_text.")
+                return  # Exit the function if the trigger word is missing 
+            
+            start_index += len("partialPay(")  # Adjust start_index to the position after the trigger word
+            end_index = response_text.rfind(")")
+
+            if end_index == -1:
+                print("Error: Closing parenthesis ')' not found after 'partialPay('.")
+                return
+            data_string = response_text[start_index:end_index]
+
+            data_string = data_string.strip()  # Remove leading/trailing whitespace
+            data_string = data_string.replace("\n", "")  # Remove any newlines
+            data_string = data_string.strip("'")  # Remove the enclosing single quotes
+
+            #Add Current user input to the conversation history list
+            conversation_history.append({"role": "user", "content": user_input})
+            # Add Gemini's response to the conversation history list
+            conversation_history.append({"role": "model", "content": response_text})
+
+            # Append the current turn (user input and Gemini's response) to the history file
+            with open(HISTORY_FILE, "a") as f:  # Open the file in append mode ("a")
+                # Write the user's turn as a JSON object to the file, followed by a newline
+                f.write(json.dumps({"role": "user", "content": user_input}) + "\n")
+                # Write Gemini's turn as a JSON object to the file, followed by a newline
+                f.write(json.dumps({"role": "model", "content": response_text}) + "\n")
+
+            #extract the booking Id and amount from the string that the AI sends as partialPay(10,50) 10 is the bookind id and 50 is the amount.
+            bookingID = data_string.split(",")[0].strip().strip('"')  # Extract the booking ID from the string
+            amount = data_string.split(",")[1].strip().strip('"')  # Extract the amount from the string
+            
+            db_response = addPartialPay(bookingID, amount)  # Call the function to cancel the booking
+            
+            response_text = generate_with_context(db_response, conversation_history)  # Get Gemini's formatted response
+            user_input = f"db_response: {db_response}"
+            # Add the current user input to the conversation history list
+            conversation_history.append({"role": "user", "content": user_input})
+            # Add Gemini's response to the conversation history list
+            conversation_history.append({"role": "model", "content": response_text})
+
+            print(f"\n-----Gemini:\n{response_text}")
+
+            # Append the current turn (user input and Gemini's response) to the history file
+            with open(HISTORY_FILE, "a") as f:
+                # Open the file in append mode ("a")
+                # Write the user's turn as a JSON object to the file, followed by a newline
+                f.write(json.dumps({"role": "user", "content": user_input}) + "\n")
+                # Write Gemini's turn as a JSON object to the file, followed by a newline
+                f.write(json.dumps({"role": "model", "content": response_text}) + "\n")            
 
         else:
             print(f"\n-----Gemini:\n{response_text}")
@@ -249,9 +522,9 @@ def promptAI(mode,singlePrompt=None):
 
 
 
+
 #send_prompt_to_gemini("List all Knutsford Express ")
 #promptAI("single input", "List all Knutsford Express bookings for rob_jam1.")
 promptAI("train")
-
-
+#addUserInfoToDatabase("rob_jam1", 55.44, 55.44, "Knutsford Express", "credit card")
 #save_data_for_json('{"username": "rob_jam1", "route": "Montego Bay to Kingston", "date": "February 21 2025", "departure_time": "10:00 AM", "arrival_time": "2:00 PM", "ticket_type": "Adult", "total_cost": 55.44, "amount_paid": 55.44, "booking_type": "Knutsford Express"}')

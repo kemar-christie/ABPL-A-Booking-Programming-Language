@@ -6,15 +6,15 @@ from ply.lex import lex
 
 # --- Tokenizer 
 
-tokens = ('ACTION_KEYWORD','LIST_KEYWORD','RENT_KEYWORD', 'CONTEXT_KEYWORD', 'LOCATION_MARKER', 'CONNECTIVE_WORD', 
+tokens = ('TICKET_TYPE','ACTION_KEYWORD','LIST_KEYWORD','RENT_KEYWORD', 'CONTEXT_KEYWORD', 'LOCATION_MARKER', 'CONNECTIVE_WORD', 
           'DATE', 'START_DATE', 'END_DATE', 'NUMBER', 'SYMBOL', 'MONEY', 'RESOURCE', 
-          'CONDITIONS', 'TIME', 'USERNAME', 'DEPARTURE', 'ARRIVAL', 'LOCATION', 
+          'CONDITIONS', 'TIME', 'USERNAME', 'DEPARTURE', 'ARRIVAL', 'LOCATION',
           'SERVICE', 'ARTICLE_CONJUNCTION','PAYMENT_TYPE','INQUIRY_KEYWORD','PASSENGER_TYPE', 'CONFIRM_KEYWORD',
-          'TICKET_TYPE')
+          'CANCEL_KEYWORD','DECISION_KEYWORD')
 
 # Define action keywords - commands that initiate an action
-action_keywords = [ 'Book a','Book', 'Pay', 'Cancel a', 
-                   'Reserve a', 'How many', 'Duration of','Booking']
+action_keywords = [ 'Book a','Book', 'Pay', 
+                   'Reserve a', 'How many', 'Duration of','Booking','I would like']
 
 # Define context keywords - words that provide context to actions
 context_keywords = ['on', 'For', 'Schedules','Schedule', 'are there', 'Returning', 
@@ -26,18 +26,22 @@ all_keywords = action_keywords + context_keywords
 location_markers = ['in', 'at', 'from', 'to']
 
 # Define connective words - words that connect clauses or phrases
-connective_words = ['that']
+connective_words = ['that','do']
+
+t_DECISION_KEYWORD = r'\b(?:Yes|No)\b'
+
+t_CANCEL_KEYWORD = r'\b(?:Cancel a|Cancel the|Cancel)\b'
 
 t_CONFIRM_KEYWORD = r'\b(Confirm a|Confirm the|Confirm)\b'
+
 t_INQUIRY_KEYWORD = r'\b(How many|What is the)\b'
 
-t_LIST_KEYWORD=r'\b(List all|List bookings|List)\b'
+t_LIST_KEYWORD=r'\b(List all|List bookings|List my|List)\b'
 
 t_RENT_KEYWORD=r'\b(Rent a|Rental|Rent)\b'
 
 t_PASSENGER_TYPE=r'\b(adults|children|seniors|students|adult|child|senior|student)\b'
 
-t_TICKET_TYPE = r'(?<=\d\s)(.*?)(?=\s(?:ticket|tickets))'
 
 # Generate regex patterns for each category
 t_ACTION_KEYWORD = r'\b(?:' + r'|'.join(action_keywords) + r')\b'
@@ -50,11 +54,11 @@ t_CONNECTIVE_WORD = r'\b(?:' + r'|'.join(connective_words) + r')\b'
 
 t_TIME = r'\b(?:[0-9]*):[0-9]*\s*(?:AM|PM)?\b'
 
-t_START_DATE = r'(?<=\bfrom\b\s).+?(?=\s\bto\b)|(?<=\bon\b\s).+?(?=\s\bat\b)'
+t_START_DATE = r'(?<=\bfrom\b\s).+?(?=\s\bto\b)|(?<=\bon\b\s)(?:(?!at\s).)*?(?=\s\bfor\b)|(?<=\bon\b\s).+?(?=\s\bat\b)'
 
 t_END_DATE = r'(?<=\breturning on\s).+?(?=\s(?:at)\b)|' \
              r'(?<=\bto\s).+?(?=\s(?:for)\b)|' \
-             r'(?<=\bto\s).+?(?=\.)'
+             r'(?<=\bto\s)(?!do\b)(?!.*\bat\b).+?(?=\.)'
 
 t_DATE = r'(?<=\bon\s)((?!\b(?:in|at|from|to)\b).)+?(?=\s\bto\b|[?\.])'
 
@@ -70,9 +74,16 @@ resource_keywords = ['Reservations', 'Reservation', 'Tickets', 'Ticket', 'Flight
 t_RESOURCE = (
     r'(?<=\bRent a\s|Rental\s|Book a\s)([A-Za-z]+)(?=\sin)|'
     r'\b(?:' + r'|'.join(resource_keywords) + r')\b|' \
-    r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bon\b)'
+    r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bon\b)|'\
+    r'\b(Concerts)\b'
 )
 
+t_TICKET_TYPE = r'(?<=\ba\s)(?!(?:' + r'|'.join(all_keywords) + r')\b)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_RESOURCE + r')\b)|'\
+                r'(?<=\bConfirm the\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_RESOURCE + r')\b)|'\
+                r'(?<=\bConfirm a\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_RESOURCE + r')\b)|'\
+                r'(?<=\bConfirm\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_RESOURCE + r')\b)|'\
+                r'(?:Book\sa|Book|Reserve\sa|Reserve)\s([a-zA-Z]+)\s(?:ticket|tickets)\b|'\
+                r'(?<=\b\d\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:ticket|tickets)\b)'
 
 t_CONDITIONS = r'\b(?:less than|more than|equal to|greater than|if|then)\b'
 
@@ -82,31 +93,44 @@ t_DEPARTURE = r'(?<=\bfrom\b\s)([a-zA-Z\s]+?)(?=\s\band\b)|(?<=\bFrom\b\s)([a-zA
 
 # Destination
 t_ARRIVAL = r'(?<=\bTo\b\s)([a-zA-Z\s]+?)(?=\s\bFrom\b)|' \
-            r'(?<=\bTo\b\s)([a-zA-Z\s]+?)(?=\s*\.)|' \
+            r'(?<=\bfor\s)(?!do\b)([A-Za-z]+(?:\s[A-Za-z]+)*)(?=\.)|'\
             r'(?<=\bTo\b\s)([a-zA-Z\s]+?)(?=\s\b(?:' + r'|'.join(all_keywords) + r')\b)|'\
-            r'(?<=\bTo\b\s)([a-zA-Z\-\s]+?)(?=\s\bOn\b)'
+            r'(?<=\bTo\b\s)([a-zA-Z\-\s]+?)(?=\s\bOn\b)|'\
+            r'(?<=\bTo\b\s)[a-zA-Z\s]+(?=\s\bAt\b)|'\
+            r'(?<=\bTo\b\s)[a-zA-Z\s]+(?=\s\bAt\b)'
+
 
 t_LOCATION = r'(?<=\bin\b\s)([a-zA-Z\s]+?)(?=\s\b(?:' + r'|'.join(all_keywords) + r')\b)|' \
              r'(?<=\bin\b\s)([a-zA-Z\s]+?)(?=\s*\.)|' \
-             r'(?<=\bin\s)([a-zA-Z\s]+?)(?=\s\bfrom\b)'
+             r'(?<=\bin\s)([a-zA-Z\s]+?)(?=\s\bfrom\b)|'\
+             r'(?<=\bin\b\s)[a-zA-Z\s,]+(?=\.)'
 
 
-t_SERVICE = r'(?<=\ba\s)(?!(?:' + r'|'.join(all_keywords) + r')\b)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_RESOURCE + r')\b)|' \
-            r'(?<=\bList\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bSchedule\b)|' \
+
+
+t_SERVICE = r'(?<=\bList\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bSchedule\b)|' \
             r'(?<=\bList all\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bSchedule\b)(?!\b(?:' + r'|'.join(resource_keywords) + r')\b)|'\
             r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s\bfor\b)|' \
             r'(?<=\bat\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:From|from)\b)|'\
             r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:From|from)\b)|'\
             r'(?<=\bConfirm the\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_ACTION_KEYWORD + r')\b)|'\
             r'(?<=\bConfirm a\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_ACTION_KEYWORD + r')\b)|'\
-            r'(?<=\bConfirm\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_ACTION_KEYWORD + r')\b)'
-           
+            r'(?<=\bConfirm\s)([A-Za-z]+(?:\s[A-Za-z]+)?)(?=\s(?:' + t_ACTION_KEYWORD + r')\b)|'\
+            r'(?<=\bCancel\b\s)([A-Za-z]+(?:\s[A-Za-z]+)*)(?=\s\bBooking\b)|'\
+            r'(?<=\bCancel a\b\s)([A-Za-z]+(?:\s[A-Za-z]+)*)(?=\s\bBooking\b)|'\
+            r'(?<=\bCancel the\b\s)([A-Za-z]+(?:\s[A-Za-z]+)*)(?=\s\bBooking\b)|'\
+            r'(?<=\bfor\s)([A-Za-z]+(?:\s[A-Za-z]+)*)(?=\.)'
 
-t_USERNAME = r'(?<=\bfor\b\s)[A-Za-z0-9_]+(?=\.)'
+
+
+t_USERNAME =    r'(?<=\bfor\b\s)[A-Za-z0-9_]+(?=\.)|'\
+                r'(?<=\bfor\b\s)(.*?)(?=\s\bfor\b)'
+
 
 t_ARTICLE_CONJUNCTION = r'\b(a|and)\b'
 
-t_PAYMENT_TYPE = r'\b(credit card|debit card|bank transfer)\b'
+t_PAYMENT_TYPE = r'\b(credit card|debit card|bank transfer|partial payment)\b'
+
 
 def t_newline(t):
     r'\n+'
@@ -127,7 +151,7 @@ lexer = lex(reflags=re.IGNORECASE)
 
 # Test the lexer (optional, for testing the lexer in isolation)
 if __name__ == '__main__':
-    data = "Confirm a Room at AC Hotel from March 10, 2025 to March 15, 2025 for Joy_Reynolds."
+    data = "List Knutsford Express Schedule .  List Knutsford Express Schedule."
 
     lexer.input(data)
 
