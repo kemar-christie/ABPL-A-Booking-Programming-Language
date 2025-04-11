@@ -172,7 +172,7 @@ def save_data_for_json(json_string):
     reordered_data_dict.update(data_dict)  # Add all other key-value pairs
 
     # Check if the file exists and load the current content if it does
-    file_path = "neural-booker-output/json/booking_data.json"
+    file_path = "ABPL-output/json/booking_data.json"
     if os.path.exists(file_path):
         with open(file_path, "r") as file:
             try:

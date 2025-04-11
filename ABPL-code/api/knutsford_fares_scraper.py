@@ -13,7 +13,7 @@ import json
 
 class KnutsfordFaresScraper:
     
-    def __init__(self, output_dir=os.path.join("../../neural-booker-output", "json")):
+    def __init__(self, output_dir=os.path.join("../../ABPL-output", "json")):
         """
         Initialize the scraper with output directory.
         

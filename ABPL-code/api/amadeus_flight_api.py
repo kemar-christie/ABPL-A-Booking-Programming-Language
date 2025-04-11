@@ -33,7 +33,7 @@ class AmadeusAPI:
             self.is_test = is_test
             
         # Get output directory from parameter or environment variable (default if not specified)
-        self.output_dir = output_dir or os.environ.get('OUTPUT_DIR', 'neural-booker-output')
+        self.output_dir = output_dir or os.environ.get('OUTPUT_DIR', 'ABPL-output')
         
         # Validate credentials exist
         if not self.client_id or not self.client_secret:
@@ -244,5 +244,5 @@ if __name__ == "__main__":
     # Print results in a readable format
     pretty_print_flights(sorted_flights)
 
-    # Save results to the neural-booker-output/Json folder
+    # Save results to the ABPL-output/Json folder
     api.save_results_to_json(sorted_flights, "flights.json")
