@@ -17,25 +17,29 @@ This product includes software developed by the Neural-Booker project
 
 Portions of this software are derived from the following:
 
-- PLY (Python Lex-Yacc): Copyright 2001–2022 David Beazley
+- PLY - Python Lex-Yacc: Copyright 2001–2022 David Beazley
 
 We acknowledge the contributions of the following open-source libraries and their authors:
-- **PLY (Python Lex-Yacc)** by David Beazley – for providing parsing tools used in our project.
-- **Requests** by Kenneth Reitz and contributors – for simplifying HTTP requests.
-- **python-dotenv** by Saurabh Kumar and contributors – for managing environment variables.
+- **PLY - Python Lex-Yacc** by David Beazley – for providing parsing tools used in our project.
+- **Requests** by Kenneth Reitz – for simplifying HTTP requests.
+- **python-dotenv** by Saurabh Kumar – for managing environment variables.
 - **BeautifulSoup4** by Leonard Richardson – for parsing and navigating HTML/XML content.
-- **Selenium** by the Selenium Project – for enabling browser automation and testing.
-- **Google Generative AI Python SDK** by Google – for interfacing with Google's generative AI APIs.
-- **MySQL Connector/Python** by Oracle Corporation – for MySQL database connectivity.
+- **Selenium** by Selenium – for enabling browser automation and testing.
+- **Google Gen AI SDK** by Google LLC – for interfacing with Google's generative AI APIs.
+- **MySQL Connector/Python** by Oracle Corporation and/or its affiliates – for MySQL database connectivity.
+- **Psycopg 3 PostgreSQL database adapter for Python** by Federico Di Gregorio and contributors - for PostgreSQL database connectivity.
+- **database_connection** by Kkwanyang - for simplifying SQLAlchemy-based database connection management.
 
 We extend our gratitude to the open-source community for their continued innovation and support.
 
 This product also uses the following open-source libraries (with their respective licenses):
 
-- PLY (Python Lex-Yacc) (License: BSD License https://opensource.org/licenses/BSD-3-Clause)
-- Requests (License: Apache 2.0 https://opensource.org/licenses/Apache-2.0)
-- python-dotenv (License: MIT License https://opensource.org/licenses/MIT)
+- PLY (Python Lex-Yacc) (License: BSD 3-Clause "New" or 'Revised" License https://opensource.org/licenses/BSD-3-Clause)
+- Requests (License: Apache 2.0 License https://opensource.org/licenses/Apache-2.0)
+- python-dotenv (License: BSD 3-Clause "New" or 'Revised" License https://opensource.org/licenses/BSD-3-Clause)
 - BeautifulSoup4 (License: MIT License https://opensource.org/licenses/MIT)
-- Selenium (License: Apache 2.0 https://opensource.org/licenses/Apache-2.0)
-- Google Generative AI Python SDK (License: Apache 2.0 https://opensource.org/licenses/Apache-2.0)
-- MySQL Connector/Python (License: GPL 2.0 https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+- Selenium (License: Apache 2.0 License https://opensource.org/licenses/Apache-2.0)
+- Google Gen AI SDK (License: Apache 2.0 License https://opensource.org/licenses/Apache-2.0)
+- MySQL Connector/Python (License: GNU General Public License v2.O https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+- Psycopg 3 PostgreSQL database adapter for Python (License: GNU Lesser General Public License https://www.gnu.org/licenses/lgpl-3.0)
+- database_connection (License: MIT License https://opensource.org/licenses/MIT)

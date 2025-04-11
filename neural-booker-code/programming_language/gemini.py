@@ -3,7 +3,8 @@
 
 import os
 from dotenv import load_dotenv
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 import json
 import database_connection
 import mysql.connector
@@ -21,7 +22,7 @@ model = genai.GenerativeModel("gemini-2.0-flash")
 
 # Define file paths
 HISTORY_FILE = "chat_history.txt"
-PROMPT_FILE = "Copilot_prompt.txt"
+PROMPT_FILE = "copilot_prompt.txt"
 conversation_history = []
 
 def get_initial_prompt():
