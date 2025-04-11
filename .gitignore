@@ -28,9 +28,8 @@ MANIFEST
 # Ignore .env file with api keys and specific Files
 .env
 *.json
-neural-booker-code/programming_language/parsetab.py
-neural-booker-code/programming_language/parser.out
-neural-booker-backend/database/connection_postgresSQL.py
+ABPL-code/programming_language/parsetab.py
+ABPL-code/programming_language/parser.out
 chat_history.txt
 *.github
 *.vscode
