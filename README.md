@@ -27,7 +27,7 @@ This project was created as part of the CIT4004: Analysis of Programming Languag
 <br>
 
 ## 🧾 Sample Program Prompts
-```Natural Language (English)
+```text
 Knutsford Booking
 
 
@@ -93,7 +93,7 @@ List my reservations.
 
 5. Example Usage
    <br> Paste ABPL code directly into the interpreter:
-   ```Natural Language (English)
+   ```text
    List events in Kingston.
 
    Book 1 ticket for Dancehall Concert at National Stadium on May 10, 2025 at 7:30 PM for Kem_Chr1.
