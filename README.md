@@ -20,8 +20,8 @@ This project was created as part of the CIT4004: Analysis of Programming Languag
 <br>
 
 ## 🖥️ Technologies Used
-* 🐍 Python
 * 🪵 PLY (Python Lex-Yacc)
+* 🐍 Python
 * 🤖 Google Gemini API
 
 <br>
