@@ -11,11 +11,11 @@ This project was created as part of the CIT4004: Analysis of Programming Languag
 
 ## 🔧 Key Features
 * ✅ Lexical, Syntax & Semantic Analysis - Built using PLY to tokenize, parse, and interpret ABPL source code.
-* 🔍 Natural Syntax – Accepts commands that resemble natural language, making it easy to write and understand.
+* 🔍 Natural Syntax - Accepts commands that resemble natural language, making it easy to write and understand.
 * 🤖 Google Gemini Integration - Retrieves real-time event and transportation data via Gemini's API.
 * 🧾 Simulated Transactions - Bookings and payments are simulated and stored via the database.
 * 🧠 Demonstrates Language Design Principles - Highlights characteristics such as reliability, readability and writability.
-* 🖥️ Command-Line Interface – Run ABPL programs through a straightforward interpreter shell.
+* 🖥️ Command-Line Interface - Run ABPL programs through a straightforward interpreter shell.
 
 <br>
 
