@@ -4,7 +4,7 @@
 from ply.yacc import yacc
 from lexer import tokens  # Import the token list from lexer.py
 
-#semanrtic validation functions
+# semantic validation functions
 
 # only accept date in either format March 10, 2025 or Mar 10, 2025
 from datetime import datetime
@@ -526,10 +526,3 @@ if __name__ == '__main__':
 
     print("\nParsed Result:")
     print(result)
-
-
-#Note:
-#Book a flight from Montego Bay to New York.
-#Extra space throws an error
-#No full stop at the end should throw an error
-# lexer and parser does not identify : List Knutsford Express from Kingston to May Pen on February 17, 2025 at 8:30 AM.
