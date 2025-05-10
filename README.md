@@ -66,7 +66,7 @@ List my reservations.
    ```
 
 2. Install Dependencies
-   <br> Ensure you have Python 3.9+ installed. Then install the required libraries:
+   <br> Ensure you have Python 3.9+ installed. Then, install the required libraries by navigating to the folder where "requirements.txt" is located:
    ```bash
    pip install -r requirements.txt
    ```
