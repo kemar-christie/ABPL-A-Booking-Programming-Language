@@ -23,6 +23,7 @@ This project was created as part of the CIT4004: Analysis of Programming Languag
 * 🪵 PLY (Python Lex-Yacc)
 * 🐍 Python
 * 🤖 Google Gemini API
+* 📜 Selenium
 
 <br>
 
@@ -47,14 +48,6 @@ List Bookings for rob_jam1.
 
 List my reservations.
 ```
-
-<br>
-
-## 📁 Project Components
-* lexer.py - Token definitions and regular expressions.
-* parser.py - Grammar rules and syntax structure, Semantic analysis and simulated execution.
-* gemini.py - API communication with Google Gemini.
-* main.py – Entry point for the ABPL interpreter
 
 <br>
 
