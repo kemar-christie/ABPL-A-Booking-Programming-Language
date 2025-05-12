@@ -96,6 +96,45 @@ List my reservations.
 
 <br>
 
+## 🛠️ Project Structure
+```text
+ABPL-A-Booking-Programming-Language/
+  ├── .gitignore                                             
+  ├── LICENSE                                               
+  ├── NOTICE                                                 
+  ├── README.md                                              
+    ABPL-A-Booking-Programming-Language/ABPL-backend
+         ABPL-backend/database
+            ├── database_connection.py
+            ├── database_structure.sql
+    ABPL-A-Booking-Programming-Language/ABPL-code
+         ABPL-code/api
+            ├── amadeus_flight_api.py
+            ├── knutsford_fares_scraper.py
+         ABPL-code/programming_language
+            ├── ABPL.py
+            ├── gemini.py
+            ├── get_data_for_AI.py
+            ├── language_grammar.txt
+            ├── lexer.py
+            ├── main.py
+            ├── parser.py
+    ABPL-A-Booking-Programming-Language/ABPL-docs
+         ABPL-docs/ai_related
+            ├── ABPL_prompt.txt
+            ├── copilot_prompt.txt
+            ├── json_format_for_ai.txt
+         ABPL-docs/documentation
+            ├── prompt_structure.docx
+            ├── prompt_structure.pdf
+         ABPL-docs/project_instructions
+            ├── APL_Project_2024-2025_Sem2.pdf
+         ABPL-docs/workspace_requirements
+            ├── requirements.txt   
+```
+
+<br>
+
 ## ✅ Contributors' Assignments Breakdown
 
 | Name           | Deliverables                                                                                                | Status |
